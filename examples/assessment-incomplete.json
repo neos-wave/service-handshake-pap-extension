@@ -1,0 +1,41 @@
+{
+  "id": "evt-msg-intake",
+  "type": "message",
+  "created_at": "2026-10-11T12:00:00Z",
+  "message": {
+    "id": "msg-intake",
+    "sender": "agent",
+    "text": "We can help establish the terms while this action remains held.",
+    "data": {
+      "dualcx.com/service-handshake": {
+        "version": "1",
+        "draft_revision": "2026-10-11",
+        "record_id": "summary-intake",
+        "type": "assessment",
+        "case_ref": "family-1",
+        "assessment_ref": "assessment-intake",
+        "assessed_at": "2026-10-11T12:00:00Z",
+        "decision": "hold",
+        "proposal": {
+          "proposal_ref": "cancel-proposal-1",
+          "action_type": "cancellation",
+          "resource_ref": "account-case-4410",
+          "operation": {
+            "operation_id": "op-cancel-1",
+            "revision": 1
+          }
+        },
+        "declaration_refs": [],
+        "reasons": [
+          {
+            "code": "declaration_incomplete",
+            "explanation": "The declarations needed for this proposal have not been established.",
+            "required_next_step": "Offer assistance and obtain the relevant terms; do not infer consent."
+          }
+        ],
+        "responsible_role": "Account authority team"
+      }
+    },
+    "role": "company"
+  }
+}

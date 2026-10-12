@@ -1,0 +1,23 @@
+{
+  "extensions": {
+    "dualcx.com/service-handshake": {
+      "version": "1",
+      "draft_revision": "2026-10-11",
+      "profile": "participation",
+      "actions": [
+        "refund",
+        "replacement",
+        "voucher",
+        "cancellation"
+      ],
+      "operations_binding": true,
+      "required_actions": [
+        "cancellation"
+      ]
+    },
+    "operations": {
+      "version": "1",
+      "endpoint": "https://service.example/poppy/operations"
+    }
+  }
+}

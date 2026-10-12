@@ -1,0 +1,94 @@
+{
+  "message": {
+    "id": "msg-family-1",
+    "sender": "agent",
+    "text": "I am an AI agent acting for Priya in a request about her mother's broadband. Priya has recognised billing access; authority for cancellation has not been established.",
+    "data": {
+      "dualcx.com/service-handshake": {
+        "version": "1",
+        "draft_revision": "2026-10-11",
+        "record_id": "record-family-1",
+        "type": "declaration",
+        "party_role": "consumer",
+        "case_ref": "family-1",
+        "representation": {
+          "poppy_user_ref": "priya-user-1",
+          "principal_ref": "mother-case-1",
+          "configurator_ref": "priya-case-1",
+          "affected_party_ref": "mother-case-1"
+        },
+        "declaration": {
+          "protocol_version": "SH-1.2",
+          "declaration_id": "family-cancellation-1",
+          "declaration_revision": 1,
+          "principal_id": "mother-case-1",
+          "agent_id": "priya-agent-1",
+          "declaration_provenance": "self_declared",
+          "disclosure": {
+            "ai_status": "ai",
+            "representative_role": "customer_representative",
+            "disclosed_at": "2026-10-11T12:00:00Z",
+            "method": "first_contact_message"
+          },
+          "confirmation": {
+            "status": "confirmed",
+            "confirmer_ref": "priya-agent-1",
+            "confirmed_at": "2026-10-11T12:00:00Z",
+            "method": "customer_agent_records_own_terms"
+          },
+          "unresolved_fields": [
+            "/authority_level/authority_scope"
+          ],
+          "goals": {
+            "primary_goal": "Discuss cancellation of the represented account holder's broadband",
+            "non_goals": [
+              "Do not agree to a replacement contract"
+            ]
+          },
+          "options_constraints": {
+            "allowed_actions": [
+              "request_cancellation"
+            ],
+            "hard_constraints": {
+              "no_new_contract": true
+            }
+          },
+          "data_permissions": {
+            "data_sources_allowed": [
+              "account_reference",
+              "service_case"
+            ],
+            "data_uses_allowed": [
+              "problem_resolution"
+            ],
+            "retention_policy": {
+              "policy": "no_retention_beyond_case"
+            }
+          },
+          "fallback_rules": {
+            "fallback_triggers": [
+              {
+                "if_vulnerability_signal_detected": true
+              },
+              {
+                "if_unresolved_after_loops": 3
+              }
+            ],
+            "fallback_actions": [
+              "request_human_review"
+            ],
+            "maximum_automation_scope": "Claims only until action authority is established",
+            "responsibility_assignment": "Customer Care Team Lead"
+          },
+          "authority_level": {
+            "authority_scope": [],
+            "authority_limits": [
+              "Cancellation authority not yet established"
+            ],
+            "interaction_role": "third_party_representative"
+          }
+        }
+      }
+    }
+  }
+}

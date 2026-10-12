@@ -1,0 +1,50 @@
+{
+  "message": {
+    "id": "msg-handover-1",
+    "sender": "agent",
+    "text": "Please preserve the cancellation hold and its reason when a colleague joins.",
+    "data": {
+      "dualcx.com/service-handshake": {
+        "version": "1",
+        "draft_revision": "2026-10-11",
+        "record_id": "handover-1",
+        "type": "handover",
+        "case_ref": "family-1",
+        "representation": {
+          "poppy_user_ref": "priya-user-1",
+          "principal_ref": "mother-case-1",
+          "configurator_ref": "priya-case-1",
+          "affected_party_ref": "mother-case-1"
+        },
+        "proposal_refs": [
+          "cancel-proposal-1"
+        ],
+        "declaration_refs": [
+          {
+            "party_role": "consumer",
+            "declaration_id": "family-cancellation-1",
+            "revision": 1
+          },
+          {
+            "party_role": "company",
+            "declaration_id": "company-cancellation-1",
+            "revision": 1
+          }
+        ],
+        "restrictions": [
+          {
+            "proposal_ref": "cancel-proposal-1",
+            "decision": "hold",
+            "reason": "Cancellation authority is unresolved.",
+            "required_next_step": "Establish authority through the provider's approved process.",
+            "review_condition": "Review when evidence arrives; time passing does not remove the hold."
+          }
+        ],
+        "data_use_notes": [
+          "Use necessary information for this service case."
+        ],
+        "responsible_role": "Account authority team"
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "evt-msg-family-company-1",
+  "type": "message",
+  "created_at": "2026-10-11T12:00:00Z",
+  "message": {
+    "id": "msg-family-company-1",
+    "sender": "agent",
+    "text": "Our agent can offer and carry out a cancellation when the required authority and safeguards are established.",
+    "data": {
+      "dualcx.com/service-handshake": {
+        "version": "1",
+        "draft_revision": "2026-10-11",
+        "record_id": "record-family-company-1",
+        "type": "declaration",
+        "party_role": "company",
+        "case_ref": "family-1",
+        "declaration": {
+          "protocol_version": "SH-1.2",
+          "declaration_id": "company-cancellation-1",
+          "declaration_revision": 1,
+          "principal_id": "broadband-provider",
+          "agent_id": "company-agent-1",
+          "declaration_provenance": "self_declared",
+          "disclosure": {
+            "ai_status": "ai",
+            "representative_role": "company_agent",
+            "disclosed_at": "2026-10-11T12:00:00Z",
+            "method": "first_contact_message"
+          },
+          "goals": {
+            "primary_goal": "Resolve the cancellation request within verified authority",
+            "non_goals": [
+              "Do not sell a new contract through this request"
+            ]
+          },
+          "options_constraints": {
+            "allowed_actions": [
+              "offer_cancellation",
+              "execute_cancellation"
+            ],
+            "hard_constraints": {
+              "no_new_contract": true
+            }
+          },
+          "data_permissions": {
+            "data_sources_allowed": [
+              "account_reference",
+              "service_case"
+            ],
+            "data_uses_allowed": [
+              "problem_resolution"
+            ],
+            "retention_policy": {
+              "policy": "no_retention_beyond_case"
+            }
+          },
+          "fallback_rules": {
+            "fallback_triggers": [
+              {
+                "if_vulnerability_signal_detected": true
+              },
+              {
+                "if_counterparty_exceeds_scope": true
+              }
+            ],
+            "fallback_actions": [
+              "human_review"
+            ],
+            "maximum_automation_scope": "Within verified action authority and policy",
+            "responsibility_assignment": "Customer Care Team Lead",
+            "precedence_logic": "CONSUMER_PRIORITY"
+          },
+          "authority_level": {
+            "authority_scope": [
+              "offer_cancellation",
+              "execute_cancellation"
+            ],
+            "authority_limits": [
+              "Require verified authority for cancellation"
+            ],
+            "interaction_role": "brand_agent"
+          }
+        }
+      }
+    },
+    "role": "company"
+  }
+}

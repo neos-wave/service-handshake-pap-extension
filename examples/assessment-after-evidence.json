@@ -1,0 +1,48 @@
+{
+  "id": "evt-msg-allow-1",
+  "type": "message",
+  "created_at": "2026-10-11T12:30:00Z",
+  "message": {
+    "id": "msg-allow-1",
+    "sender": "agent",
+    "text": "Illustrative only: the provider has now independently established authority for these unchanged terms. Execution still requires a valid confirmation and current checks.",
+    "data": {
+      "dualcx.com/service-handshake": {
+        "version": "1",
+        "draft_revision": "2026-10-11",
+        "record_id": "summary-2",
+        "type": "assessment",
+        "case_ref": "family-1",
+        "assessment_ref": "assessment-2",
+        "assessed_at": "2026-10-11T12:30:00Z",
+        "decision": "allow",
+        "proposal": {
+          "proposal_ref": "cancel-proposal-1",
+          "action_type": "cancellation",
+          "resource_ref": "account-case-4410",
+          "operation": {
+            "operation_id": "op-cancel-1",
+            "revision": 1
+          }
+        },
+        "declaration_refs": [
+          {
+            "party_role": "consumer",
+            "declaration_id": "family-cancellation-1",
+            "revision": 2
+          },
+          {
+            "party_role": "company",
+            "declaration_id": "company-cancellation-1",
+            "revision": 1
+          }
+        ],
+        "reasons": [],
+        "responsible_role": "Account authority team",
+        "supersedes": "assessment-1",
+        "valid_until": "2026-10-11T12:35:00Z"
+      }
+    },
+    "role": "company"
+  }
+}

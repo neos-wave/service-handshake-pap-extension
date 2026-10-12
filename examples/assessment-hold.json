@@ -1,0 +1,52 @@
+{
+  "id": "evt-msg-hold-1",
+  "type": "message",
+  "created_at": "2026-10-11T12:00:00Z",
+  "message": {
+    "id": "msg-hold-1",
+    "sender": "agent",
+    "text": "Cancellation is held pending authority for that action. Permitted billing help remains available.",
+    "data": {
+      "dualcx.com/service-handshake": {
+        "version": "1",
+        "draft_revision": "2026-10-11",
+        "record_id": "summary-1",
+        "type": "assessment",
+        "case_ref": "family-1",
+        "assessment_ref": "assessment-1",
+        "assessed_at": "2026-10-11T12:00:00Z",
+        "decision": "hold",
+        "proposal": {
+          "proposal_ref": "cancel-proposal-1",
+          "action_type": "cancellation",
+          "resource_ref": "account-case-4410",
+          "operation": {
+            "operation_id": "op-cancel-1",
+            "revision": 1
+          }
+        },
+        "declaration_refs": [
+          {
+            "party_role": "consumer",
+            "declaration_id": "family-cancellation-1",
+            "revision": 1
+          },
+          {
+            "party_role": "company",
+            "declaration_id": "company-cancellation-1",
+            "revision": 1
+          }
+        ],
+        "reasons": [
+          {
+            "code": "authority_unresolved",
+            "explanation": "Billing access has been established; cancellation authority has not.",
+            "required_next_step": "Use the provider's authorised approval or representative-evidence process."
+          }
+        ],
+        "responsible_role": "Account authority team"
+      }
+    },
+    "role": "company"
+  }
+}

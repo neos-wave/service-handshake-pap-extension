@@ -1,0 +1,95 @@
+{
+  "message": {
+    "id": "msg-1",
+    "sender": "agent",
+    "text": "I am an AI agent acting for the customer on this order. They prefer a refund, will consider a replacement, and refuse store credit.",
+    "data": {
+      "dualcx.com/service-handshake": {
+        "version": "1",
+        "draft_revision": "2026-10-11",
+        "record_id": "record-decl-1",
+        "type": "declaration",
+        "party_role": "consumer",
+        "case_ref": "delivery-1",
+        "declaration": {
+          "protocol_version": "SH-1.2",
+          "declaration_id": "customer-delivery-1",
+          "declaration_revision": 1,
+          "principal_id": "customer-1",
+          "agent_id": "personal-agent-1",
+          "declaration_provenance": "self_declared",
+          "disclosure": {
+            "ai_status": "ai",
+            "representative_role": "customer_representative",
+            "disclosed_at": "2026-10-11T12:00:00Z",
+            "method": "first_contact_message"
+          },
+          "confirmation": {
+            "status": "confirmed",
+            "confirmer_ref": "personal-agent-1",
+            "confirmed_at": "2026-10-11T12:00:00Z",
+            "method": "customer_agent_records_own_terms"
+          },
+          "unresolved_fields": [
+            "/authority_level/delegation_proof"
+          ],
+          "goals": {
+            "primary_goal": "Resolve damaged delivery: refund preferred, replacement acceptable, no credit",
+            "non_goals": [
+              "Do not accept voucher settlement",
+              "Do not change account details"
+            ]
+          },
+          "options_constraints": {
+            "allowed_actions": [
+              "accept_refund",
+              "accept_replacement"
+            ],
+            "hard_constraints": {
+              "no_vouchers": true
+            }
+          },
+          "data_permissions": {
+            "data_sources_allowed": [
+              "order_reference"
+            ],
+            "data_uses_allowed": [
+              "problem_resolution"
+            ],
+            "retention_policy": {
+              "policy": "no_retention_beyond_case"
+            }
+          },
+          "fallback_rules": {
+            "fallback_triggers": [
+              {
+                "if_vulnerability_signal_detected": true
+              },
+              {
+                "if_unresolved_after_loops": 3
+              }
+            ],
+            "fallback_actions": [
+              "request_human_review"
+            ],
+            "maximum_automation_scope": "Claims only until action authority is established",
+            "responsibility_assignment": "Customer Care Team Lead"
+          },
+          "authority_level": {
+            "authority_scope": [
+              "accept_refund",
+              "accept_replacement"
+            ],
+            "authority_limits": [
+              "no_account_changes"
+            ]
+          }
+        },
+        "representation": {
+          "poppy_user_ref": "user-1",
+          "principal_ref": "customer-1"
+        }
+      }
+    }
+  }
+}

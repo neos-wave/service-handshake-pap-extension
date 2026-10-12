@@ -1,0 +1,21 @@
+{
+  "message": {
+    "id": "msg-concern-1",
+    "sender": "agent",
+    "text": "I am relaying a concern about an alarm connection. This is a report, not a verified technical finding.",
+    "data": {
+      "dualcx.com/service-handshake": {
+        "version": "1",
+        "draft_revision": "2026-10-11",
+        "record_id": "concern-1",
+        "type": "concern",
+        "case_ref": "family-1",
+        "report_status": "relayed",
+        "statement": "The account holder says an essential alarm may depend on this line.",
+        "reported_by_ref": "mother-case-1",
+        "affected_party_ref": "mother-case-1",
+        "requested_support": "Check continuity of the alarm service before any cancellation."
+      }
+    }
+  }
+}

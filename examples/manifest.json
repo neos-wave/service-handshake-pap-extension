@@ -1,0 +1,149 @@
+[
+  {
+    "file": "assessment-after-evidence.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "data",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "assessment-hold.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "data",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "assessment-incomplete.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "data",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "client-metadata.json",
+    "definition": "clientConfig",
+    "pointer": [
+      "extensions",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "company-declaration.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "data",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "company-discovery.json",
+    "definition": "companyConfig",
+    "pointer": [
+      "extensions",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "confirmation-blocked.json",
+    "definition": "assessment",
+    "pointer": [
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "confirmation-blocked.json",
+    "definition": "operationBinding",
+    "pointer": [
+      "operation",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "family-company-declaration.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "data",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "family-declaration-revised.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "data",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "family-declaration.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "data",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "handover.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "data",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "message-declaration.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "data",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "operation-message.json",
+    "definition": "operationBinding",
+    "pointer": [
+      "message",
+      "operation",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "operation-proposed.json",
+    "definition": "operationBinding",
+    "pointer": [
+      "operation",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "relayed-concern.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "data",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "voucher-denied.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "data",
+      "dualcx.com/service-handshake"
+    ]
+  }
+]

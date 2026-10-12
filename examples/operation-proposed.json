@@ -1,0 +1,22 @@
+{
+  "operation": {
+    "operation_id": "op-cancel-1",
+    "revision": 1,
+    "state": "proposed",
+    "summary": "End the entire broadband service on the represented account ending 4410 at 12:00 Europe/London on 20 October 2026. Internet access ends then. No early exit fee, refund, outstanding balance, further charges or equipment return is due. No other bundled service is changed and no new contract is created. These terms do not establish whether a customer-owned alarm relies on the connection; any reported dependency must be resolved before commitment.",
+    "expires_at": "2026-10-12T12:00:00Z",
+    "user_approval_required": true,
+    "confirmation": null,
+    "result": null,
+    "dualcx.com/service-handshake": {
+      "version": "1",
+      "draft_revision": "2026-10-11",
+      "record_id": "binding-1",
+      "type": "operation_binding",
+      "case_ref": "family-1",
+      "proposal_ref": "cancel-proposal-1",
+      "operation_id": "op-cancel-1",
+      "revision": 1
+    }
+  }
+}

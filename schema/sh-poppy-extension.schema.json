@@ -1,0 +1,697 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dualcx:service-handshake:poppy:1:draft:2026-10-11",
+  "title": "Service Handshake Poppy exchange draft 2026-10-11",
+  "description": "Structural validation only; not a credential or runtime authority check.",
+  "$ref": "#/$defs/messageRecord",
+  "$defs": {
+    "operationRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "operation_id",
+        "revision"
+      ]
+    },
+    "representation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "poppy_user_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "principal_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "configurator_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "affected_party_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "poppy_user_ref",
+        "principal_ref"
+      ]
+    },
+    "declarationRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "party_role": {
+          "enum": [
+            "consumer",
+            "company"
+          ]
+        },
+        "declaration_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "party_role",
+        "declaration_id",
+        "revision"
+      ]
+    },
+    "declarationRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/declarationRef"
+      },
+      "minItems": 0
+    },
+    "bothDeclarations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/declarationRef"
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "party_role": {
+                "const": "consumer"
+              }
+            },
+            "required": [
+              "party_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "party_role": {
+                "const": "company"
+              }
+            },
+            "required": [
+              "party_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "assessmentDeclarations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/declarationRef"
+      },
+      "minItems": 0,
+      "maxItems": 2,
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "party_role": {
+                "const": "consumer"
+              }
+            },
+            "required": [
+              "party_role"
+            ]
+          },
+          "minContains": 0,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "party_role": {
+                "const": "company"
+              }
+            },
+            "required": [
+              "party_role"
+            ]
+          },
+          "minContains": 0,
+          "maxContains": 1
+        }
+      ]
+    },
+    "reason": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "explanation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_next_step": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "code",
+        "explanation",
+        "required_next_step"
+      ]
+    },
+    "proposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "proposal_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resource_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "$ref": "#/$defs/operationRef"
+        }
+      },
+      "required": [
+        "proposal_ref",
+        "action_type",
+        "resource_ref"
+      ]
+    },
+    "declaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": "1"
+        },
+        "draft_revision": {
+          "const": "2026-10-11"
+        },
+        "record_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "const": "declaration"
+        },
+        "party_role": {
+          "enum": [
+            "consumer",
+            "company"
+          ]
+        },
+        "case_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "representation": {
+          "$ref": "#/$defs/representation"
+        },
+        "declaration": {
+          "allOf": [
+            {
+              "$ref": "urn:neoswave:service-handshake:sh-1.2:draft-1:declaration"
+            },
+            {
+              "required": [
+                "declaration_id",
+                "declaration_revision"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "version",
+        "draft_revision",
+        "record_id",
+        "type",
+        "party_role",
+        "declaration"
+      ]
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": "1"
+        },
+        "draft_revision": {
+          "const": "2026-10-11"
+        },
+        "record_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "const": "assessment"
+        },
+        "case_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assessment_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assessed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "supersedes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "enum": [
+            "allow",
+            "deny",
+            "hold",
+            "escalate"
+          ]
+        },
+        "proposal": {
+          "$ref": "#/$defs/proposal"
+        },
+        "declaration_refs": {
+          "$ref": "#/$defs/assessmentDeclarations"
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reason"
+          },
+          "minItems": 0
+        },
+        "responsible_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "valid_until": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "version",
+        "draft_revision",
+        "record_id",
+        "type",
+        "case_ref",
+        "assessment_ref",
+        "assessed_at",
+        "decision",
+        "proposal",
+        "declaration_refs",
+        "reasons",
+        "responsible_role"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "decision": {
+                "const": "allow"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "valid_until"
+            ],
+            "properties": {
+              "declaration_refs": {
+                "$ref": "#/$defs/bothDeclarations"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "decision": {
+                "enum": [
+                  "deny",
+                  "hold",
+                  "escalate"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reasons": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "restriction": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "proposal_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "enum": [
+            "deny",
+            "hold",
+            "escalate"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_next_step": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_condition": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "proposal_ref",
+        "decision",
+        "reason",
+        "required_next_step",
+        "review_condition"
+      ]
+    },
+    "handover": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": "1"
+        },
+        "draft_revision": {
+          "const": "2026-10-11"
+        },
+        "record_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "const": "handover"
+        },
+        "case_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "representation": {
+          "$ref": "#/$defs/representation"
+        },
+        "proposal_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "declaration_refs": {
+          "$ref": "#/$defs/declarationRefs"
+        },
+        "restrictions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/restriction"
+          },
+          "minItems": 0
+        },
+        "data_use_notes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "support_instructions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "responsible_role": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "version",
+        "draft_revision",
+        "record_id",
+        "type",
+        "case_ref",
+        "proposal_refs",
+        "declaration_refs",
+        "restrictions",
+        "data_use_notes",
+        "responsible_role"
+      ]
+    },
+    "concern": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": "1"
+        },
+        "draft_revision": {
+          "const": "2026-10-11"
+        },
+        "record_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "const": "concern"
+        },
+        "case_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "report_status": {
+          "const": "relayed"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reported_by_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "affected_party_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requested_support": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "version",
+        "draft_revision",
+        "record_id",
+        "type",
+        "report_status",
+        "statement",
+        "reported_by_ref"
+      ]
+    },
+    "operationBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": "1"
+        },
+        "draft_revision": {
+          "const": "2026-10-11"
+        },
+        "record_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "const": "operation_binding"
+        },
+        "case_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "proposal_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "version",
+        "draft_revision",
+        "record_id",
+        "type",
+        "case_ref",
+        "proposal_ref",
+        "operation_id",
+        "revision"
+      ]
+    },
+    "clientConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": "1"
+        },
+        "draft_revision": {
+          "const": "2026-10-11"
+        },
+        "profile": {
+          "enum": [
+            "participation",
+            "verified_authority"
+          ]
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "operations_binding": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "version",
+        "draft_revision",
+        "profile",
+        "actions",
+        "operations_binding"
+      ]
+    },
+    "companyConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": "1"
+        },
+        "draft_revision": {
+          "const": "2026-10-11"
+        },
+        "profile": {
+          "enum": [
+            "participation",
+            "verified_authority"
+          ]
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "operations_binding": {
+          "type": "boolean"
+        },
+        "required_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "company_terms": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        }
+      },
+      "required": [
+        "version",
+        "draft_revision",
+        "profile",
+        "actions",
+        "operations_binding"
+      ]
+    },
+    "messageRecord": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/declaration"
+        },
+        {
+          "$ref": "#/$defs/assessment"
+        },
+        {
+          "$ref": "#/$defs/handover"
+        },
+        {
+          "$ref": "#/$defs/concern"
+        }
+      ]
+    }
+  }
+}

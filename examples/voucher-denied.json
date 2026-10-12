@@ -1,0 +1,48 @@
+{
+  "id": "evt-msg-voucher-1",
+  "type": "message",
+  "created_at": "2026-10-11T12:00:00Z",
+  "message": {
+    "id": "msg-voucher-1",
+    "sender": "agent",
+    "text": "This voucher proposal is denied. A replacement or refund must be considered separately.",
+    "data": {
+      "dualcx.com/service-handshake": {
+        "version": "1",
+        "draft_revision": "2026-10-11",
+        "record_id": "summary-voucher",
+        "type": "assessment",
+        "case_ref": "delivery-1",
+        "assessment_ref": "assessment-voucher",
+        "assessed_at": "2026-10-11T12:00:00Z",
+        "decision": "deny",
+        "proposal": {
+          "proposal_ref": "voucher-proposal-1",
+          "action_type": "voucher",
+          "resource_ref": "order-1"
+        },
+        "declaration_refs": [
+          {
+            "party_role": "consumer",
+            "declaration_id": "customer-delivery-1",
+            "revision": 1
+          },
+          {
+            "party_role": "company",
+            "declaration_id": "company-delivery-1",
+            "revision": 1
+          }
+        ],
+        "reasons": [
+          {
+            "code": "refused_outcome",
+            "explanation": "The customer refuses store credit.",
+            "required_next_step": "Consider a refund or replacement under a new proposal."
+          }
+        ],
+        "responsible_role": "Account authority team"
+      }
+    },
+    "role": "company"
+  }
+}
