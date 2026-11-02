@@ -1,6 +1,6 @@
 # Service Handshake extension proposal for the Personal Agent Protocol (Poppy): specification
 
-Review package draft 4, 2 November 2026. Wire draft `2026-11-02-r4`, proposed major version `"2"`. Targets Poppy draft 0.3 and Operations version 2 at the source revision pinned in SOURCES.md. This is an incompatible update to the earlier extension proposal, not a new SH edition. Independent proposal; not adopted by Poppy or demonstrated through a live integration. Author: Maria McCann. Publisher: Neos Wave Ltd / Dual CX. Apache 2.0. See README and NOTICE for status and attribution.
+Review package draft 5, 2 November 2026. Wire draft `2026-11-02-r4`, proposed major version `"2"`. Targets Poppy draft 0.3 and Operations version 2 at the source revision pinned in SOURCES.md. This is an incompatible update to the earlier extension proposal, not a new SH edition. Independent proposal; not adopted by Poppy or demonstrated through a live integration. Author: Maria McCann. Publisher: Neos Wave Ltd / Dual CX. Apache 2.0. See README and NOTICE for status and attribution.
 
 ## 1. Scope and precedence
 
@@ -44,6 +44,8 @@ An `operation_binding` belongs in `message.extensions["dualcx.com/service-handsh
 
 Messages and events MUST follow the pinned Poppy envelope and author rules. A Personal Agent supplies `author.type: "agent"`; the Company records `role` on events. Derive which party sent a record from the authenticated protocol context, not a claimed role. Only the Company may originate a trusted assessment summary or operation binding. Client-supplied versions of those records MUST NOT become Company decisions. Base schema validity does not establish this provenance.
 
+Schema retrieval and identifiers are distinct: [README schema downloads](README.md#schema-downloads-and-loading) provides immutable HTTPS links and dependency-loading instructions. The URN identifiers and published SH schemas remain unchanged.
+
 ## 5. Declarations and assistance
 
 A `declaration` record includes `party_role`, an inline `declaration` conforming to the unchanged SH-1.2 schema, and optional `case_ref` and `representation`. This binding additionally requires `declaration_id` and `declaration_revision` for each exchanged declaration. Do not fabricate a principal or goal to meet those fields: use an ordinary intake conversation until they can truthfully be recorded.
@@ -55,6 +57,12 @@ The Company MUST offer proportionate assistance where the other side lacks a usa
 Provenance retains SH §2.3 meanings: self-declared terms, previously agreed terms, or terms prepared with the other party's assistance. A party preparing an assisted declaration for the other side MUST record its actual confirmation status and provenance; it MUST NOT impersonate that party or manufacture confirmation. Confirmation establishes the claimed terms, not delegation.
 
 Both parties' relevant boundaries MUST be established before a protected action. The Company MAY publish general terms at `company_terms` or send appropriate case terms through the conversation. It need not disclose private thresholds. A public policy is not proof of case-specific authority. Where the Personal Agent is the supporting party, its assisted record of Company statements remains unconfirmed until appropriately confirmed by the Company.
+
+**Signed-out contact**
+
+Where the Company accepts the Personal Agent and offers a signed-out service route, intake, permitted assistance and declaration exchange MAY continue without account sign-in. Extension exchange still requires agreement under §3, and claims about the principal or authority remain unverified until checked; do not invent a verified identity to complete a declaration. The Company MUST NOT disclose protected account information or execute an action while its required access or authority is missing. Explain what is missing and the available authorised route; the absence of sign-in does not by itself prohibit otherwise permitted assistance.
+
+Apply Poppy's access and conversation-ownership rules. Refusing a particular sign-in type is not necessarily refusal of all contact, but this extension cannot require acceptance of a rejected client or continuation of an account-bound conversation while signed out. An appropriate new signed-out contact must not expose the protected history or silently lift a restriction. `auth.disabled` prevents new sign-in; it does not itself revoke previously issued refresh tokens, whose continued validity follows Poppy's rules. An SH declaration cannot override any of these access controls.
 
 ### 5.1 Representation
 

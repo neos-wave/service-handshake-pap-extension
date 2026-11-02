@@ -1,12 +1,14 @@
 # Validation and remaining implementation work
 
-Checked locally for review package draft 4 on 2 November 2026: **41 unittest tests passed**. The package targets extension version 2 / draft 2026-11-02-r4, Poppy draft 0.3 and Operations version 2 at the pinned source revision. The two SH-1.2 reference schemas remain unchanged; twelve unmodified Poppy schemas are included for offline envelope checks. SOURCES.md and SOURCE-LOCK.json record provenance and hashes.
+Checked locally for review package draft 5 on 2 November 2026: **44 unittest tests passed**. The package targets extension version 2 / draft 2026-11-02-r4, Poppy draft 0.3 and Operations version 2 at the pinned source revision. The two SH-1.2 reference schemas remain unchanged; twelve unmodified Poppy schemas are included for offline envelope checks. SOURCES.md and SOURCE-LOCK.json record provenance and hashes.
 
 The checks cover complete example requests/events/discovery documents against upstream shapes, supported draft/version, operation revision strings versus SH revision integers, decision vocabulary, non-allow reasons, declared roles, record placement and operation binding, declaration and operation references, assessment history, relayed-report status, discovery dependencies and reference checksums. Scenario checks distinguish a denied voucher from a held replacement, preserve the no-credit boundary, separate arrangement from delivery, and retain a later restriction without rewriting the earlier assessment.
 
 Additional migration checks reject legacy SH and Operations placement even where Poppy's permissive base schema accepts the unknown fields. They check supported version/draft advertisements in supplied fixtures, malformed Operations content, coexistence with Links and Disclosures, and the distinct opening-request shape for a Company-first Direct Conversation. The fixtures do not exercise actual metadata fetching, notice display, skill execution or Direct Conversation ownership enforcement.
 
 These are structural and fixture consistency tests. Although complete example envelopes are now checked, this is not full Poppy conformance validation. Sender checks in the fixtures do not authenticate a real sender. No server runs, no principal or delegation is verified, no real execution is blocked and no human receives a handover. The tests are not a certification suite and do not establish that this extension is live in Neos OS.
+
+Package 5 adds three diagnostic regression checks. They deliberately damage copies of example files and confirm that unittest reports a failure naming the file and correction, with no unhandled lookup error. The example reader checks expected placement and schema shape before scenario assertions; intentionally malformed in-memory copies remain available to the negative tests. Signed-out guidance is a specification clarification, not a tested sign-in implementation.
 
 ## Required checks in a real implementation
 

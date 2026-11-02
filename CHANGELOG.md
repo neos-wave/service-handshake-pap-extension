@@ -1,5 +1,15 @@
 # Changelog
 
+## Review draft 5 - 2 November 2026
+
+Documentation and test diagnostics update. Wire draft remains `2026-11-02-r4`; extension version 2 and SH-1.2 are unchanged.
+
+- Added immutable HTTPS download links for the extension and SH schemas, with instructions for resolving their existing identifiers offline.
+- Clarified permitted signed-out contact, protected access, conversation ownership and the distinction between disabling new sign-in and revoking existing tokens.
+- Made malformed or misplaced fixture content report the filename, expected location and correction instead of an unhandled lookup error.
+- Added regression checks for readable failure reports; retained the explicit open question about post-approval execution checks.
+- No published schema, example, licence or upstream source revision changed.
+
 ## Review draft 4 - 2 November 2026
 
 Wire draft `2026-11-02-r4`, extension major version `"2"`; SH remains 1.2. This supersedes the earlier same-day extension draft and pins Poppy commit `5313d8441abb55d2004e5fbc2a4fdab4af1624b3`.

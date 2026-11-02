@@ -1,6 +1,6 @@
 # Source baselines
 
-Reviewed 2 November 2026. Extension version 2 / draft 2026-11-02-r4, review package 4.
+Reviewed 2 November 2026. Extension version 2 / draft 2026-11-02-r4, review package 5. Package 5 clarifies access handling and schema retrieval and improves test diagnostics; it does not change the wire draft, schemas, examples or upstream baseline.
 
 ## Poppy
 

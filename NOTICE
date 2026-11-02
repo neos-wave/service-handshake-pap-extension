@@ -1,10 +1,11 @@
 Service Handshake extension proposal for the Personal Agent Protocol (Poppy)
-Independent review package draft 4, 2 November 2026
+Independent review package draft 5, 2 November 2026
 Proposed extension major version 2; wire draft 2026-11-02-r4
 Copyright 2026 Neos Wave Ltd. Author: Maria McCann.
 
 Based on The Service Handshake SH-1.2, DOI 10.5281/zenodo.23181969.
 Targets the pinned Personal Agent Protocol draft 0.3 / Operations version 2.
+Package 5 preserves package 4's wire draft, schemas and examples.
 This proposal does not amend either underlying standard and makes no claim
 of adoption, affiliation, certification, live deployment or endorsement.
 

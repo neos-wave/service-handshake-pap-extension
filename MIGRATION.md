@@ -1,4 +1,6 @@
-# Migration to review draft 4
+# Migration to wire draft 2026-11-02-r4
+
+Review package 5 retains package 4's wire draft `2026-11-02-r4`; no schema or wire migration is required between these two packages. The instructions below concern migration from earlier wire drafts.
 
 This is a new independent extension draft, not an upgrade to the SH framework. Preserve the earlier proposal in repository history or a release; do not reinterpret its records as version 2.
 

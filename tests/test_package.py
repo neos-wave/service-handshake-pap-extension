@@ -3,6 +3,10 @@ import copy
 import hashlib
 import json
 import unittest
+import tempfile
+import shutil
+import sys
+from unittest.mock import patch
 from datetime import datetime
 from pathlib import Path
 from jsonschema import Draft202012Validator, FormatChecker
@@ -16,12 +20,67 @@ SCHEMAS=[json.loads(p.read_text()) for p in sorted(ROOT.glob('reference/*.json')
 SCHEMAS.append(json.loads((ROOT/'schema/sh-poppy-extension.schema.json').read_text()))
 POPPY={p.name:json.loads(p.read_text()) for p in (ROOT/'reference/poppy').glob('*.json')}
 REGISTRY=Registry().with_resources([(s['$id'],Resource.from_contents(s)) for s in SCHEMAS]+[(BASE+n,Resource.from_contents(s)) for n,s in POPPY.items()])
-def read(name):return json.loads((ROOT/'examples'/name).read_text())
-def record(name):return read(name)['message']['extensions'][EXT]
+def raw_example(name):
+    try:
+        return json.loads((ROOT/'examples'/name).read_text())
+    except json.JSONDecodeError as error:
+        raise AssertionError(f"{name}: invalid JSON at line {error.lineno}, column {error.colno}: {error.msg}") from None
+    except OSError as error:
+        raise AssertionError(f"{name}: cannot read example: {error.strerror}") from None
+
+def field_path(keys):
+    path='$'
+    for key in keys:
+        path += '.'+key if isinstance(key,str) and key.isidentifier() else '['+json.dumps(key)+']'
+    return path
+
+def fixture_value(name,value,pointer):
+    current=value
+    for i,key in enumerate(pointer):
+        if not isinstance(current,dict) or key not in current:
+            expected=field_path(pointer)
+            raise AssertionError(f"{name}: missing {field_path(pointer[:i+1])}; expected content at {expected}. Check the example manifest and current message placement.") from None
+        current=current[key]
+    return current
+
+def assert_valid_fixture(name,value,check,label):
+    error=next(check.iter_errors(value),None)
+    if error is not None:
+        detail=error.message if error.validator=='required' else f"does not satisfy {error.validator}"
+        raise AssertionError(f"{name}: {field_path(error.absolute_path)} {detail} ({label}). Correct the fixture before running scenario checks.")
+
+def read(name):
+    value=raw_example(name)
+    if name=='manifest.json':
+        return value
+    entry=next((e for e in raw_example('manifest.json') if e['file']==name),None)
+    if entry is None:
+        raise AssertionError(f"{name}: example is not listed in manifest.json.")
+    msg=value.get('message',{}) if isinstance(value,dict) else {}
+    if isinstance(msg,dict):
+        data=msg.get('data',{})
+        if isinstance(data,dict) and EXT in data:
+            raise AssertionError(f'{name}: legacy SH placement at $.message.data["{EXT}"]. Move the record to $.message.extensions["{EXT}"].')
+        for key in ('operation','approval'):
+            if key in msg:
+                raise AssertionError(f"{name}: legacy $.message.{key}. Move it to $.message.extensions.operations.{key}.")
+    if 'pointer' in entry:
+        nested=fixture_value(name,value,entry['pointer'])
+        assert_valid_fixture(name,nested,validator(entry['definition']),entry['definition'])
+    assert_valid_fixture(name,value,base_validator(entry['base_schema']),entry['base_schema'])
+    if isinstance(value,dict) and 'message' in value:
+        try:
+            check_message_semantics(value)
+        except (ValueError,KeyError,TypeError) as error:
+            raise AssertionError(f"{name}: invalid message placement or binding: {error}. Check message.extensions and the matching operation reference.") from None
+    return value
+
+def record(name):
+    return fixture_value(name,read(name),['message','extensions',EXT])
 def validator(definition='messageRecord'):return Draft202012Validator({'$ref':SID+'#/$defs/'+definition},registry=REGISTRY,format_checker=FormatChecker())
 def base_validator(name):return Draft202012Validator({'$ref':BASE+name},registry=REGISTRY,format_checker=FormatChecker())
 def records():
-    return [v for e in read('manifest.json') if (v:=read(e['file']).get('message',{}).get('extensions',{}).get(EXT))]
+    return [record(e['file']) for e in read('manifest.json') if e.get('definition')=='messageRecord']
 
 def check_message_semantics(value):
     """Fixture sender/placement checks, not authentication of a real sender."""
@@ -74,16 +133,15 @@ class PackageChecks(unittest.TestCase):
     def test_complete_upstream_envelopes(self):
         for e in read('manifest.json'):
             with self.subTest(file=e['file']):
-                v=read(e['file']);base_validator(e['base_schema']).validate(v)
+                v=read(e['file']);assert_valid_fixture(e['file'],v,base_validator(e['base_schema']),e['base_schema'])
                 if 'message' in v:check_message_semantics(v)
 
     def test_extension_payloads(self):
         for e in read('manifest.json'):
             if 'definition' not in e:continue
             with self.subTest(file=e['file']):
-                v=read(e['file'])
-                for k in e['pointer']:v=v[k]
-                validator(e['definition']).validate(v)
+                v=fixture_value(e['file'],read(e['file']),e['pointer'])
+                assert_valid_fixture(e['file'],v,validator(e['definition']),e['definition'])
 
     def test_manifest_covers_each_json_once(self):
         names=[e['file'] for e in read('manifest.json')]
@@ -303,5 +361,40 @@ class PackageChecks(unittest.TestCase):
         expected={'sh-1.2.schema.json':'ee2d7124f718b9f28cfa20764c2e8cd48b9f35749f3111b6638d2f55ccd11cb5',
                   'sh-1.2.action-assessment.schema.json':'be0d37779d76420112129cb364792414b68a1dd59151367c49ae4443a6253746'}
         for n,d in expected.items():self.assertEqual(d,hashlib.sha256((ROOT/'reference'/n).read_bytes()).hexdigest())
+
+    def check_diagnostic(self,name,mutate,expected):
+        # Run an existing test against a deliberately damaged copy of a fixture.
+        # Confirm unittest reports a useful failure, rather than an ERROR/KeyError.
+        with tempfile.TemporaryDirectory() as directory:
+            temporary=Path(directory)
+            shutil.copytree(ROOT/'examples',temporary/'examples')
+            path=temporary/'examples'/name
+            path.write_text(mutate(path.read_text()))
+            result=unittest.TestResult()
+            with patch.object(sys.modules[__name__],'ROOT',temporary):
+                PackageChecks('test_complete_upstream_envelopes').run(result)
+            self.assertEqual([],result.errors)
+            self.assertEqual(1,len(result.failures))
+            report=result.failures[0][1]
+            self.assertIn(name,report)
+            self.assertIn(expected,report)
+            self.assertNotIn('KeyError:',report)
+
+    def test_misplaced_sh_fixture_reports_readable_failure(self):
+        def mutate(text):
+            value=json.loads(text);msg=value['message']
+            msg['data']={EXT:msg['extensions'].pop(EXT)}
+            return json.dumps(value)
+        self.check_diagnostic('replacement-hold.json',mutate,'Move the record to $.message.extensions')
+
+    def test_misplaced_operation_fixture_reports_readable_failure(self):
+        def mutate(text):
+            value=json.loads(text);msg=value['message']
+            msg['operation']=msg['extensions'].pop('operations')['operation']
+            return json.dumps(value)
+        self.check_diagnostic('replacement-operation.json',mutate,'Move it to $.message.extensions.operations.operation')
+
+    def test_invalid_json_fixture_reports_readable_failure(self):
+        self.check_diagnostic('replacement-hold.json',lambda text:'{"message":','invalid JSON at line')
 
 if __name__=='__main__':unittest.main()
