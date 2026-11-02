@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:dualcx:service-handshake:poppy:2:draft:2026-11-02",
-  "title": "Service Handshake Poppy exchange v2 draft 2026-11-02",
-  "description": "Structural validation only; not a credential or runtime authority check.",
+  "$id": "urn:dualcx:service-handshake:poppy:2:draft:2026-11-02-r4",
+  "title": "Service Handshake Poppy exchange v2 draft 2026-11-02-r4",
+  "description": "JSON Schema for the value of message.extensions[\"dualcx.com/service-handshake\"]. Structural validation only; not a credential or runtime authority check.",
   "$ref": "#/$defs/messageRecord",
   "$defs": {
     "operationRef": {
@@ -215,7 +215,7 @@
           "const": "2"
         },
         "draft_revision": {
-          "const": "2026-11-02"
+          "const": "2026-11-02-r4"
         },
         "record_id": {
           "type": "string",
@@ -268,7 +268,7 @@
           "const": "2"
         },
         "draft_revision": {
-          "const": "2026-11-02"
+          "const": "2026-11-02-r4"
         },
         "record_id": {
           "type": "string",
@@ -423,7 +423,7 @@
           "const": "2"
         },
         "draft_revision": {
-          "const": "2026-11-02"
+          "const": "2026-11-02-r4"
         },
         "record_id": {
           "type": "string",
@@ -499,7 +499,7 @@
           "const": "2"
         },
         "draft_revision": {
-          "const": "2026-11-02"
+          "const": "2026-11-02-r4"
         },
         "record_id": {
           "type": "string",
@@ -550,7 +550,7 @@
           "const": "2"
         },
         "draft_revision": {
-          "const": "2026-11-02"
+          "const": "2026-11-02-r4"
         },
         "record_id": {
           "type": "string",
@@ -595,7 +595,7 @@
           "const": "2"
         },
         "draft_revision": {
-          "const": "2026-11-02"
+          "const": "2026-11-02-r4"
         },
         "profile": {
           "enum": [
@@ -632,7 +632,7 @@
           "const": "2"
         },
         "draft_revision": {
-          "const": "2026-11-02"
+          "const": "2026-11-02-r4"
         },
         "profile": {
           "enum": [

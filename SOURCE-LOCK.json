@@ -1,60 +1,95 @@
 {
   "checked_on": "2026-11-02",
   "poppy_repository": "https://github.com/personal-agent-protocol/personal-agent-protocol",
-  "poppy_commit": "1de1990e4978b42179fe0e3e0ae554271808c308",
+  "poppy_commit": "5313d8441abb55d2004e5fbc2a4fdab4af1624b3",
   "poppy_version": "0.3",
   "operations_version": "2",
   "extension_version": "2",
-  "extension_draft": "2026-11-02",
+  "extension_draft": "2026-11-02-r4",
   "files": [
     {
       "local_path": "reference/poppy/approval.schema.json",
       "upstream_path": "kit/company/schemas/approval.schema.json",
-      "upstream_git_blob": "daba3dae1cbc76e688fea50ca6b3da77560f2671",
-      "sha256": "377cd602510cfdb983138f8fcd69ff407e66b7d615dc2c0d7d17d2ecc1c9284c",
-      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/approval.schema.json"
+      "upstream_git_blob": "093de76220b8594a5650c7c504997672de43602b",
+      "sha256": "7beb9acadad68a7275775c5dd45af44d275472ecf87c69b3d7db0c8749accb96",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/kit/company/schemas/approval.schema.json"
     },
     {
       "local_path": "reference/poppy/client-metadata.schema.json",
       "upstream_path": "kit/company/schemas/client-metadata.schema.json",
       "upstream_git_blob": "5efbf60f6e76438b8d9d3a55b0a889fe6d06f254",
       "sha256": "072fbe9b307f40b296b77c15f187bbbe4e4d33ff29f6a3b2711bc53341eac10a",
-      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/client-metadata.schema.json"
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/kit/company/schemas/client-metadata.schema.json"
     },
     {
       "local_path": "reference/poppy/conversation-request.schema.json",
       "upstream_path": "kit/company/schemas/conversation-request.schema.json",
-      "upstream_git_blob": "1b4fe08f3693c45746cafa6512e14caf75f85db4",
-      "sha256": "79e1a6810fb99d6bcb75eca33a566c79206b208a9213a0b9441d861bc6a8a68d",
-      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/conversation-request.schema.json"
+      "upstream_git_blob": "0458e133c381ee4b965cf15f96bbecace1331d9f",
+      "sha256": "b2c607a0dfe5400d6e00e237fb3de3479aef8d0af7b3ddaec298c5f3c5d963b0",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/kit/company/schemas/conversation-request.schema.json"
+    },
+    {
+      "local_path": "reference/poppy/conversation-message-request.schema.json",
+      "upstream_path": "kit/company/schemas/conversation-message-request.schema.json",
+      "upstream_git_blob": "ab5507762a997093f33ad9441fc829d2adb0cd64",
+      "sha256": "45314ad43b9acc485a4f6faf310dbf9e0ab7aa773555d83d8e10a017c2882ea7",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/kit/company/schemas/conversation-message-request.schema.json"
     },
     {
       "local_path": "reference/poppy/event.schema.json",
       "upstream_path": "kit/company/schemas/event.schema.json",
       "upstream_git_blob": "642420a0609835650afd53252eb2fff110ba6b08",
       "sha256": "8de712b498b5413b1b596c54ab7965e4bcad7b0cc5ec534efaf9b08a3f2e9851",
-      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/event.schema.json"
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/kit/company/schemas/event.schema.json"
     },
     {
       "local_path": "reference/poppy/message.schema.json",
       "upstream_path": "kit/company/schemas/message.schema.json",
-      "upstream_git_blob": "111d55d0f7b23571a93a6bb8585699e8387bf0d0",
-      "sha256": "264f8e1837ecb8c6424d5df7eeddc95eac75c42963a5f821f458cf85f79353b6",
-      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/message.schema.json"
+      "upstream_git_blob": "4c48cbe3328a1e676f4154380a008fe7bd3511a4",
+      "sha256": "4dda93fa956b8f41ce013061766ad8db6412cfc92182aafd74087d3f98d47770",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/kit/company/schemas/message.schema.json"
     },
     {
       "local_path": "reference/poppy/operation.schema.json",
       "upstream_path": "kit/company/schemas/operation.schema.json",
-      "upstream_git_blob": "bd9a0ce4abf08acfed02ea722b3bd5db7e28a0a2",
-      "sha256": "8ac08d09a68c5acad95ede42595a608c44a8a6c72c9e2ee52bdc01b9a90f2350",
-      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/operation.schema.json"
+      "upstream_git_blob": "02bb440d5d07182655973e4909e0306f0d5997ef",
+      "sha256": "7ecb7a2a2a5e25b3ca034bf82af6b0e046414ee943c6be3c2b24e72d14f7ad0b",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/kit/company/schemas/operation.schema.json"
+    },
+    {
+      "local_path": "reference/poppy/operations-content.schema.json",
+      "upstream_path": "kit/company/schemas/operations-content.schema.json",
+      "upstream_git_blob": "f6fcdaf16fc3f1f02a5ad1b4f4651c54ba867c09",
+      "sha256": "51d22d83862c63d0a5172cf3bdae1259b635ba2cac3ac19f3fdd4c69a2a81e9f",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/kit/company/schemas/operations-content.schema.json"
+    },
+    {
+      "local_path": "reference/poppy/links-content.schema.json",
+      "upstream_path": "kit/company/schemas/links-content.schema.json",
+      "upstream_git_blob": "00d5d8398b13b03239c8535b9c1ef32157a9bed5",
+      "sha256": "63819d5de8d271af2d5b1d615ad0ea2a5215965613911c137c262842591c9c63",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/kit/company/schemas/links-content.schema.json"
+    },
+    {
+      "local_path": "reference/poppy/disclosures-content.schema.json",
+      "upstream_path": "kit/company/schemas/disclosures-content.schema.json",
+      "upstream_git_blob": "27c7cc841e6ea0ad74272ff7c348efadd458211d",
+      "sha256": "bf8a116dc951919c4367dea99c622f640c6ef6a3e92fbc122088fd10d558f42c",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/kit/company/schemas/disclosures-content.schema.json"
     },
     {
       "local_path": "reference/poppy/poppy.schema.json",
       "upstream_path": "kit/company/schemas/poppy.schema.json",
-      "upstream_git_blob": "4717367111208393bea836e546965017bf59e88c",
-      "sha256": "cb1ff1a6de9c4571df4aa71c95c0e337a24b4176e38589e3c0469787224b71ab",
-      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/poppy.schema.json"
+      "upstream_git_blob": "c515a23136b9b1c933be2f3799d89fc9b36ed778",
+      "sha256": "0b3385571deaf79098330052880714b2d7c5a126ea4c1a39ee7ddcce6791aee6",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/kit/company/schemas/poppy.schema.json"
+    },
+    {
+      "local_path": "reference/poppy/skill-index.schema.json",
+      "upstream_path": "kit/company/schemas/skill-index.schema.json",
+      "upstream_git_blob": "fdfa699f0ac235348f17d3c9e98f2702012161e7",
+      "sha256": "f52cb5eb0cd6c70183c716e925605c34e290ce29415ed2028c0b376fe3af7cf8",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/kit/company/schemas/skill-index.schema.json"
     },
     {
       "local_path": "reference/sh-1.2.schema.json",
@@ -72,18 +107,33 @@
   "document_sources": [
     {
       "upstream_path": "content/versions/0.3/spec.mdx",
-      "git_blob": "0ec25c6376560f5e56691039cc71c39529d0482e",
-      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/content/versions/0.3/spec.mdx"
+      "git_blob": "c980bfa6727d6e3b52fc446bf2bfe2610d3f6f72",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/content/versions/0.3/spec.mdx"
     },
     {
       "upstream_path": "content/versions/0.3/extensions/operations.mdx",
-      "git_blob": "dac6af3bfa35e6440b3802aec96e0830f3a1ca15",
-      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/content/versions/0.3/extensions/operations.mdx"
+      "git_blob": "d0f14d671ed9bca8d52fd42cd1827c40576c3e7f",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/content/versions/0.3/extensions/operations.mdx"
     },
     {
       "upstream_path": "content/versions/0.3/extensions.mdx",
-      "git_blob": "d1e59e3ae755b0049a72f54701ef6003fe1143b3",
-      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/content/versions/0.3/extensions.mdx"
+      "git_blob": "718a959b20ab83bb009e8598afb6a2ec52f8e899",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/content/versions/0.3/extensions.mdx"
+    },
+    {
+      "upstream_path": "content/versions/0.3/guides.mdx",
+      "git_blob": "96a79c75d3fafc021c99143a0da3da06ee37f931",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/content/versions/0.3/guides.mdx"
+    },
+    {
+      "upstream_path": "content/versions/0.3/extensions/links.mdx",
+      "git_blob": "8928abcebd3d74ad1d729b774cfc4dd89ce3ac5e",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/content/versions/0.3/extensions/links.mdx"
+    },
+    {
+      "upstream_path": "content/versions/0.3/extensions/disclosures.mdx",
+      "git_blob": "259f975cec5c9b102332929ce798ec12649cc259",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/5313d8441abb55d2004e5fbc2a4fdab4af1624b3/content/versions/0.3/extensions/disclosures.mdx"
     }
   ]
 }

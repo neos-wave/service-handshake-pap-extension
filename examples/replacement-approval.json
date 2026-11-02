@@ -5,9 +5,13 @@
       "type": "agent"
     },
     "text": "The customer approved these terms through the personal agent interface. The company must verify the separate authority evidence in its own trusted process.",
-    "approval": {
-      "operation_id": "op-replacement-1",
-      "revision": "rev-replacement-a"
+    "extensions": {
+      "operations": {
+        "approval": {
+          "operation_id": "op-replacement-1",
+          "revision": "rev-replacement-a"
+        }
+      }
     }
   }
 }

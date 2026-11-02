@@ -5,10 +5,14 @@
   "message": {
     "id": "msg-allow-1",
     "text": "Illustrative branch: the provider independently verified delegation and resolved the alarm concern, received Priya’s operation approval and completed the remaining checks. This permits the action; it is not a completion report.",
-    "data": {
+    "role": "company",
+    "author": {
+      "type": "agent"
+    },
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "summary-2",
         "type": "assessment",
         "case_ref": "family-1",
@@ -41,10 +45,6 @@
         "supersedes": "family-escalate",
         "valid_until": "2026-11-02T12:35:00Z"
       }
-    },
-    "role": "company",
-    "author": {
-      "type": "agent"
     }
   }
 }

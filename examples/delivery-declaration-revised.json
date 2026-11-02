@@ -2,10 +2,13 @@
   "message": {
     "id": "msg-delivery-decl-2",
     "text": "This revision records the claimed approval for replacement-proposal-1. The evidence reference is not proof; the company must verify it through its own trusted process. No customer boundary is removed.",
-    "data": {
+    "author": {
+      "type": "agent"
+    },
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "record-decl-2",
         "type": "declaration",
         "party_role": "consumer",
@@ -91,9 +94,6 @@
           "principal_ref": "customer-1"
         }
       }
-    },
-    "author": {
-      "type": "agent"
     }
   }
 }

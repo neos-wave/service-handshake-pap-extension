@@ -1,8 +1,10 @@
 # Validation and remaining implementation work
 
-Checked locally for review package draft 3 on 2 November 2026: **32 unittest tests passed**. The package targets extension version 2 / draft 2026-11-02, Poppy draft 0.3 and Operations version 2 at the pinned source revision. The two SH-1.2 reference schemas remain unchanged; seven unmodified Poppy schemas are included for offline envelope checks. SOURCES.md and SOURCE-LOCK.json record provenance and hashes.
+Checked locally for review package draft 4 on 2 November 2026: **41 unittest tests passed**. The package targets extension version 2 / draft 2026-11-02-r4, Poppy draft 0.3 and Operations version 2 at the pinned source revision. The two SH-1.2 reference schemas remain unchanged; twelve unmodified Poppy schemas are included for offline envelope checks. SOURCES.md and SOURCE-LOCK.json record provenance and hashes.
 
 The checks cover complete example requests/events/discovery documents against upstream shapes, supported draft/version, operation revision strings versus SH revision integers, decision vocabulary, non-allow reasons, declared roles, record placement and operation binding, declaration and operation references, assessment history, relayed-report status, discovery dependencies and reference checksums. Scenario checks distinguish a denied voucher from a held replacement, preserve the no-credit boundary, separate arrangement from delivery, and retain a later restriction without rewriting the earlier assessment.
+
+Additional migration checks reject legacy SH and Operations placement even where Poppy's permissive base schema accepts the unknown fields. They check supported version/draft advertisements in supplied fixtures, malformed Operations content, coexistence with Links and Disclosures, and the distinct opening-request shape for a Company-first Direct Conversation. The fixtures do not exercise actual metadata fetching, notice display, skill execution or Direct Conversation ownership enforcement.
 
 These are structural and fixture consistency tests. Although complete example envelopes are now checked, this is not full Poppy conformance validation. Sender checks in the fixtures do not authenticate a real sender. No server runs, no principal or delegation is verified, no real execution is blocked and no human receives a handover. The tests are not a certification suite and do not establish that this extension is live in Neos OS.
 
@@ -17,6 +19,7 @@ Before a live support claim, test the declared scope against an actual personal-
 - The receiving staff actually see blocked actions, reasons, missing information and restrictions. A transfer or fresh contact does not lift them.
 - Unknown extensions and mismatched drafts receive the specified fallback without losing ordinary assistance or disclosing protected information.
 - A principal's approval is independently checkable where required; an agent-supplied code, assertion or revised declaration does not manufacture it.
+- A short or ambiguous reply does not clear a hold. Links, notices and skills cannot become permission, and Direct Conversation visibility is respected when selecting an evidence channel.
 - Necessary support is provided for a relayed concern without treating it as a diagnosis or using it to profile the person.
 - Cancellation/recovery after commitment respects what actually happened; a late concern does not rewrite an operation's history.
 

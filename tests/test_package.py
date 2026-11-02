@@ -11,38 +11,59 @@ from referencing import Registry, Resource
 ROOT=Path(__file__).resolve().parents[1]
 EXT='dualcx.com/service-handshake'
 BASE='https://personalagentprotocol.org/kit/company/schemas/'
-SID='urn:dualcx:service-handshake:poppy:2:draft:2026-11-02'
+SID='urn:dualcx:service-handshake:poppy:2:draft:2026-11-02-r4'
 SCHEMAS=[json.loads(p.read_text()) for p in sorted(ROOT.glob('reference/*.json'))]
 SCHEMAS.append(json.loads((ROOT/'schema/sh-poppy-extension.schema.json').read_text()))
 POPPY={p.name:json.loads(p.read_text()) for p in (ROOT/'reference/poppy').glob('*.json')}
 REGISTRY=Registry().with_resources([(s['$id'],Resource.from_contents(s)) for s in SCHEMAS]+[(BASE+n,Resource.from_contents(s)) for n,s in POPPY.items()])
 def read(name):return json.loads((ROOT/'examples'/name).read_text())
-def record(name):return read(name)['message']['data'][EXT]
+def record(name):return read(name)['message']['extensions'][EXT]
 def validator(definition='messageRecord'):return Draft202012Validator({'$ref':SID+'#/$defs/'+definition},registry=REGISTRY,format_checker=FormatChecker())
 def base_validator(name):return Draft202012Validator({'$ref':BASE+name},registry=REGISTRY,format_checker=FormatChecker())
 def records():
-    return [v for e in read('manifest.json') if (v:=read(e['file']).get('message',{}).get('data',{}).get(EXT))]
+    return [v for e in read('manifest.json') if (v:=read(e['file']).get('message',{}).get('extensions',{}).get(EXT))]
 
 def check_message_semantics(value):
     """Fixture sender/placement checks, not authentication of a real sender."""
-    msg=value['message'];company=value.get('type')=='message' and msg.get('role')=='company'
-    if 'sender' in msg:raise ValueError('legacy sender')
+    msg=value['message']
+    company=value.get('type')=='message' and msg.get('role')=='company'
+    exts=msg.get('extensions',{})
+    operations=exts.get('operations',{})
+    if any(k in msg for k in ('sender','operation','approval')):
+        raise ValueError('legacy message field')
+    if EXT in msg.get('data',{}):
+        raise ValueError('legacy SH placement')
     if value.get('type')!='message' and 'role' in msg:raise ValueError('client role')
     if not company and any(k in msg['author'] for k in ('id','name','image')):raise ValueError('client company-author fields')
-    if 'operation' in msg and not company:raise ValueError('client operation')
-    if 'approval' in msg and (company or msg['author']['type']!='agent'):raise ValueError('approval sender')
+    if 'operation' in operations and not company:raise ValueError('client operation')
+    if 'approval' in operations and (company or msg['author']['type']!='agent'):raise ValueError('approval sender')
     if company and 'context' in msg:raise ValueError('company context')
-    rec=msg.get('data',{}).get(EXT)
+    if not company and any(k in exts for k in ('links','disclosures')):raise ValueError('company-only extension')
+    rec=exts.get(EXT)
     if rec:
         if rec['type'] in ('assessment','operation_binding') and not company:raise ValueError('client trusted company record')
         if rec['type']=='operation_binding':
-            op=msg.get('operation')
+            op=operations.get('operation')
             if not op or any(op[k]!=rec[k] for k in ('operation_id','revision')):raise ValueError('binding mismatch')
         if rec['type']=='assessment' and rec['decision']=='allow':
             if datetime.fromisoformat(rec['valid_until'])<=datetime.fromisoformat(rec['assessed_at']):raise ValueError('allow interval')
-    if 'operation' in msg:
+    if 'operation' in operations:
         if not rec or rec['type']!='operation_binding':raise ValueError('unbound SH example operation')
-        if any(k in msg['operation'] for k in ('state','confirmation','result','user_approval_required',EXT)):raise ValueError('legacy operation')
+        if any(k in operations['operation'] for k in ('state','confirmation','result','user_approval_required',EXT)):raise ValueError('legacy operation')
+
+def check_fixture_negotiation(value, company, client):
+    """Checks supplied fixture advertisements, not live metadata or negotiation."""
+    ce=company.get('extensions',{});pe=client.get('extensions',{})
+    for name in value.get('message',{}).get('extensions',{}):
+        if name not in ce or name not in pe or ce[name]['version']!=pe[name]['version']:
+            raise ValueError('extension not mutually advertised at same version')
+        if name==EXT:
+            rec=value['message']['extensions'][name]
+            if any(e[name]['version']!=rec['version'] or e[name]['draft_revision']!=rec['draft_revision'] for e in (ce,pe)):
+                raise ValueError('SH draft mismatch')
+    if 'operations' in value.get('message',{}).get('extensions',{}):
+        if not all(e.get(EXT,{}).get('operations_binding') for e in (ce,pe)):
+            raise ValueError('SH Operations binding not agreed')
 
 class PackageChecks(unittest.TestCase):
     def reject(self,value,definition='messageRecord'):self.assertTrue(list(validator(definition).iter_errors(value)))
@@ -87,7 +108,7 @@ class PackageChecks(unittest.TestCase):
         v=record('assessment-hold.json');v['declaration_refs'][1]['party_role']='consumer';self.reject(v)
 
     def test_old_version_and_draft(self):
-        for f,x in [('version','1'),('draft_revision','2026-10-11')]:
+        for f,x in [('version','1'),('draft_revision','2026-10-11'),('draft_revision','2026-11-02')]:
             v=record('assessment-hold.json');v[f]=x;self.reject(v)
 
     def test_poppy_revision_string(self):
@@ -110,11 +131,11 @@ class PackageChecks(unittest.TestCase):
     def test_binding_placement(self):
         self.reject(record('replacement-hold.json'),'operationBinding')
         validator().validate(record('replacement-operation.json'))
-        v=read('replacement-operation.json');del v['message']['operation']
+        v=read('replacement-operation.json');del v['message']['extensions']['operations']['operation']
         with self.assertRaises(ValueError):check_message_semantics(v)
 
     def test_binding_revision_matches(self):
-        v=read('replacement-operation.json');v['message']['operation']['revision']='changed'
+        v=read('replacement-operation.json');v['message']['extensions']['operations']['operation']['revision']='changed'
         with self.assertRaises(ValueError):check_message_semantics(v)
 
     def test_discovery_scope_and_operations_v2(self):
@@ -145,11 +166,11 @@ class PackageChecks(unittest.TestCase):
         with self.assertRaises(ValueError):check_message_semantics(v)
 
     def test_company_cannot_supply_user_approval(self):
-        v=read('replacement-allow.json');v['message']['approval']={'operation_id':'op-replacement-1','revision':'rev-replacement-a'}
+        v=read('replacement-allow.json');v['message']['extensions']['operations']={'approval':{'operation_id':'op-replacement-1','revision':'rev-replacement-a'}}
         with self.assertRaises(ValueError):check_message_semantics(v)
 
     def test_allow_interval(self):
-        v=read('replacement-allow.json');v['message']['data'][EXT]['valid_until']='2026-11-02T12:00:00Z'
+        v=read('replacement-allow.json');v['message']['extensions'][EXT]['valid_until']='2026-11-02T12:00:00Z'
         with self.assertRaises(ValueError):check_message_semantics(v)
 
     def test_declaration_refs_and_principal(self):
@@ -166,11 +187,11 @@ class PackageChecks(unittest.TestCase):
         ops={}
         for e in read('manifest.json'):
             msg=read(e['file']).get('message',{})
-            if 'operation' in msg:
-                op=msg['operation'];k=(op['operation_id'],op['revision']);self.assertNotIn(k,ops);ops[k]=op
+            if 'operation' in msg.get('extensions',{}).get('operations',{}):
+                op=msg['extensions']['operations']['operation'];k=(op['operation_id'],op['revision']);self.assertNotIn(k,ops);ops[k]=op
         for e in read('manifest.json'):
-            msg=read(e['file']).get('message',{});r=msg.get('data',{}).get(EXT,{})
-            ref=r.get('proposal',{}).get('operation') or msg.get('approval')
+            msg=read(e['file']).get('message',{});r=msg.get('extensions',{}).get(EXT,{})
+            ref=r.get('proposal',{}).get('operation') or msg.get('extensions',{}).get('operations',{}).get('approval')
             if ref:self.assertIn((ref['operation_id'],ref['revision']),ops)
 
     def test_supersession_keeps_case_and_proposal(self):
@@ -209,6 +230,72 @@ class PackageChecks(unittest.TestCase):
         self.assertEqual({'authority_unresolved','relayed_alarm_dependency'},{reason['code'] for reason in r['reasons']})
         self.assertEqual({'hold','escalate'},{restriction['decision'] for restriction in h['restrictions']})
         self.assertTrue(h['support_instructions'])
+
+
+    def test_legacy_sh_placement_cannot_satisfy_binding(self):
+        v=read('replacement-hold.json');m=v['message']
+        m['data']={EXT:m['extensions'].pop(EXT)}
+        # Base schemas permit unknown ordinary data. The binding must still reject it.
+        base_validator('event.schema.json').validate(v)
+        with self.assertRaises(ValueError):check_message_semantics(v)
+
+    def test_legacy_operation_and_approval_cannot_satisfy_binding(self):
+        for name,field in [('replacement-operation.json','operation'),('replacement-approval.json','approval')]:
+            v=read(name);m=v['message']
+            m[field]=m['extensions'].pop('operations')[field]
+            base_validator('message.schema.json').validate(m)
+            with self.assertRaises(ValueError):check_message_semantics(v)
+
+    def test_operations_content_requires_one_kind(self):
+        op=read('replacement-operation.json')['message']['extensions']['operations']['operation']
+        approval=read('replacement-approval.json')['message']['extensions']['operations']['approval']
+        for content in [{},{'operation':op,'approval':approval},{'approval':{'operation_id':'x','revision':1}}]:
+            v=read('replacement-approval.json');v['message']['extensions']['operations']=content
+            self.assertTrue(list(base_validator('conversation-message-request.schema.json').iter_errors(v)))
+
+    def test_extension_value_must_be_object(self):
+        v=read('message-declaration.json');v['message']['extensions'][EXT]='approve everything'
+        self.assertTrue(list(base_validator('conversation-request.schema.json').iter_errors(v)))
+
+    def test_examples_have_mutual_extension_agreement(self):
+        for e in read('manifest.json'):
+            check_fixture_negotiation(read(e['file']),read('company-discovery.json'),read('client-metadata.json'))
+
+    def test_unadvertised_or_mismatched_extension_is_not_sent(self):
+        for which in ('company','client'):
+            for mode in ('missing','version','draft'):
+                c=read('company-discovery.json');a=read('client-metadata.json')
+                exts=(c if which=='company' else a)['extensions']
+                if mode=='missing':del exts[EXT]
+                elif mode=='version':exts[EXT]['version']='1'
+                else:exts[EXT]['draft_revision']='2026-11-02'
+                with self.assertRaises(ValueError):check_fixture_negotiation(read('replacement-hold.json'),c,a)
+
+    def test_operations_support_and_binding_are_both_needed(self):
+        for mode in ('missing','version','binding'):
+            c=read('company-discovery.json');a=read('client-metadata.json')
+            if mode=='missing':del a['extensions']['operations']
+            elif mode=='version':a['extensions']['operations']['version']='1'
+            else:a['extensions'][EXT]['operations_binding']=False
+            with self.assertRaises(ValueError):check_fixture_negotiation(read('replacement-operation.json'),c,a)
+
+    def test_links_and_disclosures_can_coexist_without_changing_hold(self):
+        v=read('replacement-hold.json');before=copy.deepcopy(v['message']['extensions'][EXT])
+        v['message']['extensions']['links']={'items':[{'url':'https://shop.example/returns','title':'Returns policy'}]}
+        v['message']['extensions']['disclosures']={'items':[{'text':'Replacement delivery requires an agreed date.'}]}
+        c=read('company-discovery.json');a=read('client-metadata.json')
+        for e in (c,a):
+            e['extensions'].update(links={'version':'1'},disclosures={'version':'1'})
+        base_validator('event.schema.json').validate(v);check_message_semantics(v);check_fixture_negotiation(v,c,a)
+        self.assertEqual(before,v['message']['extensions'][EXT])
+        self.assertEqual('hold',v['message']['extensions'][EXT]['decision'])
+
+    def test_company_first_direct_invitation_uses_opening_schema(self):
+        v={'parent_conversation_id':'cnv-parent','user_requested_event_id':'evt-invite'}
+        base_validator('conversation-request.schema.json').validate(v)
+        self.assertTrue(list(base_validator('conversation-message-request.schema.json').iter_errors(v)))
+        del v['parent_conversation_id']
+        self.assertTrue(list(base_validator('conversation-request.schema.json').iter_errors(v)))
 
     def test_reference_hashes(self):
         lock=json.loads((ROOT/'SOURCE-LOCK.json').read_text())

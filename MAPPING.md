@@ -20,10 +20,23 @@ Poppy covers identity, delegated account access, conversations, handoff and dire
 
 SH adds explicit service-assessment expectations for adopters, including both parties' boundaries, evidence appropriate to the action, required safeguarding, explanations and continuity. It is not the only possible service policy framework, and this proposal does not claim that a core Poppy implementer cannot provide those controls independently.
 
+## Additional capabilities in the 2 November Poppy revision
+
+| Poppy capability | How SH uses or complements it |
+|---|---|
+| Operations approval | Check the particular proposal against both parties' boundaries and the evidence the action requires. Preserve base approval and retry protections. |
+| Alternatives and feedback | Consider an available remedy or route without treating it as approval, lifting restrictions or closing the unresolved case. |
+| Links and Disclosures | Communicate policy and notices. Receipt is not consent, independent proof or adoption of a policy. |
+| Company skill index | Discover task workflows. Skills do not expand customer authority or override SH restrictions. Optional policy packs remain separate future work. |
+| Direct Conversations | Bring the User into the exchange while retaining restrictions. The Personal Agent may observe it; independent evidence needs its own trusted mechanism. |
+| Explicit replies | Resolve ambiguous answers before relying on them to approve an action or clear a hold. |
+
+These are complementary requirements for parties adopting the extension, not a claim that Poppy implementations cannot perform service assessment without it.
+
 ## Attachment points and design decisions
 
 - Discovery uses the domain-named extension and exact draft agreement. Action categories describe supported meaning, not what each side is authorised to do.
-- Records use `message.data`. A Company operation message may pair an operation with a separate binding record in `data`; no custom operation members are added.
+- SH records use `message.extensions["dualcx.com/service-handshake"]`; the published exchange schema defines that value. Operations uses `message.extensions.operations`. A Company message pairs an operation with its SH binding in these separate extension slots; no custom operation members are added.
 - Assessments remain separate from declarations, credentials and execution results. Company checks apply locally at commitment.
 - The additional SH block after operation approval is proposed composition, not a published Poppy base guarantee. It uses a Company assessment message and preserves base retry semantics. It needs joint implementer review and live testing.
 - Custom malformed-record/conflicting-record errors in §11 remain proposed extension validation behaviour. They do not change base authentication or message-conflict errors.

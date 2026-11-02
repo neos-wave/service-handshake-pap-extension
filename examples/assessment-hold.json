@@ -5,10 +5,14 @@
   "message": {
     "id": "msg-hold-1",
     "text": "Cancellation is held pending authority for that action. Permitted billing help remains available.",
-    "data": {
+    "role": "company",
+    "author": {
+      "type": "agent"
+    },
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "summary-1",
         "type": "assessment",
         "case_ref": "family-1",
@@ -41,10 +45,6 @@
         ],
         "responsible_role": "Account authority team"
       }
-    },
-    "role": "company",
-    "author": {
-      "type": "agent"
     }
   }
 }

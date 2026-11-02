@@ -1,17 +1,26 @@
-# Migration from extension version 1
+# Migration to review draft 4
 
 This is a new independent extension draft, not an upgrade to the SH framework. Preserve the earlier proposal in repository history or a release; do not reinterpret its records as version 2.
 
 | Earlier package | New review package |
 |---|---|
-| Extension `"1"`, wire draft `2026-10-11` | Extension `"2"`, wire draft `2026-11-02` |
+| Extension `"1"`, wire draft `2026-10-11` | Extension `"2"`, wire draft `2026-11-02-r4` |
 | Poppy 0.1 / Operations 1 | Pinned Poppy 0.3 / Operations 2 |
 | Integer operation revisions | Opaque Poppy string revisions; SH declaration revisions remain integers |
 | `sender` in messages | Current `author` object; Company-set event role |
-| Binding inside operation | Binding inside the accompanying Company's `message.data` |
-| Confirmation endpoint and proposed-state assumptions | Conversation approval field and ordinary Company assessment replies |
+| Binding inside operation | Binding in `message.extensions["dualcx.com/service-handshake"]`, alongside `extensions.operations.operation` |
+| Confirmation endpoint and proposed-state assumptions | `extensions.operations.approval` and ordinary Company assessment replies |
 | Custom HTTP 409 action-block response | Removed; a not-started action block is explained in a Company message |
 | Nested payload validation only | Full example envelopes checked against pinned upstream schemas plus extension checks |
+
+## From the earlier version-2 draft issued on 2 November
+
+- Change the negotiated `draft_revision` from `2026-11-02` to `2026-11-02-r4`; do not advertise both placements as the same draft.
+- Move SH message records from `data["dualcx.com/service-handshake"]` to `extensions["dualcx.com/service-handshake"]`.
+- Move message `operation` and `approval` into `extensions.operations`. Preserve the separate SH operation binding; do not insert it inside the operation.
+- Use the new follow-up message request schema for subsequent messages; the opening request schema now also handles accepted Direct Conversation invitations.
+- Replace pinned upstream schema copies and their dependencies together, then validate both new examples and rejection of legacy placement. Permissive base schemas may accept unknown old fields without giving them current protocol meaning.
+- Keep historical records under their original revision. Reassess pending work deliberately; migration never grants approval or silently clears a restriction.
 
 Steps for a future implementation:
 

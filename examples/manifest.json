@@ -5,7 +5,7 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
@@ -15,7 +15,7 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
@@ -25,7 +25,7 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
@@ -35,7 +35,7 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
@@ -45,7 +45,7 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
@@ -64,7 +64,7 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
@@ -79,17 +79,17 @@
   },
   {
     "file": "delivery-declaration-revised.json",
-    "base_schema": "conversation-request.schema.json",
+    "base_schema": "conversation-message-request.schema.json",
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
   {
     "file": "family-approval.json",
-    "base_schema": "conversation-request.schema.json"
+    "base_schema": "conversation-message-request.schema.json"
   },
   {
     "file": "family-company-declaration.json",
@@ -97,17 +97,17 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
   {
     "file": "family-declaration-revised.json",
-    "base_schema": "conversation-request.schema.json",
+    "base_schema": "conversation-message-request.schema.json",
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
@@ -117,17 +117,17 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
   {
     "file": "handover.json",
-    "base_schema": "conversation-request.schema.json",
+    "base_schema": "conversation-message-request.schema.json",
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
@@ -137,7 +137,7 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
@@ -147,17 +147,17 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
   {
     "file": "relayed-concern.json",
-    "base_schema": "conversation-request.schema.json",
+    "base_schema": "conversation-message-request.schema.json",
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
@@ -167,13 +167,13 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
   {
     "file": "replacement-approval.json",
-    "base_schema": "conversation-request.schema.json"
+    "base_schema": "conversation-message-request.schema.json"
   },
   {
     "file": "replacement-arranged.json",
@@ -189,7 +189,7 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
@@ -199,13 +199,13 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   },
   {
     "file": "replacement-request.json",
-    "base_schema": "conversation-request.schema.json"
+    "base_schema": "conversation-message-request.schema.json"
   },
   {
     "file": "voucher-denied.json",
@@ -213,7 +213,7 @@
     "definition": "messageRecord",
     "pointer": [
       "message",
-      "data",
+      "extensions",
       "dualcx.com/service-handshake"
     ]
   }

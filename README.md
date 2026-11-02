@@ -17,11 +17,19 @@ The [complete worked journey](examples/README.md) follows the replacement throug
 
 ## How it fits with Poppy
 
-Poppy supplies discovery, identity, account access and interaction mechanisms. Its Operations extension supports approval of particular terms. Its task-coverage features can describe another way to complete a task or another task serving the same need. SH does not claim these capabilities are missing.
+Poppy supplies discovery, identity, account access and interaction mechanisms. Its Operations extension supports approval of particular terms. Its task-coverage features can describe another way to complete a task or another task serving the same need. It also supports structured links and disclosures, and optional company task guides through a skill index. SH does not claim these capabilities are missing.
 
 This extension adds shared service requirements for adopters: declarations from both parties, an assessment of each proposal, reasons and next steps, safeguards and continuity through handover. The company implements the checks; an exchanged record does not enforce them or become a credential. Existing trusted processes may supply the necessary evidence.
 
 The extension’s conversation binding includes a proposed additional SH check before commitment. If a new restriction blocks an approved operation before it starts, the company reports that through a normal assessment message. The exact composition with Poppy’s Operations flow remains a design question for implementer review; this package does not claim agreed interoperability.
+
+## What SH adds to these capabilities
+
+Poppy can carry an offer, an approval, a notice or an alternative. This proposal gives adopters a common way to assess that offer against both parties' declared goals and constraints, explain a restriction and preserve it through the next step.
+
+In the damaged-order example, Poppy carries the voucher and replacement discussion. SH requires the company to respect the customer's no-credit boundary, deny that proposal without closing the case, explain the replacement hold and reassess when the required evidence arrives. The customer agent can keep exploring permitted options. Neither a new link, a task guide nor a short reply clears the hold by itself.
+
+These requirements can be implemented independently by a company; SH offers a shared framework and record format. It does not claim exclusive capability or replace Poppy's approval and retry protections.
 
 ## Start reading
 
@@ -38,15 +46,15 @@ The extension’s conversation binding includes a proposed additional SH check b
 |---|---|
 | Extension name | `dualcx.com/service-handshake` |
 | Proposed extension major version | `"2"` |
-| Wire draft | `2026-11-02` |
-| Package | Review draft 3, 2 November 2026 |
+| Wire draft | `2026-11-02-r4` |
+| Package | Review draft 4, 2 November 2026 |
 | Poppy baseline | Draft 0.3; Operations version `"2"`; exact source revision in SOURCES.md |
 | Service framework | [Published SH-1.2](https://zenodo.org/records/23181969) |
 | Binding covered | Native conversations and Operations in those conversations |
 | Author / publisher | Maria McCann / Neos Wave Ltd, Dual CX |
 | Licence | Apache 2.0; see LICENSE and NOTICE |
 
-The extension’s version 2 is **not Service Handshake 2.0**. The SH declaration and action-assessment reference schemas remain unchanged. Version 1 and its draft date are not compatible with this update. Exact extension-version and draft agreement is required during review; future stable compatibility rules remain to be defined.
+The extension’s version 2 is **not Service Handshake 2.0**. The SH declaration and action-assessment reference schemas remain unchanged. Version 1 and the earlier version-2 draft `2026-11-02` are not compatible with this update. The `-r4` suffix identifies the later same-day revision; it is not a new SH edition. Exact extension-version and draft agreement is required during review; future stable compatibility rules remain to be defined.
 
 API, MCP and browser extension bindings are not supplied here. Alternative channels must still enforce applicable service restrictions, but their SH exchange formats are outside this draft. Unsupported agents retain proportionate assistance and an appropriate human route.
 

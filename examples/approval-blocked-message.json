@@ -8,10 +8,11 @@
       "type": "agent"
     },
     "text": "Separate branch: cancellation has NOT started. Approval does not remove the new hold. A colleague must review the alarm dependency; permitted billing help remains available.",
-    "data": {
+    "role": "company",
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "family-late-hold-record",
         "type": "assessment",
         "case_ref": "family-1",
@@ -49,7 +50,6 @@
         "responsible_role": "Account authority team",
         "supersedes": "assessment-2"
       }
-    },
-    "role": "company"
+    }
   }
 }

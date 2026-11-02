@@ -2,10 +2,13 @@
   "message": {
     "id": "msg-family-2",
     "text": "Following the provider-established delegation, these updated terms record the limited cancellation authority. This message is not the evidence of that delegation.",
-    "data": {
+    "author": {
+      "type": "agent"
+    },
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "record-family-2",
         "type": "declaration",
         "party_role": "consumer",
@@ -89,9 +92,6 @@
           }
         }
       }
-    },
-    "author": {
-      "type": "agent"
     }
   }
 }

@@ -8,41 +8,43 @@
       "type": "agent"
     },
     "text": "A replacement is available on these terms. It has not been arranged. Please obtain the customer’s approval.",
-    "operation": {
-      "operation_id": "op-replacement-1",
-      "revision": "rev-replacement-a",
-      "summary": "Replace the damaged kettle on order order-1 with one new kettle of the same model K100, colour white, at no charge, delivered to the existing verified order address by 6 November 2026. No return of the damaged item is required. No account details change, no new purchase or subscription is created, and no additional waiver of rights is requested. This approves arranging the replacement; delivery will be tracked separately.",
-      "terms": {
-        "order_ref": "order-1",
-        "model": "K100",
-        "colour": "white",
-        "quantity": 1,
-        "condition": "new",
-        "amount_minor": 0,
-        "currency": "GBP",
-        "delivery_address_ref": "existing-verified-order-address",
-        "delivery_by": "2026-11-06",
-        "return_required": false,
-        "account_changes": false,
-        "new_purchase": false,
-        "new_subscription": false,
-        "additional_rights_waiver": false,
-        "action": "arrange_replacement"
-      },
-      "expires_at": "2026-11-02T13:00:00Z"
-    },
-    "data": {
+    "role": "company",
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "replacement-binding-1",
         "type": "operation_binding",
         "case_ref": "delivery-1",
         "proposal_ref": "replacement-proposal-1",
         "operation_id": "op-replacement-1",
         "revision": "rev-replacement-a"
+      },
+      "operations": {
+        "operation": {
+          "operation_id": "op-replacement-1",
+          "revision": "rev-replacement-a",
+          "summary": "Replace the damaged kettle on order order-1 with one new kettle of the same model K100, colour white, at no charge, delivered to the existing verified order address by 6 November 2026. No return of the damaged item is required. No account details change, no new purchase or subscription is created, and no additional waiver of rights is requested. This approves arranging the replacement; delivery will be tracked separately.",
+          "terms": {
+            "order_ref": "order-1",
+            "model": "K100",
+            "colour": "white",
+            "quantity": 1,
+            "condition": "new",
+            "amount_minor": 0,
+            "currency": "GBP",
+            "delivery_address_ref": "existing-verified-order-address",
+            "delivery_by": "2026-11-06",
+            "return_required": false,
+            "account_changes": false,
+            "new_purchase": false,
+            "new_subscription": false,
+            "additional_rights_waiver": false,
+            "action": "arrange_replacement"
+          },
+          "expires_at": "2026-11-02T13:00:00Z"
+        }
       }
-    },
-    "role": "company"
+    }
   }
 }

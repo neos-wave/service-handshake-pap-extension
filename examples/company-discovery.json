@@ -2,7 +2,7 @@
   "extensions": {
     "dualcx.com/service-handshake": {
       "version": "2",
-      "draft_revision": "2026-11-02",
+      "draft_revision": "2026-11-02-r4",
       "profile": "participation",
       "actions": [
         "refund",

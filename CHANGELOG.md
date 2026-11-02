@@ -1,5 +1,17 @@
 # Changelog
 
+## Review draft 4 - 2 November 2026
+
+Wire draft `2026-11-02-r4`, extension major version `"2"`; SH remains 1.2. This supersedes the earlier same-day extension draft and pins Poppy commit `5313d8441abb55d2004e5fbc2a4fdab4af1624b3`.
+
+- Moved SH records to the domain-named message extension slot and Operations content to `extensions.operations`.
+- Published the message-content schema relationship, refreshed upstream schemas and separated opening from follow-up request validation.
+- Added negative checks for legacy placement, malformed Operations content and unsupported or mismatched extension exchange.
+- Recognised Links, Disclosures, skills and expanded alternatives without treating them as authority or policy adoption.
+- Clarified Direct Conversation visibility and ambiguous replies; neither supplies independent approval evidence by itself.
+- Retained proposal-level decisions, continued service, both-party boundaries, safeguarding and the explicit unresolved post-approval composition question.
+- Updated positioning, migration and review guidance; no deployment or endorsement claim added.
+
 ## Review draft 3 — 2 November 2026
 
 Incompatible extension update: proposed major version `"2"`, wire draft `2026-11-02`. SH remains 1.2.

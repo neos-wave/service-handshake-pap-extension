@@ -8,10 +8,11 @@
       "type": "agent"
     },
     "text": "Illustrative trusted-process result: the company has verified approval evidence for these terms, checked its own authority and all remaining conditions, and recorded ALLOW. The replacement is not yet confirmed as arranged.",
-    "data": {
+    "role": "company",
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "replacement-allow-record",
         "type": "assessment",
         "case_ref": "delivery-1",
@@ -44,7 +45,6 @@
         "supersedes": "replacement-hold",
         "valid_until": "2026-11-02T12:15:00Z"
       }
-    },
-    "role": "company"
+    }
   }
 }

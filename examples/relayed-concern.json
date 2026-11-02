@@ -2,10 +2,13 @@
   "message": {
     "id": "msg-concern-1",
     "text": "I am relaying a concern about an alarm connection. This is a report, not a verified technical finding.",
-    "data": {
+    "author": {
+      "type": "agent"
+    },
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "concern-1",
         "type": "concern",
         "case_ref": "family-1",
@@ -15,9 +18,6 @@
         "affected_party_ref": "mother-case-1",
         "requested_support": "Check continuity of the alarm service before any cancellation."
       }
-    },
-    "author": {
-      "type": "agent"
     }
   }
 }

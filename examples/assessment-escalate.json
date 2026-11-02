@@ -5,10 +5,14 @@
   "message": {
     "id": "msg-family-escalate",
     "text": "The relayed alarm concern requires a service continuity review. Cancellation remains blocked; the unresolved authority check also remains in force.",
-    "data": {
+    "role": "company",
+    "author": {
+      "type": "agent"
+    },
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "family-escalate-record",
         "type": "assessment",
         "case_ref": "family-1",
@@ -47,10 +51,6 @@
         "responsible_role": "Service Continuity Team",
         "supersedes": "assessment-1"
       }
-    },
-    "role": "company",
-    "author": {
-      "type": "agent"
     }
   }
 }

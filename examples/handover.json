@@ -2,10 +2,13 @@
   "message": {
     "id": "msg-handover-1",
     "text": "Please preserve both the unresolved cancellation authority and the reported alarm concern when a colleague joins. Neither is resolved by handover.",
-    "data": {
+    "author": {
+      "type": "agent"
+    },
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "handover-1",
         "type": "handover",
         "case_ref": "family-1",
@@ -55,9 +58,6 @@
           "Preserve permitted billing assistance while cancellation is restricted."
         ]
       }
-    },
-    "author": {
-      "type": "agent"
     }
   }
 }

@@ -2,7 +2,7 @@
 
 All people, companies, identifiers and evidence references are fictional. Files illustrate exchange and sequence; they do not contact a service, establish legal entitlement or verify a real approval. Dates are fixed for repeatable checks, not live validity windows.
 
-The complete discovery and client documents describe fictional endpoints and keys that do not exist. They demonstrate shape; they are not deployable authentication configuration. `manifest.json` identifies each full Poppy envelope and any nested extension record.
+The complete discovery and client documents describe fictional endpoints and keys that do not exist. They demonstrate shape; they are not deployable authentication configuration. `manifest.json` identifies each full Poppy envelope and any nested extension record. SH records are in `message.extensions["dualcx.com/service-handshake"]`; Operations content is in `message.extensions.operations`. Ordinary business-result data remains in `message.data`. The initial customer declaration opens each conversation; subsequent personal-agent messages use the follow-up request schema.
 
 ## 1. A damaged order: refund or replacement
 
@@ -14,7 +14,7 @@ The customer received a damaged kettle. They prefer a full refund, would accept 
 | Establish company terms | [company-declaration.json](company-declaration.json) | Company declaration and relevant boundaries. |
 | Refuse one remedy | [voucher-denied.json](voucher-denied.json) | DENY the voucher. This is not closure of the damaged-order case. |
 | Explore an acceptable option | [replacement-request.json](replacement-request.json) | Ask about an equivalent replacement; retain the refund option. |
-| Present the exact offer | [replacement-operation.json](replacement-operation.json) | Poppy operation plus SH binding in message.data; no extra fields inside the operation. |
+| Present the exact offer | [replacement-operation.json](replacement-operation.json) | Poppy operation in `message.extensions.operations` plus SH binding in its separate domain-named extension slot; no extra fields inside the operation. |
 | Identify what is missing | [replacement-hold.json](replacement-hold.json) | HOLD for approval and required independent evidence. |
 | Obtain operation approval | [replacement-approval.json](replacement-approval.json) | Agent reports the user's approval through Poppy. This is not independent proof. |
 | Record updated claimed authority | [delivery-declaration-revised.json](delivery-declaration-revised.json) | New declaration revision preserves no-credit and other boundaries. Its evidence reference is still a claim until checked. |
@@ -43,5 +43,5 @@ If execution has already started or its outcome is unknown, step 5 is not an app
 ## Other fixtures and limits
 
 - [assessment-incomplete.json](assessment-incomplete.json) illustrates an intake hold with no fabricated declaration references.
-- [company-discovery.json](company-discovery.json) and [client-metadata.json](client-metadata.json) show extension version 2, draft 2026-11-02 and Operations version 2.
+- [company-discovery.json](company-discovery.json) and [client-metadata.json](client-metadata.json) show extension version 2, draft 2026-11-02-r4 and Operations version 2.
 - The public tests check envelopes, records, bindings, preserved boundaries and narrative consistency. No live authentication, delegation proof, execution, human delivery or customer outcome is exercised.

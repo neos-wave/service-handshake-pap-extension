@@ -5,10 +5,14 @@
   "message": {
     "id": "msg-voucher-1",
     "text": "The £80 store-credit proposal conflicts with the customer’s no-credit boundary and is denied. The damaged-order case is still open; consider a full refund or an equivalent replacement.",
-    "data": {
+    "role": "company",
+    "author": {
+      "type": "agent"
+    },
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "summary-voucher",
         "type": "assessment",
         "case_ref": "delivery-1",
@@ -41,10 +45,6 @@
         ],
         "responsible_role": "Customer Care Team Lead"
       }
-    },
-    "role": "company",
-    "author": {
-      "type": "agent"
     }
   }
 }

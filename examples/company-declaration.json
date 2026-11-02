@@ -5,10 +5,14 @@
   "message": {
     "id": "msg-company-1",
     "text": "These are our service terms for this case.",
-    "data": {
+    "role": "company",
+    "author": {
+      "type": "agent"
+    },
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "record-company-1",
         "type": "declaration",
         "party_role": "company",
@@ -93,10 +97,6 @@
           }
         }
       }
-    },
-    "role": "company",
-    "author": {
-      "type": "agent"
     }
   }
 }

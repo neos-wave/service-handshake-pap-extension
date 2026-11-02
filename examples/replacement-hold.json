@@ -8,10 +8,11 @@
       "type": "agent"
     },
     "text": "The replacement has not been arranged. We are holding this action for approval and the required evidence; the service request remains open.",
-    "data": {
+    "role": "company",
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "replacement-hold-record",
         "type": "assessment",
         "case_ref": "delivery-1",
@@ -48,7 +49,6 @@
         ],
         "responsible_role": "Customer Care Team Lead"
       }
-    },
-    "role": "company"
+    }
   }
 }

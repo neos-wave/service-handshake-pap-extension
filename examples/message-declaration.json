@@ -2,10 +2,13 @@
   "message": {
     "id": "msg-1",
     "text": "I am an AI agent acting for the customer on this order. They prefer a refund, will consider a replacement, and refuse store credit.",
-    "data": {
+    "author": {
+      "type": "agent"
+    },
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "record-decl-1",
         "type": "declaration",
         "party_role": "consumer",
@@ -92,9 +95,6 @@
           "principal_ref": "customer-1"
         }
       }
-    },
-    "author": {
-      "type": "agent"
     }
   }
 }

@@ -6,6 +6,10 @@
 
 An existing open service framework, practical contact-centre questions and two service journeys. The direct-customer case follows an unacceptable voucher through an acceptable replacement, approval, execution and completion. The family case separates billing access, cancellation authority and continuity of an essential service.
 
+## What this update contributes
+
+This draft follows Poppy's 2 November extension-message structure and recognises its Links, Disclosures and skill-index capabilities. Our contribution is the service decision and continuity requirements: a refused voucher need not end the request, a held replacement needs a clear next step, and a human transfer must preserve restrictions. We propose using existing Poppy mechanisms where they fit and reviewing the additional commitment check with implementers.
+
 ## What we want to test together
 
 1. Can both sides exchange the minimum relevant boundaries without exposing private policy or customer information?

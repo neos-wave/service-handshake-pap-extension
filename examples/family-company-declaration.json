@@ -5,10 +5,14 @@
   "message": {
     "id": "msg-family-company-1",
     "text": "Our agent can offer and carry out a cancellation when the required authority and safeguards are established.",
-    "data": {
+    "role": "company",
+    "author": {
+      "type": "agent"
+    },
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "record-family-company-1",
         "type": "declaration",
         "party_role": "company",
@@ -81,10 +85,6 @@
           }
         }
       }
-    },
-    "role": "company",
-    "author": {
-      "type": "agent"
     }
   }
 }

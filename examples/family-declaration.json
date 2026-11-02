@@ -2,10 +2,13 @@
   "message": {
     "id": "msg-family-1",
     "text": "I am an AI agent acting for Priya in a request about her mother's broadband. Priya has recognised billing access; authority for cancellation has not been established.",
-    "data": {
+    "author": {
+      "type": "agent"
+    },
+    "extensions": {
       "dualcx.com/service-handshake": {
         "version": "2",
-        "draft_revision": "2026-11-02",
+        "draft_revision": "2026-11-02-r4",
         "record_id": "record-family-1",
         "type": "declaration",
         "party_role": "consumer",
@@ -88,9 +91,6 @@
           }
         }
       }
-    },
-    "author": {
-      "type": "agent"
     }
   }
 }
