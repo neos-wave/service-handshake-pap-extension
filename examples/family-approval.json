@@ -1,0 +1,13 @@
+{
+  "message": {
+    "id": "msg-family-approval",
+    "author": {
+      "type": "agent"
+    },
+    "text": "Priya approved this revision through the personal agent interface. This message is not independent evidence of the account holder’s delegation.",
+    "approval": {
+      "operation_id": "op-cancel-1",
+      "revision": "rev-cancel-a"
+    }
+  }
+}

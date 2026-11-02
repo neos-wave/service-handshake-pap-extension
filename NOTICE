@@ -1,15 +1,20 @@
 Service Handshake extension proposal for the Personal Agent Protocol (Poppy)
-Independent review package draft 2, 12 October 2026; wire draft 2026-10-11
+Independent review package draft 3, 2 November 2026
+Proposed extension major version 2; wire draft 2026-11-02
 Copyright 2026 Neos Wave Ltd. Author: Maria McCann.
 
-Based on The Service Handshake SH-1.2, DOI 10.5281/zenodo.23181969,
-and designed against Personal Agent Protocol Draft 0.1, updated 9 October 2026.
-This extension and its exchanged-record format are new work; they do not amend
-the published SH documents or the Poppy protocol. No affiliation or endorsement
-by Poppy's authors is claimed. See SOURCES.md for attribution and baselines.
+Based on The Service Handshake SH-1.2, DOI 10.5281/zenodo.23181969.
+Targets the pinned Personal Agent Protocol draft 0.3 / Operations version 2.
+This proposal does not amend either underlying standard and makes no claim
+of adoption, affiliation, certification, live deployment or endorsement.
 
-Reference SH schemas are reproduced unchanged, retaining their identifiers and
-notices. New specification text, schemas, examples and tests in this package
-are offered under Apache License 2.0. The SH papers retain CC BY 4.0.
-No permission to imply certification, endorsement, or unrestricted use of the
-Service Handshake name, logo or badge is supplied by this package.
+Reference SH schemas are unchanged, retaining their identifiers and notices.
+The files in reference/poppy are unmodified schemas from the
+personal-agent-protocol/personal-agent-protocol Company implementation kit,
+distributed under Apache License 2.0. Attribution, exact revision and hashes
+are in SOURCES.md and SOURCE-LOCK.json. The Apache licence is in LICENSE.
+
+New specification text, schema, examples and tests are offered under Apache 2.0.
+The SH papers retain CC BY 4.0. Open licences do not grant unrestricted use
+of the Service Handshake, Personal Agent Protocol or Poppy names, logos or
+badges, or permission to imply endorsement or certification.

@@ -1,16 +1,16 @@
 # Validation and remaining implementation work
 
-Rechecked locally for review package draft 2 on 12 October 2026: **16 unittest tests passed**, covering all manifest-listed extension payloads and the three schema documents. Schema references resolve offline. The two SH reference schemas were copied unchanged; their checksums are recorded in SOURCES.md. The exchange schema, examples and test source are also unchanged from review package draft 1.
+Checked locally for review package draft 3 on 2 November 2026: **32 unittest tests passed**. The package targets extension version 2 / draft 2026-11-02, Poppy draft 0.3 and Operations version 2 at the pinned source revision. The two SH-1.2 reference schemas remain unchanged; seven unmodified Poppy schemas are included for offline envelope checks. SOURCES.md and SOURCE-LOCK.json record provenance and hashes.
 
-The checks cover required fields, supported draft/version, exact decision vocabulary, missing-declaration holds, allowing-decision references and expiry, non-allow reasons, declaration shape, relayed-report status, record placement, namespaced action strings, discovery dependencies, case-reference consistency and the illustrated blocked-confirmation state.
+The checks cover complete example requests/events/discovery documents against upstream shapes, supported draft/version, operation revision strings versus SH revision integers, decision vocabulary, non-allow reasons, declared roles, record placement and operation binding, declaration and operation references, assessment history, relayed-report status, discovery dependencies and reference checksums. Scenario checks distinguish a denied voucher from a held replacement, preserve the no-credit boundary, separate arrangement from delivery, and retain a later restriction without rewriting the earlier assessment.
 
-These are structural and fixture consistency tests. They do not run a Poppy server, authenticate a principal, verify delegation, measure accessibility, prove a real execution guard or validate the complete base-protocol envelopes. They are not a certification suite and do not establish that this extension is live in Neos OS.
+These are structural and fixture consistency tests. Although complete example envelopes are now checked, this is not full Poppy conformance validation. Sender checks in the fixtures do not authenticate a real sender. No server runs, no principal or delegation is verified, no real execution is blocked and no human receives a handover. The tests are not a certification suite and do not establish that this extension is live in Neos OS.
 
 ## Required checks in a real implementation
 
 Before a live support claim, test the declared scope against an actual personal-agent client and company implementation. At minimum:
 
-- A direct confirmation attempt, alternate channel or repeated request cannot bypass a hold, denial or escalation.
+- An approval message, alternate channel or repeated request cannot bypass a hold, denial or escalation. Receipt of a message is not evidence of commitment.
 - A stale allow, changed declaration, changed operation terms, expired or revoked evidence, or a newly raised material concern prevents commitment until correctly reassessed.
 - Concurrent commitments and timeout recovery preserve the underlying operation's execution guarantees and applicable financial limits.
 - An incoming assessment, forged case reference, reused record ID or prompt-injection text cannot become trusted policy, authority or access to another case.
@@ -20,4 +20,4 @@ Before a live support claim, test the declared scope against an actual personal-
 - Necessary support is provided for a relayed concern without treating it as a diagnosis or using it to profile the person.
 - Cancellation/recovery after commitment respects what actually happened; a late concern does not rewrite an operation's history.
 
-The proposed confirmation guard and its error format should be reviewed with Poppy implementers before claiming interoperability. Deployment-specific authority rules, private tests and operational risk controls remain outside this public proposal.
+Review the proposed post-approval SH precondition and conversation response with Poppy implementers before claiming interoperability. In particular, agree what happens when a valid approval arrives after a new restriction and how a resolved hold resumes without duplicate or silent execution. Test malformed-record extension responses separately from base authentication, message-conflict and retry behaviour. Deployment-specific authority rules, private tests and operational risk controls remain outside this public proposal.

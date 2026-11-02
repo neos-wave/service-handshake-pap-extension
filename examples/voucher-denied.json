@@ -1,20 +1,19 @@
 {
   "id": "evt-msg-voucher-1",
   "type": "message",
-  "created_at": "2026-10-11T12:00:00Z",
+  "created_at": "2026-11-02T12:00:00Z",
   "message": {
     "id": "msg-voucher-1",
-    "sender": "agent",
-    "text": "This voucher proposal is denied. A replacement or refund must be considered separately.",
+    "text": "The £80 store-credit proposal conflicts with the customer’s no-credit boundary and is denied. The damaged-order case is still open; consider a full refund or an equivalent replacement.",
     "data": {
       "dualcx.com/service-handshake": {
-        "version": "1",
-        "draft_revision": "2026-10-11",
+        "version": "2",
+        "draft_revision": "2026-11-02",
         "record_id": "summary-voucher",
         "type": "assessment",
         "case_ref": "delivery-1",
         "assessment_ref": "assessment-voucher",
-        "assessed_at": "2026-10-11T12:00:00Z",
+        "assessed_at": "2026-11-02T12:00:00Z",
         "decision": "deny",
         "proposal": {
           "proposal_ref": "voucher-proposal-1",
@@ -40,9 +39,12 @@
             "required_next_step": "Consider a refund or replacement under a new proposal."
           }
         ],
-        "responsible_role": "Account authority team"
+        "responsible_role": "Customer Care Team Lead"
       }
     },
-    "role": "company"
+    "role": "company",
+    "author": {
+      "type": "agent"
+    }
   }
 }

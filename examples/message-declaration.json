@@ -1,12 +1,11 @@
 {
   "message": {
     "id": "msg-1",
-    "sender": "agent",
     "text": "I am an AI agent acting for the customer on this order. They prefer a refund, will consider a replacement, and refuse store credit.",
     "data": {
       "dualcx.com/service-handshake": {
-        "version": "1",
-        "draft_revision": "2026-10-11",
+        "version": "2",
+        "draft_revision": "2026-11-02",
         "record_id": "record-decl-1",
         "type": "declaration",
         "party_role": "consumer",
@@ -21,20 +20,20 @@
           "disclosure": {
             "ai_status": "ai",
             "representative_role": "customer_representative",
-            "disclosed_at": "2026-10-11T12:00:00Z",
+            "disclosed_at": "2026-11-02T12:00:00Z",
             "method": "first_contact_message"
           },
           "confirmation": {
             "status": "confirmed",
             "confirmer_ref": "personal-agent-1",
-            "confirmed_at": "2026-10-11T12:00:00Z",
+            "confirmed_at": "2026-11-02T12:00:00Z",
             "method": "customer_agent_records_own_terms"
           },
           "unresolved_fields": [
             "/authority_level/delegation_proof"
           ],
           "goals": {
-            "primary_goal": "Resolve damaged delivery: refund preferred, replacement acceptable, no credit",
+            "primary_goal": "Resolve damaged kettle delivery: refund preferred, equivalent replacement acceptable, no credit",
             "non_goals": [
               "Do not accept voucher settlement",
               "Do not change account details"
@@ -51,7 +50,9 @@
           },
           "data_permissions": {
             "data_sources_allowed": [
-              "order_reference"
+              "order_reference",
+              "delivery_address",
+              "service_case"
             ],
             "data_uses_allowed": [
               "problem_resolution"
@@ -81,7 +82,8 @@
               "accept_replacement"
             ],
             "authority_limits": [
-              "no_account_changes"
+              "no_account_changes",
+              "Ask the customer before committing to replacement terms"
             ]
           }
         },
@@ -90,6 +92,9 @@
           "principal_ref": "customer-1"
         }
       }
+    },
+    "author": {
+      "type": "agent"
     }
   }
 }

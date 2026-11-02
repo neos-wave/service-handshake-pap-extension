@@ -1,42 +1,47 @@
-# Worked exchanges
+# Worked journeys and example files
 
-All organisations, cases, IDs, limits and terms below are fictional. JSON files are message bodies, event bodies or labelled excerpts, not executable requests with real credentials. No raw evidence or private Neos procedures are included.
+All people, companies, identifiers and evidence references are fictional. Files illustrate exchange and sequence; they do not contact a service, establish legal entitlement or verify a real approval. Dates are fixed for repeatable checks, not live validity windows.
 
-## Discovery
+The complete discovery and client documents describe fictional endpoints and keys that do not exist. They demonstrate shape; they are not deployable authentication configuration. `manifest.json` identifies each full Poppy envelope and any nested extension record.
 
-`company-discovery.json` is an excerpt of company discovery. `client-metadata.json` is an excerpt of personal-agent metadata. They are not complete discovery documents. Both advertise the same extension draft and Operations support. The company identifies cancellation as requiring extension support on this path, while preserving assisted and human alternatives.
+## 1. A damaged order: refund or replacement
 
-## Case A: damaged delivery, no store credit
+The customer received a damaged kettle. They prefer a full refund, would accept the same model as a replacement, refuse credit and require approval before committing to replacement terms. Their agent's declaration describes those instructions; the company must verify authority separately.
 
-Read `message-declaration.json`, `company-declaration.json` and `voucher-denied.json`.
+| Step | File | Meaning |
+|---|---|---|
+| Establish customer terms | [message-declaration.json](message-declaration.json) | Customer declaration; authority evidence unresolved. |
+| Establish company terms | [company-declaration.json](company-declaration.json) | Company declaration and relevant boundaries. |
+| Refuse one remedy | [voucher-denied.json](voucher-denied.json) | DENY the voucher. This is not closure of the damaged-order case. |
+| Explore an acceptable option | [replacement-request.json](replacement-request.json) | Ask about an equivalent replacement; retain the refund option. |
+| Present the exact offer | [replacement-operation.json](replacement-operation.json) | Poppy operation plus SH binding in message.data; no extra fields inside the operation. |
+| Identify what is missing | [replacement-hold.json](replacement-hold.json) | HOLD for approval and required independent evidence. |
+| Obtain operation approval | [replacement-approval.json](replacement-approval.json) | Agent reports the user's approval through Poppy. This is not independent proof. |
+| Record updated claimed authority | [delivery-declaration-revised.json](delivery-declaration-revised.json) | New declaration revision preserves no-credit and other boundaries. Its evidence reference is still a claim until checked. |
+| Assess after trusted checks | [replacement-allow.json](replacement-allow.json) | Illustrative local checks have passed; ALLOW supersedes the replacement hold, not the voucher denial. |
+| Report execution | [replacement-arranged.json](replacement-arranged.json) | Fulfilment confirms arrangement. Delivery and resolution remain outstanding. |
+| Report service completion | [replacement-delivered.json](replacement-delivered.json) | Illustrative delivery evidence and customer confirmation support closing this case. |
 
-The customer prefers a refund and accepts a replacement, but refuses credit. The company can offer a voucher; that does not make this proposal compatible. The voucher assessment is denied. A refund or replacement requires its own proposal, complete terms and checks. These examples do not grant execution authority or show a completed refund.
+**Between approval and allow**, the company must independently obtain and verify the required evidence, check its own authority and policy, and record its canonical assessment. That private process is not supplied as an agent assertion or as runnable code here. If it fails, the hold remains. A customer declining the replacement leaves the refund or another permitted route to be considered; it does not authorise credit.
 
-## Case B: family broadband cancellation
+An operation's approval does not waive a customer boundary. New material terms require the applicable new proposal, revision, assessment and approval. The agent can discuss permitted alternatives without accepting them.
 
-This scenario assumes Priya has a provider-recognised way to discuss the account. It does not assume that she uses her mother's credentials. Her Poppy User identity, her mother's interests and authority to cancel remain separate questions. The provider must validate their relationship through its trusted process.
+`service_result` is ordinary Company-defined example data, not a new SH or Poppy standard record. Arranged and delivered refer to distinct business events. These files add no universal delivery-confirmation or refund-receipt requirement to SH-1.2.
 
-Read in this order:
+## 2. Priya's mother's broadband: authority and continuity
 
-1. `family-declaration.json`: the claimed represented party is identified, while cancellation authority remains unresolved. `family-company-declaration.json` supplies the provider's relevant terms.
-2. `operation-message.json`: a company conversation event introduces the proposed operation. `operation-proposed.json` contains that same operation in a convenience wrapper for inspection; it is not a separate message type.
-3. `assessment-hold.json`: the company holds cancellation because established billing access is insufficient for that act.
-4. `confirmation-blocked.json`: the proposed **HTTP 409 response body** to a confirmation attempt. The operation remains proposed; no confirmation or execution is accepted. This is a fixture of the required behaviour, not proof of a working server.
-5. `handover.json`: an incoming summary carries the restriction, missing evidence and accountable role. The company must reconcile it against its trusted record and deliver the resulting context to staff. Sending this message alone does not request or complete a handoff.
+Priya has recognised billing access. The account is her mother's; this is not use of her mother's login. Authority for cancellation and continuity of any essential alarm need separate checks.
 
-There are two independent continuations; do not read them as one successful execution:
+1. [family-declaration.json](family-declaration.json), [family-company-declaration.json](family-company-declaration.json) and [assessment-hold.json](assessment-hold.json) establish terms and the cancellation hold. No Poppy operation is needed merely to discuss the proposal.
+2. [relayed-concern.json](relayed-concern.json) reports a possible alarm dependency. Treat it as raised, not as a verified technical finding. [assessment-escalate.json](assessment-escalate.json) records the specialist route while preserving the authority hold. [handover.json](handover.json) carries both restrictions and the necessary support instructions. A human route does not grant cancellation authority.
+3. **Conditional safe branch, not automatic progression:** the provider independently establishes limited delegation, resolves the alarm concern and checks service continuity. [family-declaration-revised.json](family-declaration-revised.json) records the revised claims; it is not the proof. [operation-message.json](operation-message.json) then presents terms for Priya to approve.
+4. [family-approval.json](family-approval.json) is the Poppy User's approval step. Priya's approval is not her mother's delegation. [assessment-after-evidence.json](assessment-after-evidence.json) illustrates ALLOW only after all required checks and that step have passed. No cancellation-completion claim is made.
+5. **Separate late-concern branch:** [approval-blocked-message.json](approval-blocked-message.json) shows a new concern arriving before commitment. It supersedes the allow with HOLD and states that cancellation has not started. It is a normal Company assessment message, not a new operation state or HTTP confirmation error.
 
-- **Authority resolved:** `family-declaration-revised.json` and `assessment-after-evidence.json`. The scenario assumes that the provider has independently established limited delegation through its own process, resolved all applicable checks, and recorded the result locally. Revision 2 records that scope; the agent's revised claim is not what establishes authority. The new allow covers unchanged operation terms for five minutes. Poppy confirmation and fresh execution checks are still needed. Nothing here asserts that cancellation has happened.
-- **Concern raised:** `relayed-concern.json`. An alarm dependency is reported before commitment. The provider treats it as raised and follows the applicable safeguarding route. If an allow had already been issued, it must be reassessed; an unresolved material dependency cannot be bypassed with that earlier summary. This concern is not a verified technical finding.
+If execution has already started or its outcome is unknown, step 5 is not an appropriate response. Investigate the existing operation and use Poppy's retry/recovery protections. Never describe an uncertain outcome as safely not executed or issue a fresh operation to retry blindly.
 
-`assessment-incomplete.json` illustrates an earlier intake hold, before either declaration is available. The missing references are left empty and explained; the company offers assistance instead of manufacturing terms.
+## Other fixtures and limits
 
-## Terms and identifiers used here
-
-Core action types and their complementary verbs follow SH Appendix A. `no_new_contract: true` means this case does not authorise creating, replacing or renewing a contract. It grants no permission to cancel an existing one. The provider must confirm this interpretation where material. `cancel-proposal-1` refers to the exact operation summary in these fixtures; it is not a generic cancellation permission.
-
-References such as `account-case-4410`, `mother-case-1` and `priya-user-1` are fictional case references. They are not credentials, personal data to resolve across organisations, or permission to retrieve another person's records. A local trusted case mapping must establish what each reference means.
-
-The discovery example's `actions` describes supported exchange meanings. It does not mean every proposal of those types is permitted. Schema acceptance of an organisation-namespaced action similarly says nothing about whether its meaning is understood or authorised.
-
-`manifest.json` tells the structural tests where to find the extension payload in each JSON file. The tests do not validate full Poppy transport envelopes or establish runtime conformance.
+- [assessment-incomplete.json](assessment-incomplete.json) illustrates an intake hold with no fabricated declaration references.
+- [company-discovery.json](company-discovery.json) and [client-metadata.json](client-metadata.json) show extension version 2, draft 2026-11-02 and Operations version 2.
+- The public tests check envelopes, records, bindings, preserved boundaries and narrative consistency. No live authentication, delegation proof, execution, human delivery or customer outcome is exercised.

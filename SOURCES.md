@@ -1,29 +1,31 @@
 # Source baselines
 
-Publication files checked 11 October 2026; protocol extension/version/error documentation and licence rechecked 12 October 2026. Package revision 2 retains the same wire draft.
+Reviewed 2 November 2026. Extension version 2 / draft 2026-11-02, review package 3.
 
-- [Poppy extensions](https://personalagentprotocol.org/docs/extensions), Draft 0.1, updated 9 October 2026.
-- [Poppy specification](https://personalagentprotocol.org/docs/spec), same draft; §§3.3 and 7 for discovery and conversations.
-- [Operations](https://personalagentprotocol.org/docs/extensions/operations), version 1 within that draft; §§3, 5, 6 and 8 for action binding, execution and evidence boundaries.
-- [SH-1.2 publication](https://zenodo.org/records/23181969), Maria McCann / Neos Wave Ltd. The main paper and Technical Specification were downloaded from the record and checked against its displayed MD5 values.
+## Poppy
 
-| Published file | Zenodo MD5, matched locally |
-|---|---|
-| Service Handshake 1.2.pdf | `dca20e389f4c5ceda3ee69d8387edc62` |
-| Service Handshake Technical Spec 1.2.pdf | `838913018878697f5f973aae7616fbee` |
+- [Specification, draft 0.3](https://personalagentprotocol.org/docs/0.3/spec): discovery, sessions, account access, native conversations, handoff and task coverage.
+- [Operations, version 2](https://personalagentprotocol.org/docs/0.3/extensions/operations): terms, approvals, execution/retry rules and evidence limits.
+- [Extension rules](https://personalagentprotocol.org/docs/0.3/extensions).
+- Source repository revision: [`1de1990e4978b42179fe0e3e0ae554271808c308`](https://github.com/personal-agent-protocol/personal-agent-protocol/commit/1de1990e4978b42179fe0e3e0ae554271808c308). Documentation paths and Git blob hashes are recorded in [SOURCE-LOCK.json](SOURCE-LOCK.json).
 
-The documents are dated 1 October 2026. The Zenodo record displays publication on 6 October 2026 and record version v2; the framework edition is SH-1.2. These are distinct labels.
+The seven JSON schemas in `reference/poppy/` are unmodified copies from that revision's `kit/company/schemas/`. Their Git blob hashes were matched against the repository and their SHA-256 hashes are locked. They are upstream shape checks, not a full conformance verifier. Some sender, binding and sequencing requirements need additional checks or live implementation testing.
 
-The published Technical Specification identifies two canonical schemas. Zenodo currently lists the two PDFs, not those JSON files. The unchanged reference schemas in this package were copied from the local SH-1.2 publication package associated with the [published repository](https://github.com/neos-wave/service-handshake). Their retained review URNs are identifiers, not URLs. They have not been rewritten to claim a stable hosted endpoint.
+These Poppy files are Apache 2.0. See LICENSE and NOTICE. Names, logos and site design are not granted by that licence; this package uses protocol names only for identification and claims no endorsement. The Poppy documentation itself is not redistributed here.
 
-- `sh-1.2.schema.json` SHA-256: `ee2d7124f718b9f28cfa20764c2e8cd48b9f35749f3111b6638d2f55ccd11cb5`
-- `sh-1.2.action-assessment.schema.json` SHA-256: `be0d37779d76420112129cb364792414b68a1dd59151367c49ae4443a6253746`
+## Service Handshake
 
-This proposal supplies original extension requirements and a new exchanged-summary schema. It does not redistribute the Poppy documents or the SH publication PDFs. The source documents retain their own licences. The reference SH-1.2 schemas, examples and tests in the original package are Apache 2.0; the SH papers are CC BY 4.0.
+[SH-1.2 publication](https://zenodo.org/records/23181969), Maria McCann / Neos Wave Ltd. The documents are dated 1 October 2026; the earlier verified Zenodo record displayed publication on 6 October and record version v2. The framework edition is SH-1.2, distinct from the Zenodo record version and this extension version.
 
+The earlier package checked both downloaded publication PDFs against the record's MD5 values: main paper `dca20e389f4c5ceda3ee69d8387edc62`; Technical Specification `838913018878697f5f973aae7616fbee`. This update does not claim a fresh PDF download or change those documents.
 
-## Clarifications checked for package revision 2
+The canonical SH schemas remain unchanged from the local publication package associated with the [SH repository](https://github.com/neos-wave/service-handshake). Their review URNs are preserved identifiers, not hosted URLs. Their provenance is not misrepresented as a new Zenodo JSON download.
 
-- PAP §3.3 and Operations §2 show extension major versions as strings, including `"1"`.
-- The published material permits domain-named extensions but does not expressly establish this proposal's custom confirmation-error convention. The error remains a design proposal requiring implementer review.
-- [PAP licence](https://personalagentprotocol.org/license): the protocol documentation is Apache 2.0; the names, logo and site design are excluded from that licence grant. This package uses the names to identify the protocol under discussion, supplies no PAP logo, and claims no endorsement.
+- `sh-1.2.schema.json`: `ee2d7124f718b9f28cfa20764c2e8cd48b9f35749f3111b6638d2f55ccd11cb5`
+- `sh-1.2.action-assessment.schema.json`: `be0d37779d76420112129cb364792414b68a1dd59151367c49ae4443a6253746`
+
+SH papers: CC BY 4.0. SH reference schemas, examples and tests: Apache 2.0. New extension text, exchange schema and examples are original proposal work under Apache 2.0; they do not become requirements of SH-1.2 merely by inclusion here.
+
+## Earlier extension
+
+The starting package was the public [extension repository](https://github.com/neos-wave/service-handshake-pap-extension), revision/tree returned as `7137d0b72297bb7891af14a95b5057fb44db5a98` on 2 November. All 31 tracked files matched the local publication copy using Git blob hashes. Its version 1 / draft 2026-10-11 targeted Poppy 0.1. This update preserves that history rather than implying current compatibility for the older draft.

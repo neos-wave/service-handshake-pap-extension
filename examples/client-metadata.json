@@ -1,8 +1,8 @@
 {
   "extensions": {
     "dualcx.com/service-handshake": {
-      "version": "1",
-      "draft_revision": "2026-10-11",
+      "version": "2",
+      "draft_revision": "2026-11-02",
       "profile": "participation",
       "actions": [
         "refund",
@@ -13,7 +13,14 @@
       "operations_binding": true
     },
     "operations": {
-      "version": "1"
+      "version": "2"
     }
-  }
+  },
+  "client_id": "https://agent.example/client.json",
+  "client_name": "Example Personal Agent",
+  "jwks_uri": "https://agent.example/jwks.json",
+  "redirect_uris": [
+    "https://agent.example/callback"
+  ],
+  "token_endpoint_auth_method": "private_key_jwt"
 }

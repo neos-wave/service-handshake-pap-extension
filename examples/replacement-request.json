@@ -1,0 +1,9 @@
+{
+  "message": {
+    "id": "msg-replacement-request",
+    "author": {
+      "type": "agent"
+    },
+    "text": "The customer will consider the same kettle model at no extra cost. Please show the delivery and return terms. Keep the refund option open if they decline."
+  }
+}

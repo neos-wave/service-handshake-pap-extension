@@ -1,0 +1,54 @@
+{
+  "id": "evt-msg-replacement-hold",
+  "type": "message",
+  "created_at": "2026-11-02T12:06:00Z",
+  "message": {
+    "id": "msg-replacement-hold",
+    "author": {
+      "type": "agent"
+    },
+    "text": "The replacement has not been arranged. We are holding this action for approval and the required evidence; the service request remains open.",
+    "data": {
+      "dualcx.com/service-handshake": {
+        "version": "2",
+        "draft_revision": "2026-11-02",
+        "record_id": "replacement-hold-record",
+        "type": "assessment",
+        "case_ref": "delivery-1",
+        "assessment_ref": "replacement-hold",
+        "assessed_at": "2026-11-02T12:06:00Z",
+        "decision": "hold",
+        "proposal": {
+          "proposal_ref": "replacement-proposal-1",
+          "action_type": "replacement",
+          "resource_ref": "order-1",
+          "operation": {
+            "operation_id": "op-replacement-1",
+            "revision": "rev-replacement-a"
+          }
+        },
+        "declaration_refs": [
+          {
+            "party_role": "consumer",
+            "declaration_id": "customer-delivery-1",
+            "revision": 1
+          },
+          {
+            "party_role": "company",
+            "declaration_id": "company-delivery-1",
+            "revision": 1
+          }
+        ],
+        "reasons": [
+          {
+            "code": "approval_and_evidence_required",
+            "explanation": "The replacement is within the stated options, but approval and required independent authority evidence are still pending.",
+            "required_next_step": "The customer reviews these terms with their agent and uses the company’s authenticated approval process; the company verifies evidence for this exact proposal."
+          }
+        ],
+        "responsible_role": "Customer Care Team Lead"
+      }
+    },
+    "role": "company"
+  }
+}

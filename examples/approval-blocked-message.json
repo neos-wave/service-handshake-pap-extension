@@ -1,0 +1,55 @@
+{
+  "id": "evt-msg-family-blocked",
+  "type": "message",
+  "created_at": "2026-11-02T12:31:00Z",
+  "message": {
+    "id": "msg-family-blocked",
+    "author": {
+      "type": "agent"
+    },
+    "text": "Separate branch: cancellation has NOT started. Approval does not remove the new hold. A colleague must review the alarm dependency; permitted billing help remains available.",
+    "data": {
+      "dualcx.com/service-handshake": {
+        "version": "2",
+        "draft_revision": "2026-11-02",
+        "record_id": "family-late-hold-record",
+        "type": "assessment",
+        "case_ref": "family-1",
+        "assessment_ref": "family-late-hold",
+        "assessed_at": "2026-11-02T12:31:00Z",
+        "decision": "hold",
+        "proposal": {
+          "proposal_ref": "cancel-proposal-1",
+          "action_type": "cancellation",
+          "resource_ref": "account-case-4410",
+          "operation": {
+            "operation_id": "op-cancel-1",
+            "revision": "rev-cancel-a"
+          }
+        },
+        "declaration_refs": [
+          {
+            "party_role": "consumer",
+            "declaration_id": "family-cancellation-1",
+            "revision": 2
+          },
+          {
+            "party_role": "company",
+            "declaration_id": "company-cancellation-1",
+            "revision": 1
+          }
+        ],
+        "reasons": [
+          {
+            "code": "new_support_concern",
+            "explanation": "A new report of an alarm dependency arrived before commitment. The cancellation has not started.",
+            "required_next_step": "The service continuity team must review the report; do not repeat approval automatically."
+          }
+        ],
+        "responsible_role": "Account authority team",
+        "supersedes": "assessment-2"
+      }
+    },
+    "role": "company"
+  }
+}

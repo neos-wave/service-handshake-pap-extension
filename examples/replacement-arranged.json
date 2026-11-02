@@ -1,0 +1,23 @@
+{
+  "id": "evt-msg-replacement-arranged",
+  "type": "message",
+  "created_at": "2026-11-02T12:11:00Z",
+  "message": {
+    "id": "msg-replacement-arranged",
+    "author": {
+      "type": "agent"
+    },
+    "text": "The fulfilment system confirms replacement repl-1 was arranged under these approved terms. Delivery remains outstanding; the case remains open.",
+    "data": {
+      "service_result": {
+        "case_ref": "delivery-1",
+        "proposal_ref": "replacement-proposal-1",
+        "operation_id": "op-replacement-1",
+        "replacement_ref": "repl-1",
+        "reported_status": "arranged",
+        "case_resolved": false
+      }
+    },
+    "role": "company"
+  }
+}

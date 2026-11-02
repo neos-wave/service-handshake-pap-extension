@@ -1,0 +1,50 @@
+{
+  "id": "evt-msg-replacement-allow",
+  "type": "message",
+  "created_at": "2026-11-02T12:10:00Z",
+  "message": {
+    "id": "msg-replacement-allow",
+    "author": {
+      "type": "agent"
+    },
+    "text": "Illustrative trusted-process result: the company has verified approval evidence for these terms, checked its own authority and all remaining conditions, and recorded ALLOW. The replacement is not yet confirmed as arranged.",
+    "data": {
+      "dualcx.com/service-handshake": {
+        "version": "2",
+        "draft_revision": "2026-11-02",
+        "record_id": "replacement-allow-record",
+        "type": "assessment",
+        "case_ref": "delivery-1",
+        "assessment_ref": "replacement-allow",
+        "assessed_at": "2026-11-02T12:10:00Z",
+        "decision": "allow",
+        "proposal": {
+          "proposal_ref": "replacement-proposal-1",
+          "action_type": "replacement",
+          "resource_ref": "order-1",
+          "operation": {
+            "operation_id": "op-replacement-1",
+            "revision": "rev-replacement-a"
+          }
+        },
+        "declaration_refs": [
+          {
+            "party_role": "consumer",
+            "declaration_id": "customer-delivery-1",
+            "revision": 2
+          },
+          {
+            "party_role": "company",
+            "declaration_id": "company-delivery-1",
+            "revision": 1
+          }
+        ],
+        "reasons": [],
+        "responsible_role": "Customer Care Team Lead",
+        "supersedes": "replacement-hold",
+        "valid_until": "2026-11-02T12:15:00Z"
+      }
+    },
+    "role": "company"
+  }
+}

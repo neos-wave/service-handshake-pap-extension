@@ -1,3 +1,20 @@
+# Changelog
+
+## Review draft 3 — 2 November 2026
+
+Incompatible extension update: proposed major version `"2"`, wire draft `2026-11-02`. SH remains 1.2.
+
+- Rebased the binding on pinned Poppy draft 0.3 and Operations version 2.
+- Replaced integer operation revisions and legacy message authors; retained SH integer declaration revisions.
+- Moved operation bindings into Company message data and removed legacy confirmation-endpoint, operation-state and HTTP 409 action-block examples.
+- Defined the proposed additional commitment check and its normal conversation response, including not-started versus unknown/completed execution handling.
+- Clarified operation approval versus independent authority evidence and preserved restrictions across human and Direct Conversations.
+- Added the full damaged-order refund/replacement path and revised the family scenario with an explicit late-concern branch.
+- Added pinned upstream schemas and offline checks of complete envelopes, references, direction and scenario consistency.
+- Added migration guidance, source locking and a review brief. No live compatibility, endorsement or deployment claim is made.
+
+## Earlier package history (retained)
+
 # Changes
 
 ## Review package draft 2 - 12 October 2026

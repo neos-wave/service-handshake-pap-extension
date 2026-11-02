@@ -1,8 +1,8 @@
 {
   "extensions": {
     "dualcx.com/service-handshake": {
-      "version": "1",
-      "draft_revision": "2026-10-11",
+      "version": "2",
+      "draft_revision": "2026-11-02",
       "profile": "participation",
       "actions": [
         "refund",
@@ -16,8 +16,20 @@
       ]
     },
     "operations": {
-      "version": "1",
-      "endpoint": "https://service.example/poppy/operations"
+      "version": "2"
     }
+  },
+  "protocol_version": "0.3",
+  "organization": {
+    "name": "Example Service Company",
+    "domain": "service.example"
+  },
+  "agent": {
+    "protocols": [
+      {
+        "type": "poppy",
+        "endpoint": "https://service.example/poppy/conversations"
+      }
+    ]
   }
 }

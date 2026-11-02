@@ -1,31 +1,32 @@
-# Relationship to the published standards
+# Relationship to SH and Poppy
 
-This is a new, optional binding proposed by Neos Wave. The existing SH publication supplies the service requirements; Poppy supplies the protocol context. This document does not imply that either publication already contains this extension.
+This independent proposal applies published SH-1.2 requirements within a limited Poppy binding. It neither amends SH-1.2 nor claims acceptance by Poppy's authors.
 
-| Service requirement | Published SH Technical Specification | Where this draft applies it |
+| Service requirement | SH Technical Specification | Extension |
 |---|---|---|
-| Two levels of requirements and scoped claims | §§1.2, 14 | Discovery profile; §12 support claims. Both profiles retain relevant authority checks. |
-| Disclosure, provenance, assistance and confirmation | §§2.3–2.4 | §5 and the declaration envelope; assistance also remains available without extension support. |
-| Both parties' boundaries and data permissions | §§3–5, 9.3 | §§5–6, 10; compatibility of the actual proposal, with data limits throughout the interaction. |
-| Nonwaivable harm routing and continuity | §§6.3–6.5 | §§8–9; relayed concerns, restrictions and the receiving staff workflow. |
-| Action-specific authority and independent evidence | §§8.3–8.4 | §§6–7; claims are separated from trusted verification. |
-| Execution checks, financial controls and private limits | §§8.5–8.7 | §7 execution guard, with §10 minimisation. Private thresholds are not exchange requirements. |
-| Immutable declarations, proposal and assessment records | §12 | §§5.2, 6–7. The public summary is a new format; canonical local assessment remains separate. |
-| Untrusted declarations and input security | §§10.2, 13 | §§2, 10–11; incoming data cannot change instructions, policy or permissions. |
-| Action meanings and material terms | Appendix A | §3 action scope; §7 immutable proposal binding; examples use core cancellation and voucher meanings. |
+| Participation and Verified authority | §§1.2, 14 | §3 discovery and §12 scoped claims |
+| Disclosure, assistance, provenance | §§2.3–2.4 | §5 declarations |
+| Both parties' goals and boundaries | §§3–5, 9.3 | §§5–6 assessment |
+| Hold, alternatives and permitted assistance | §9.3; main paper §3.2 | §6.1; complete recovery example |
+| Independent evidence and execution checks | §§8, 10 | §7, subject to current approval rules |
+| Safeguarding and human continuity | §§6.3–6.5 | §§8–9, including linked Direct Conversations |
+| Immutable records and separate outcomes | §12 | §§5.2, 6–7; existing reference schemas unchanged |
+| Untrusted data and private controls | §§10.2, 13 | §§2, 10–11 |
+| Core action meanings | Appendix A | Advertised action categories and per-proposal assessment |
 
-## Poppy attachment points
+## Existing protocol capabilities
 
-The extension uses Poppy's documented discovery configuration and domain-based extension naming. Its records occupy `message.data`; the optional Operations binding identifies the proposal at the operation object's top level. Authentication, account access and conversation transport remain Poppy's responsibility. See [the specification](https://personalagentprotocol.org/docs/spec) and [extension rules](https://personalagentprotocol.org/docs/extensions).
+Poppy covers identity, delegated account access, conversations, handoff and direct user conversations. Operations handles particular-term approval and retry protections. Task coverage can describe excluded tasks and alternatives; context can communicate situational information. These mechanisms can support service work and should be reused where appropriate.
 
-Poppy Operations already provides a confirmation mechanism and defines its evidence limits. This proposal requires the company to apply its additional service checks before commitment. It does not claim that Poppy lacks consent, access controls or human handoff. See [Operations](https://personalagentprotocol.org/docs/extensions/operations).
+SH adds explicit service-assessment expectations for adopters, including both parties' boundaries, evidence appropriate to the action, required safeguarding, explanations and continuity. It is not the only possible service policy framework, and this proposal does not claim that a core Poppy implementer cannot provide those controls independently.
 
-## New design choices requiring review
+## Attachment points and design decisions
 
-1. **Exchanged summaries.** The decision, handover and concern envelopes are new definitions, not fields already standardised by SH-1.2.
-2. **Confirmation rejection.** The proposed namespaced HTTP 409 `action_blocked` response is an additional negotiated behaviour. It requires review and implementation on both sides; it is not a pre-existing Poppy error. A core-protocol implementation alone will not implement this guard.
-3. **Draft agreement.** Exact draft matching avoids claiming compatibility while this design is still changing. A stable release is intended to replace exact draft-date matching with documented compatibility rules once those rules are agreed. Package revision 2 leaves the wire draft and schemas unchanged.
-4. **Policy packs.** Specification §13 outlines an optional future application, without a new wire format or conformance obligation. Packs require explicit adoption and cannot override applicable requirements.
-5. **Limited initial scope.** This draft covers native conversations and their Operations. A general MCP, API or website binding would need its own placement and error rules; it is not supplied by this package.
+- Discovery uses the domain-named extension and exact draft agreement. Action categories describe supported meaning, not what each side is authorised to do.
+- Records use `message.data`. A Company operation message may pair an operation with a separate binding record in `data`; no custom operation members are added.
+- Assessments remain separate from declarations, credentials and execution results. Company checks apply locally at commitment.
+- The additional SH block after operation approval is proposed composition, not a published Poppy base guarantee. It uses a Company assessment message and preserves base retry semantics. It needs joint implementer review and live testing.
+- Custom malformed-record/conflicting-record errors in §11 remain proposed extension validation behaviour. They do not change base authentication or message-conflict errors.
+- A complete case-status record, policy packs and non-conversation bindings are not added. Example business-result data is informative only.
 
-Publication can establish this as an independently authored extension proposal. It cannot establish acceptance by Poppy's maintainers, interoperability with Sierra, or a working Neos OS deployment. Those claims need separate evidence.
+See [sources](SOURCES.md), [migration](MIGRATION.md) and [validation](VALIDATION.md) for the exact baseline and limits.

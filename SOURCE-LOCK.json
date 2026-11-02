@@ -1,0 +1,89 @@
+{
+  "checked_on": "2026-11-02",
+  "poppy_repository": "https://github.com/personal-agent-protocol/personal-agent-protocol",
+  "poppy_commit": "1de1990e4978b42179fe0e3e0ae554271808c308",
+  "poppy_version": "0.3",
+  "operations_version": "2",
+  "extension_version": "2",
+  "extension_draft": "2026-11-02",
+  "files": [
+    {
+      "local_path": "reference/poppy/approval.schema.json",
+      "upstream_path": "kit/company/schemas/approval.schema.json",
+      "upstream_git_blob": "daba3dae1cbc76e688fea50ca6b3da77560f2671",
+      "sha256": "377cd602510cfdb983138f8fcd69ff407e66b7d615dc2c0d7d17d2ecc1c9284c",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/approval.schema.json"
+    },
+    {
+      "local_path": "reference/poppy/client-metadata.schema.json",
+      "upstream_path": "kit/company/schemas/client-metadata.schema.json",
+      "upstream_git_blob": "5efbf60f6e76438b8d9d3a55b0a889fe6d06f254",
+      "sha256": "072fbe9b307f40b296b77c15f187bbbe4e4d33ff29f6a3b2711bc53341eac10a",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/client-metadata.schema.json"
+    },
+    {
+      "local_path": "reference/poppy/conversation-request.schema.json",
+      "upstream_path": "kit/company/schemas/conversation-request.schema.json",
+      "upstream_git_blob": "1b4fe08f3693c45746cafa6512e14caf75f85db4",
+      "sha256": "79e1a6810fb99d6bcb75eca33a566c79206b208a9213a0b9441d861bc6a8a68d",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/conversation-request.schema.json"
+    },
+    {
+      "local_path": "reference/poppy/event.schema.json",
+      "upstream_path": "kit/company/schemas/event.schema.json",
+      "upstream_git_blob": "642420a0609835650afd53252eb2fff110ba6b08",
+      "sha256": "8de712b498b5413b1b596c54ab7965e4bcad7b0cc5ec534efaf9b08a3f2e9851",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/event.schema.json"
+    },
+    {
+      "local_path": "reference/poppy/message.schema.json",
+      "upstream_path": "kit/company/schemas/message.schema.json",
+      "upstream_git_blob": "111d55d0f7b23571a93a6bb8585699e8387bf0d0",
+      "sha256": "264f8e1837ecb8c6424d5df7eeddc95eac75c42963a5f821f458cf85f79353b6",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/message.schema.json"
+    },
+    {
+      "local_path": "reference/poppy/operation.schema.json",
+      "upstream_path": "kit/company/schemas/operation.schema.json",
+      "upstream_git_blob": "bd9a0ce4abf08acfed02ea722b3bd5db7e28a0a2",
+      "sha256": "8ac08d09a68c5acad95ede42595a608c44a8a6c72c9e2ee52bdc01b9a90f2350",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/operation.schema.json"
+    },
+    {
+      "local_path": "reference/poppy/poppy.schema.json",
+      "upstream_path": "kit/company/schemas/poppy.schema.json",
+      "upstream_git_blob": "4717367111208393bea836e546965017bf59e88c",
+      "sha256": "cb1ff1a6de9c4571df4aa71c95c0e337a24b4176e38589e3c0469787224b71ab",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/kit/company/schemas/poppy.schema.json"
+    },
+    {
+      "local_path": "reference/sh-1.2.schema.json",
+      "sha256": "ee2d7124f718b9f28cfa20764c2e8cd48b9f35749f3111b6638d2f55ccd11cb5",
+      "source_url": "https://zenodo.org/records/23181969",
+      "provenance": "Unchanged local SH-1.2 publication package; see SOURCES.md"
+    },
+    {
+      "local_path": "reference/sh-1.2.action-assessment.schema.json",
+      "sha256": "be0d37779d76420112129cb364792414b68a1dd59151367c49ae4443a6253746",
+      "source_url": "https://zenodo.org/records/23181969",
+      "provenance": "Unchanged local SH-1.2 publication package; see SOURCES.md"
+    }
+  ],
+  "document_sources": [
+    {
+      "upstream_path": "content/versions/0.3/spec.mdx",
+      "git_blob": "0ec25c6376560f5e56691039cc71c39529d0482e",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/content/versions/0.3/spec.mdx"
+    },
+    {
+      "upstream_path": "content/versions/0.3/extensions/operations.mdx",
+      "git_blob": "dac6af3bfa35e6440b3802aec96e0830f3a1ca15",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/content/versions/0.3/extensions/operations.mdx"
+    },
+    {
+      "upstream_path": "content/versions/0.3/extensions.mdx",
+      "git_blob": "d1e59e3ae755b0049a72f54701ef6003fe1143b3",
+      "source_url": "https://github.com/personal-agent-protocol/personal-agent-protocol/blob/1de1990e4978b42179fe0e3e0ae554271808c308/content/versions/0.3/extensions.mdx"
+    }
+  ]
+}

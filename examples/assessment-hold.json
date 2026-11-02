@@ -1,29 +1,24 @@
 {
   "id": "evt-msg-hold-1",
   "type": "message",
-  "created_at": "2026-10-11T12:00:00Z",
+  "created_at": "2026-11-02T12:00:00Z",
   "message": {
     "id": "msg-hold-1",
-    "sender": "agent",
     "text": "Cancellation is held pending authority for that action. Permitted billing help remains available.",
     "data": {
       "dualcx.com/service-handshake": {
-        "version": "1",
-        "draft_revision": "2026-10-11",
+        "version": "2",
+        "draft_revision": "2026-11-02",
         "record_id": "summary-1",
         "type": "assessment",
         "case_ref": "family-1",
         "assessment_ref": "assessment-1",
-        "assessed_at": "2026-10-11T12:00:00Z",
+        "assessed_at": "2026-11-02T12:00:00Z",
         "decision": "hold",
         "proposal": {
           "proposal_ref": "cancel-proposal-1",
           "action_type": "cancellation",
-          "resource_ref": "account-case-4410",
-          "operation": {
-            "operation_id": "op-cancel-1",
-            "revision": 1
-          }
+          "resource_ref": "account-case-4410"
         },
         "declaration_refs": [
           {
@@ -47,6 +42,9 @@
         "responsible_role": "Account authority team"
       }
     },
-    "role": "company"
+    "role": "company",
+    "author": {
+      "type": "agent"
+    }
   }
 }
