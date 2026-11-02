@@ -6,6 +6,8 @@ The checks cover complete example requests/events/discovery documents against up
 
 Additional migration checks reject legacy SH and Operations placement even where Poppy's permissive base schema accepts the unknown fields. They check supported version/draft advertisements in supplied fixtures, malformed Operations content, coexistence with Links and Disclosures, and the distinct opening-request shape for a Company-first Direct Conversation. The fixtures do not exercise actual metadata fetching, notice display, skill execution or Direct Conversation ownership enforcement.
 
+A missing or misplaced record is reported as a test failure naming the example file, the expected location and the correction, rather than as a lookup error.
+
 These are structural and fixture consistency tests. Although complete example envelopes are now checked, this is not full Poppy conformance validation. Sender checks in the fixtures do not authenticate a real sender. No server runs, no principal or delegation is verified, no real execution is blocked and no human receives a handover. The tests are not a certification suite and do not establish that this extension is live in Neos OS.
 
 ## Required checks in a real implementation

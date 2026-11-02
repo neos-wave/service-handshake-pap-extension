@@ -64,6 +64,12 @@ The package includes public structural and example checks, using pinned Poppy sc
 
 Full trusted assessments, raw approval evidence and internal policy remain with the organisation. No private Neos prompts, assessment methods, risk thresholds or operational test suite are included. Optional policy packs remain future work in Specification §13.
 
+## Load the schemas
+
+The [exchange schema](https://raw.githubusercontent.com/neos-wave/service-handshake-pap-extension/5df591b6c6d0176ca31a92e4021bea8ccba7fd94/schema/sh-poppy-extension.schema.json) validates the value of `message.extensions["dualcx.com/service-handshake"]`. It references the unchanged [SH-1.2 declaration schema](https://raw.githubusercontent.com/neos-wave/service-handshake-pap-extension/5df591b6c6d0176ca31a92e4021bea8ccba7fd94/reference/sh-1.2.schema.json) by its identifier, `urn:neoswave:service-handshake:sh-1.2:draft-1:declaration`. The [SH-1.2 action-assessment schema](https://raw.githubusercontent.com/neos-wave/service-handshake-pap-extension/5df591b6c6d0176ca31a92e4021bea8ccba7fd94/reference/sh-1.2.action-assessment.schema.json) is supplied for the canonical local assessment; the exchange schema does not reference it. The links above are pinned to commit `5df591b` and match the hashes in SOURCE-LOCK.json and PACKAGE-CONTENTS.sha256.
+
+The schema identifiers are URNs. They name the schemas; they are not download addresses, and a validator will not fetch them. Download the files, then register each one under its `$id` before validating, as `tests/test_package.py` does with the Python `referencing` library. Validating envelope examples also needs the pinned Poppy schemas in `reference/poppy/`, registered under `https://personalagentprotocol.org/kit/company/schemas/`. A later mirror under dualcx.com would keep these identifiers and the published SH files unchanged.
+
 ## Run the checks
 
 ```sh

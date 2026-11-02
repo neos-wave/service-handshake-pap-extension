@@ -17,7 +17,21 @@ SCHEMAS.append(json.loads((ROOT/'schema/sh-poppy-extension.schema.json').read_te
 POPPY={p.name:json.loads(p.read_text()) for p in (ROOT/'reference/poppy').glob('*.json')}
 REGISTRY=Registry().with_resources([(s['$id'],Resource.from_contents(s)) for s in SCHEMAS]+[(BASE+n,Resource.from_contents(s)) for n,s in POPPY.items()])
 def read(name):return json.loads((ROOT/'examples'/name).read_text())
-def record(name):return read(name)['message']['extensions'][EXT]
+HINTS={EXT:'SH records belong in message.extensions["%s"], not message.data (Specification §4; MIGRATION.md)'%EXT,
+       'operations':'Operations content belongs in message.extensions.operations.operation or .approval, not a top-level field (Specification §§4, 7; MIGRATION.md)'}
+def at(value,path,where):
+    """Return value at path, or fail naming the file, expected location and correction."""
+    cur=value
+    for i,k in enumerate(path):
+        if not isinstance(cur,dict) or k not in cur:
+            loc=''.join('["%s"]'%x if '/' in str(x) else '.'+str(x) for x in path).lstrip('.')
+            hint=next((h for key,h in HINTS.items() if key in path),'check the example against the manifest pointer')
+            raise AssertionError('%s: expected %s (missing "%s"). %s.'%(where,loc,k,hint))
+        cur=cur[k]
+    return cur
+def record(name):return at(read(name),['message','extensions',EXT],name)
+def operation(name):return at(read(name),['message','extensions','operations','operation'],name)
+def approval(name):return at(read(name),['message','extensions','operations','approval'],name)
 def validator(definition='messageRecord'):return Draft202012Validator({'$ref':SID+'#/$defs/'+definition},registry=REGISTRY,format_checker=FormatChecker())
 def base_validator(name):return Draft202012Validator({'$ref':BASE+name},registry=REGISTRY,format_checker=FormatChecker())
 def records():
@@ -30,9 +44,9 @@ def check_message_semantics(value):
     exts=msg.get('extensions',{})
     operations=exts.get('operations',{})
     if any(k in msg for k in ('sender','operation','approval')):
-        raise ValueError('legacy message field')
+        raise ValueError('legacy top-level sender/operation/approval field: '+HINTS['operations'])
     if EXT in msg.get('data',{}):
-        raise ValueError('legacy SH placement')
+        raise ValueError('legacy SH placement in message.data: '+HINTS[EXT])
     if value.get('type')!='message' and 'role' in msg:raise ValueError('client role')
     if not company and any(k in msg['author'] for k in ('id','name','image')):raise ValueError('client company-author fields')
     if 'operation' in operations and not company:raise ValueError('client operation')
@@ -44,11 +58,11 @@ def check_message_semantics(value):
         if rec['type'] in ('assessment','operation_binding') and not company:raise ValueError('client trusted company record')
         if rec['type']=='operation_binding':
             op=operations.get('operation')
-            if not op or any(op[k]!=rec[k] for k in ('operation_id','revision')):raise ValueError('binding mismatch')
+            if not op or any(op[k]!=rec[k] for k in ('operation_id','revision')):raise ValueError('operation_binding needs extensions.operations.operation with the same operation_id and revision in the same Company message')
         if rec['type']=='assessment' and rec['decision']=='allow':
             if datetime.fromisoformat(rec['valid_until'])<=datetime.fromisoformat(rec['assessed_at']):raise ValueError('allow interval')
     if 'operation' in operations:
-        if not rec or rec['type']!='operation_binding':raise ValueError('unbound SH example operation')
+        if not rec or rec['type']!='operation_binding':raise ValueError('operation has no operation_binding in the same message: '+HINTS[EXT])
         if any(k in operations['operation'] for k in ('state','confirmation','result','user_approval_required',EXT)):raise ValueError('legacy operation')
 
 def check_fixture_negotiation(value, company, client):
@@ -74,16 +88,20 @@ class PackageChecks(unittest.TestCase):
     def test_complete_upstream_envelopes(self):
         for e in read('manifest.json'):
             with self.subTest(file=e['file']):
-                v=read(e['file']);base_validator(e['base_schema']).validate(v)
-                if 'message' in v:check_message_semantics(v)
+                v=read(e['file'])
+                errs=sorted(base_validator(e['base_schema']).iter_errors(v),key=lambda x:list(x.path))
+                if errs:self.fail('%s: does not match Poppy %s at %s: %s'%(e['file'],e['base_schema'],'/'.join(map(str,errs[0].path)) or '(root)',errs[0].message))
+                if 'message' in v:
+                    try:check_message_semantics(v)
+                    except ValueError as x:self.fail('%s: %s'%(e['file'],x))
 
     def test_extension_payloads(self):
         for e in read('manifest.json'):
             if 'definition' not in e:continue
             with self.subTest(file=e['file']):
-                v=read(e['file'])
-                for k in e['pointer']:v=v[k]
-                validator(e['definition']).validate(v)
+                v=at(read(e['file']),e['pointer'],e['file'])
+                errs=list(validator(e['definition']).iter_errors(v))
+                if errs:self.fail('%s: SH %s record invalid at %s: %s'%(e['file'],e['definition'],'/'.join(map(str,errs[0].path)) or '(root)',errs[0].message))
 
     def test_manifest_covers_each_json_once(self):
         names=[e['file'] for e in read('manifest.json')]
@@ -131,11 +149,11 @@ class PackageChecks(unittest.TestCase):
     def test_binding_placement(self):
         self.reject(record('replacement-hold.json'),'operationBinding')
         validator().validate(record('replacement-operation.json'))
-        v=read('replacement-operation.json');del v['message']['extensions']['operations']['operation']
+        v=read('replacement-operation.json');del at(v,['message','extensions','operations'],'replacement-operation.json')['operation']
         with self.assertRaises(ValueError):check_message_semantics(v)
 
     def test_binding_revision_matches(self):
-        v=read('replacement-operation.json');v['message']['extensions']['operations']['operation']['revision']='changed'
+        v=read('replacement-operation.json');at(v,['message','extensions','operations','operation'],'replacement-operation.json')['revision']='changed'
         with self.assertRaises(ValueError):check_message_semantics(v)
 
     def test_discovery_scope_and_operations_v2(self):
@@ -170,7 +188,7 @@ class PackageChecks(unittest.TestCase):
         with self.assertRaises(ValueError):check_message_semantics(v)
 
     def test_allow_interval(self):
-        v=read('replacement-allow.json');v['message']['extensions'][EXT]['valid_until']='2026-11-02T12:00:00Z'
+        v=read('replacement-allow.json');at(v,['message','extensions',EXT],'replacement-allow.json')['valid_until']='2026-11-02T12:00:00Z'
         with self.assertRaises(ValueError):check_message_semantics(v)
 
     def test_declaration_refs_and_principal(self):
@@ -192,7 +210,7 @@ class PackageChecks(unittest.TestCase):
         for e in read('manifest.json'):
             msg=read(e['file']).get('message',{});r=msg.get('extensions',{}).get(EXT,{})
             ref=r.get('proposal',{}).get('operation') or msg.get('extensions',{}).get('operations',{}).get('approval')
-            if ref:self.assertIn((ref['operation_id'],ref['revision']),ops)
+            if ref:self.assertIn((ref['operation_id'],ref['revision']),ops,'%s refers to operation %s revision %s, but no example carries it in message.extensions.operations.operation. %s.'%(e['file'],ref['operation_id'],ref['revision'],HINTS['operations']))
 
     def test_supersession_keeps_case_and_proposal(self):
         assessments={r['assessment_ref']:r for r in records() if r['type']=='assessment'}
@@ -234,22 +252,22 @@ class PackageChecks(unittest.TestCase):
 
     def test_legacy_sh_placement_cannot_satisfy_binding(self):
         v=read('replacement-hold.json');m=v['message']
-        m['data']={EXT:m['extensions'].pop(EXT)}
+        at(v,['message','extensions',EXT],'replacement-hold.json');m['data']={EXT:m['extensions'].pop(EXT)}
         # Base schemas permit unknown ordinary data. The binding must still reject it.
         base_validator('event.schema.json').validate(v)
         with self.assertRaises(ValueError):check_message_semantics(v)
 
     def test_legacy_operation_and_approval_cannot_satisfy_binding(self):
         for name,field in [('replacement-operation.json','operation'),('replacement-approval.json','approval')]:
-            v=read(name);m=v['message']
+            v=read(name);m=v['message'];at(v,['message','extensions','operations',field],name)
             m[field]=m['extensions'].pop('operations')[field]
             base_validator('message.schema.json').validate(m)
             with self.assertRaises(ValueError):check_message_semantics(v)
 
     def test_operations_content_requires_one_kind(self):
-        op=read('replacement-operation.json')['message']['extensions']['operations']['operation']
-        approval=read('replacement-approval.json')['message']['extensions']['operations']['approval']
-        for content in [{},{'operation':op,'approval':approval},{'approval':{'operation_id':'x','revision':1}}]:
+        op=operation('replacement-operation.json')
+        appr=approval('replacement-approval.json')
+        for content in [{},{'operation':op,'approval':appr},{'approval':{'operation_id':'x','revision':1}}]:
             v=read('replacement-approval.json');v['message']['extensions']['operations']=content
             self.assertTrue(list(base_validator('conversation-message-request.schema.json').iter_errors(v)))
 
@@ -277,10 +295,10 @@ class PackageChecks(unittest.TestCase):
             if mode=='missing':del a['extensions']['operations']
             elif mode=='version':a['extensions']['operations']['version']='1'
             else:a['extensions'][EXT]['operations_binding']=False
-            with self.assertRaises(ValueError):check_fixture_negotiation(read('replacement-operation.json'),c,a)
+            with self.assertRaises(ValueError,msg='replacement-operation.json: expected an Operations message in message.extensions.operations, so a missing Operations agreement (%s) must be rejected. %s.'%(mode,HINTS['operations'])):check_fixture_negotiation(read('replacement-operation.json'),c,a)
 
     def test_links_and_disclosures_can_coexist_without_changing_hold(self):
-        v=read('replacement-hold.json');before=copy.deepcopy(v['message']['extensions'][EXT])
+        v=read('replacement-hold.json');before=copy.deepcopy(at(v,['message','extensions',EXT],'replacement-hold.json'))
         v['message']['extensions']['links']={'items':[{'url':'https://shop.example/returns','title':'Returns policy'}]}
         v['message']['extensions']['disclosures']={'items':[{'text':'Replacement delivery requires an agreed date.'}]}
         c=read('company-discovery.json');a=read('client-metadata.json')

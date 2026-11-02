@@ -70,6 +70,14 @@ For an inline JSON object, the receiver may create and store a UTF-8 representat
 
 Handover and assessment records reference a declaration by role, ID and revision already available through an authorised path. An unresolved reference requires clarification; it MUST NOT be treated as empty terms or trigger unrestricted URL fetching.
 
+### 5.3 Signed-out Sessions and unavailable sign-in
+
+A Poppy Session starts signed out and may stay that way (Poppy §§2, 5). Where the Company permits signed-out contact, the parties MAY use this extension for intake, declarations that need no account access and general assistance. SH does not override the Company's access rules. Signed-out contact MUST NOT expose account or case details, link the contact to an existing account case or continue a conversation that already uses an account; Poppy's ownership and sign-in rules apply to those (Poppy §§8.2, 8.11).
+
+Missing access restricts the affected action, not the whole contact. A proposal whose required account access, authority evidence or other check is unavailable is held, with a reason and next step. Permitted assistance and an appropriate human route remain available.
+
+`auth.disabled` prevents new Direct, Device and Mediated Sign-In. It does not by itself revoke refresh tokens issued earlier; they keep working until the Company revokes them (Poppy §§3.2, 4.4). A Company refusing sign-in to a particular Personal Agent with `unauthorized_client` leaves that agent signed out (Poppy §4.1). In each case the Company evaluates the access actually held in the current Session, not the access advertised or expected. A declaration, assessment summary or company terms document never substitutes for sign-in.
+
 ## 6. Local assessment and exchanged summary
 
 The Company MUST assess the particular proposal against both parties' relevant terms, current authority and applicable safeguards. All protected access and actions require the applicable checks, not only those using Operations. A preliminary hold may identify what is still needed; it is not approval. Follow SH §§8–9, 12–14 for evidence, local records and execution controls.
