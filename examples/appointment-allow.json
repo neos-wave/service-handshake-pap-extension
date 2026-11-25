@@ -1,0 +1,49 @@
+{
+  "id": "evt-appointment-allow",
+  "type": "message",
+  "created_at": "2026-11-25T14:03:00Z",
+  "message": {
+    "id": "msg-appointment-allow",
+    "role": "company",
+    "author": {
+      "type": "agent"
+    },
+    "text": "Illustrative trusted-process result: the company verified the account’s existing limited appointment mandate through its own records, checked both parties’ boundaries, its booking authority and the available slot. It accepts this agent-approved revision for the reversible, no-fee appointment. The approval assertion alone did not establish authority, and no booking completion is reported.",
+    "extensions": {
+      "dualcx.com/service-handshake": {
+        "version": "3",
+        "draft_revision": "2026-11-25",
+        "record_id": "appointment-allow-record",
+        "type": "assessment",
+        "case_ref": "appointment-1",
+        "assessment_ref": "appointment-allow",
+        "assessed_at": "2026-11-25T14:03:00Z",
+        "decision": "allow",
+        "proposal": {
+          "proposal_ref": "appointment-proposal-1",
+          "action_type": "appointment",
+          "resource_ref": "support-case-2",
+          "operation": {
+            "operation_id": "op-appointment-1",
+            "revision": "rev-appointment-a"
+          }
+        },
+        "declaration_refs": [
+          {
+            "party_role": "consumer",
+            "declaration_id": "customer-appointment-1",
+            "revision": 1
+          },
+          {
+            "party_role": "company",
+            "declaration_id": "company-appointment-1",
+            "revision": 1
+          }
+        ],
+        "reasons": [],
+        "responsible_role": "Support appointments team",
+        "valid_until": "2026-11-25T14:08:00Z"
+      }
+    }
+  }
+}

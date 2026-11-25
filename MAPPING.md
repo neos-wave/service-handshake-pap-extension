@@ -1,45 +1,60 @@
-# Relationship to SH and Poppy
+# Where Service Handshake fits with Poppy 1.0
 
-This independent proposal applies published SH-1.2 requirements within a limited Poppy binding. It neither amends SH-1.2 nor claims acceptance by Poppy's authors.
+The Service Handshake specifies how a Company and a customer's Personal Agent establish and maintain the terms of a service interaction. This independent extension expresses SH-1.2 service requirements through published Poppy 1.0 conversations and Operations 3. It does not amend either specification or claim adoption by Poppy's authors.
+
+## The company capability
+
+| Company capability | Service Handshake's contribution |
+|---|---|
+| Receive and recognise customer agents | Use the company's protocol, session and account-access mechanisms. |
+| Define available service actions | Give the company's relevant offers, boundaries and action meanings a common representation; actual company policy and delegation remain company responsibilities. |
+| Establish the particular interaction | Record the goal, exclusions, relevant data permissions and both parties' service terms. Unknowns stay unresolved. |
+| Assess a proposed action | Specify proposal-level allow, deny, hold or escalate decisions and useful next steps. Trusted implementation checks establish their validity. |
+| Handle changes and human intervention | Preserve the applicable restrictions, declaration versions and responsibility through new proposals, handovers and reliably linked contacts. |
+| Execute and report | Bind a trusted decision to the action, report what happened and retain outstanding service work. Permission, execution and goal fulfilment remain distinct. |
+
+## Requirements mapping
 
 | Service requirement | SH Technical Specification | Extension |
 |---|---|---|
-| Participation and Verified authority | §§1.2, 14 | §3 discovery and §12 scoped claims |
-| Disclosure, assistance, provenance | §§2.3–2.4 | §5 declarations |
+| Participation and Verified authority | §§1.2, 14 | §3 Company advertisement; §12 scoped claims |
+| Disclosure, assistance and provenance | §§2.3–2.4 | §5 declarations |
 | Both parties' goals and boundaries | §§3–5, 9.3 | §§5–6 assessment |
-| Hold, alternatives and permitted assistance | §9.3; main paper §3.2 | §6.1; complete recovery example |
-| Independent evidence and execution checks | §§8, 10 | §7, subject to current approval rules |
-| Safeguarding and human continuity | §§6.3–6.5 | §§8–9, including linked Direct Conversations |
-| Immutable records and separate outcomes | §12 | §§5.2, 6–7; existing reference schemas unchanged |
-| Untrusted data and private controls | §§10.2, 13 | §§2, 10–11 |
-| Core action meanings | Appendix A | Advertised action categories and per-proposal assessment |
+| Refused proposals and continuing service | §9.3; main paper §3.2 | §6.1; damaged-order example |
+| Independent evidence and execution checks | §§8, 10 | §7 composition with Operations 3 |
+| Safeguarding and human continuity | §§6.3–6.5 | §§8–9 |
+| Immutable records and separate outcomes | §12 | §§5.2, 6–7; unchanged canonical reference schemas |
+| Untrusted input and private controls | §§10.2, 13 | §§2, 6 and 10–11 |
+| Common service-action meanings | Appendix A | Company action advertisement and per-proposal assessment |
 
-## Existing protocol capabilities
+## Reuse the published Poppy mechanisms
 
-Poppy covers identity, delegated account access, conversations, handoff and direct user conversations. Operations handles particular-term approval and retry protections. Task coverage can describe excluded tasks and alternatives; context can communicate situational information. These mechanisms can support service work and should be reused where appropriate.
-
-SH adds explicit service-assessment expectations for adopters, including both parties' boundaries, evidence appropriate to the action, required safeguarding, explanations and continuity. It is not the only possible service policy framework, and this proposal does not claim that a core Poppy implementer cannot provide those controls independently.
-
-## Additional capabilities in the 2 November Poppy revision
-
-| Poppy capability | How SH uses or complements it |
+| Poppy 1.0 / Operations 3 capability | How this extension uses it |
 |---|---|
-| Operations approval | Check the particular proposal against both parties' boundaries and the evidence the action requires. Preserve base approval and retry protections. |
-| Alternatives and feedback | Consider an available remedy or route without treating it as approval, lifting restrictions or closing the unresolved case. |
-| Links and Disclosures | Communicate policy and notices. Receipt is not consent, independent proof or adoption of a policy. |
-| Company skill index | Discover task workflows. Skills do not expand customer authority or override SH restrictions. Optional policy packs remain separate future work. |
-| Direct Conversations | Bring the User into the exchange while retaining restrictions. The Personal Agent may observe it; independent evidence needs its own trusted mechanism. |
-| Explicit replies | Resolve ambiguous answers before relying on them to approve an action or clear a hold. |
+| Discovery arrays and request version headers | Advertise the Company's SH version and draft, then select supported versions using the existing headers. OAuth client metadata is not the selection mechanism. |
+| Exact structured operation terms | Bind a particular operation revision to its immutable SH service proposal. |
+| User or instruction-based agent approval | Preserve Poppy's approval rules while applying the service action's evidence, boundary and safeguard requirements. |
+| Native decline | Return `extensions.operations.declined` when a valid approval cannot be acted on, with a matching SH assessment. Keep the service case open where appropriate without reviving that approval. |
+| At-most-once and retry handling | Preserve native responses for duplicates and unknown execution outcomes. Do not label an uncertain outcome a confirmed refusal. |
+| Alternatives, task coverage and feedback | Explore a permitted route or remedy; an alternative does not inherit approval or lift a restriction. |
+| Human handoff and Direct Conversations | Retain the service restrictions and use trusted case links. A transfer or human-authored message alone supplies no independent authority evidence. |
+| Links, Disclosures and skills | Communicate useful content; receipt or publication does not establish consent, authority or policy adoption. |
 
-These are complementary requirements for parties adopting the extension, not a claim that Poppy implementations cannot perform service assessment without it.
+Poppy already requires instruction checking for agent approval and provides ways to decline approvals and offer alternatives. SH adds a common service representation and assessment discipline for its adopters. A company can implement equivalent service behaviour independently; this package does not claim otherwise.
 
-## Attachment points and design decisions
+## Attachment points
 
-- Discovery uses the domain-named extension and exact draft agreement. Action categories describe supported meaning, not what each side is authorised to do.
-- SH records use `message.extensions["dualcx.com/service-handshake"]`; the published exchange schema defines that value. Operations uses `message.extensions.operations`. A Company message pairs an operation with its SH binding in these separate extension slots; no custom operation members are added.
-- Assessments remain separate from declarations, credentials and execution results. Company checks apply locally at commitment.
-- The additional SH block after operation approval is proposed composition, not a published Poppy base guarantee. It uses a Company assessment message and preserves base retry semantics. It needs joint implementer review and live testing.
-- Custom malformed-record/conflicting-record errors in §11 remain proposed extension validation behaviour. They do not change base authentication or message-conflict errors.
-- A complete case-status record, policy packs and non-conversation bindings are not added. Example business-result data is informative only.
+- SH message records occupy `message.extensions["dualcx.com/service-handshake"]`.
+- Native operation, approval and decline records occupy `message.extensions.operations`.
+- A Company message offering an operation pairs it with an SH `operation_binding`. A refusal can pair a native `declined` object with an SH non-allow assessment referring to that same operation and revision.
+- A native decline ends use of that approval. A later continuation uses a new revision and fresh user approval, after the service requirements are resolved. The decline response itself offers no new operation.
+- Company configuration is advertised in `poppy.json`; the Personal Agent's local support settings in the examples are not new protocol metadata.
+- Full verification and policy records remain local. Shared service explanations disclose only information the recipient may receive, and do not introduce native risk-reason codes.
 
-See [sources](SOURCES.md), [migration](MIGRATION.md) and [validation](VALIDATION.md) for the exact baseline and limits.
+## Scope and evidence
+
+The package defines a conversation binding and structural/example checks, not a running evaluator or credential service. It supplies no general API/MCP/browser SH binding, universal case-completion record or policy-pack format. Example business-result data illustrates service progress without adding fields to SH-1.2.
+
+A live implementation must prove that the control reaches the protected action, that the receiving person sees the restrictions, and that retry and recovery behaviour is correct. See [VALIDATION.md](VALIDATION.md), [SOURCES.md](SOURCES.md) and [MIGRATION.md](MIGRATION.md).
+
+Primary Poppy references: [1.0 specification](https://personalagentprotocol.org/docs/1.0/spec), [Operations 3](https://personalagentprotocol.org/docs/1.0/extensions/operations) and [extension rules](https://personalagentprotocol.org/docs/1.0/extensions).

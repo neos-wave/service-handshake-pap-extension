@@ -1,14 +1,14 @@
 {
+  "id": "cf61544e239162b2af1d909fe4adfac1",
   "message": {
-    "id": "msg-concern-1",
     "text": "I am relaying a concern about an alarm connection. This is a report, not a verified technical finding.",
     "author": {
       "type": "agent"
     },
     "extensions": {
       "dualcx.com/service-handshake": {
-        "version": "2",
-        "draft_revision": "2026-11-02-r4",
+        "version": "3",
+        "draft_revision": "2026-11-25",
         "record_id": "concern-1",
         "type": "concern",
         "case_ref": "family-1",

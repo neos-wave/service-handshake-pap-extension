@@ -1,0 +1,58 @@
+{
+  "id": "evt-appointment-operation",
+  "type": "message",
+  "created_at": "2026-11-25T14:01:00Z",
+  "message": {
+    "id": "msg-appointment-operation",
+    "role": "company",
+    "author": {
+      "type": "agent"
+    },
+    "text": "This appointment is available on these terms. It has not been booked. Approval and the company’s remaining authority and availability checks are required.",
+    "extensions": {
+      "dualcx.com/service-handshake": {
+        "version": "3",
+        "draft_revision": "2026-11-25",
+        "record_id": "appointment-binding-1",
+        "type": "operation_binding",
+        "case_ref": "appointment-1",
+        "proposal_ref": "appointment-proposal-1",
+        "operation_id": "op-appointment-1",
+        "revision": "rev-appointment-a"
+      },
+      "operations": {
+        "operation": {
+          "operation_id": "op-appointment-1",
+          "revision": "rev-appointment-a",
+          "summary": "Book a 30-minute telephone appliance-support appointment with Example Service Company for the customer represented by customer-2 on 26 November 2026 from 14:30 to 15:00 Europe/London, using the existing verified callback number. The appointment is free, with no cancellation, rescheduling or no-show charges. No account details change, no new contract is created and no existing appointment is changed. No deposit or payment is due. No access needs have been stated, and there are no additional customer conditions for confirmation.",
+          "terms": {
+            "service": "appliance_support",
+            "provider_ref": "service.example",
+            "participant_ref": "customer-2",
+            "start": "2026-11-26T14:30:00Z",
+            "end": "2026-11-26T15:00:00Z",
+            "time_zone": "Europe/London",
+            "duration_minutes": 30,
+            "delivery_channel": "telephone",
+            "callback_ref": "existing-verified-callback",
+            "fee": {
+              "amount_minor": 0,
+              "currency": "GBP"
+            },
+            "cancellation_fee_minor": 0,
+            "rescheduling_fee_minor": 0,
+            "no_show_fee_minor": 0,
+            "account_changes": false,
+            "new_contract": false,
+            "existing_appointments_changed": false,
+            "deposit_minor": 0,
+            "payment_timing": "no_payment_due",
+            "access_needs": "none_stated",
+            "confirmation_conditions": "no_additional_customer_conditions"
+          },
+          "expires_at": "2026-11-25T14:15:00Z"
+        }
+      }
+    }
+  }
+}

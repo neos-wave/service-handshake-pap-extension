@@ -1,27 +1,38 @@
-# Review brief for a design-partner discussion
+# Review brief for a service-interaction pilot
 
-**Status:** independent proposal updated for review against a pinned Poppy 0.3 / Operations 2 baseline. Not adopted, deployed or live-tested.
+**Status:** independent review package 6 for published Poppy 1.0 / Operations 3, pinned to the immutable release source. Extension major 3, wire draft 2026-11-25. Structural and example checks are documented; no live integration or endorsement is claimed.
 
-## What we bring
+## The service capability
 
-An existing open service framework, practical contact-centre questions and two service journeys. The direct-customer case follows an unacceptable voucher through an acceptable replacement, approval, execution and completion. The family case separates billing access, cancellation authority and continuity of an essential service.
+The Service Handshake gives the agents on either side of a service interaction a shared way to establish the outcome sought, respect each party's boundaries and assess how the request can proceed. It preserves those terms through proposals, changes and human handovers.
+
+Poppy supplies the interaction and approval mechanisms. The company supplies its policies, trusted evidence and execution paths. This extension expresses the service model through Poppy's existing native conversation and Operations features.
 
 ## What this update contributes
 
-This draft follows Poppy's 2 November extension-message structure and recognises its Links, Disclosures and skill-index capabilities. Our contribution is the service decision and continuity requirements: a refused voucher need not end the request, a held replacement needs a clear next step, and a human transfer must preserve restrictions. We propose using existing Poppy mechanisms where they fit and reviewing the additional commitment check with implementers.
+- Poppy 1.0 discovery and request selection, with exact SH draft identification.
+- Structured operation terms and honest user/agent approval provenance.
+- A shared service assessment alongside native Operations 3 declines, with no reuse of a declined approval.
+- Continued service and human support without erasing the customer's boundaries or the company's requirements.
+- Examples of damaged-order recovery, family representation and a reversible appointment within prior customer instructions.
 
-## What we want to test together
+The original SH-1.2 framework and schemas remain unchanged. This package supplies service-specific exchange requirements, not a second authentication or operation protocol.
 
-1. Can both sides exchange the minimum relevant boundaries without exposing private policy or customer information?
-2. Can a refusal leave the service request open, with a compatible alternative and an owned next step?
-3. How should an SH restriction arriving after operation approval be represented and enforced without breaking retry guarantees?
-4. Can the receiving colleague see the restriction, its reason, required evidence and relevant support needs?
-5. Which existing approval mechanisms supply sufficient evidence for each action, and where is an additional check needed?
+## What to test with implementers
 
-The open question in item 3 is explicit in Specification §7. This package proposes a conversation response and additional local commitment precondition; it does not claim Poppy has adopted that behaviour. Record delivery into staff workflows and live execution protection also need testing.
+1. Can the parties exchange the minimum useful terms without revealing private policy or unnecessary customer information?
+2. Does each assessment concern the identified proposal, while leaving a meaningful next step for the unresolved service request?
+3. Does a late restriction produce a native decline with no commitment, and does subsequent recovery obtain the required fresh user approval?
+4. Do duplicates, concurrent requests and uncertain downstream results preserve the native execution guarantees?
+5. Does the receiving colleague actually see and respect the restrictions, missing evidence and responsibility?
+6. Does instruction-based agent approval work for an appropriate reversible action without weakening independent evidence requirements for other actions?
+
+The native decline now supplies the refusal mechanism that was an open composition question in the older binding. Its implementation with SH assessments, safe resumption and actual service-system enforcement still requires live validation.
 
 ## A bounded pilot
 
-Start with the refund/replacement journey, one company and one personal-agent implementation. Agree the evidence mechanisms and action scope, exercise the current Poppy flow, then test a denied option, a held option, changed terms, withdrawn authority, an uncertain execution outcome and a handover. Compare the intended and observed result at each step. Expand only after the bounded path works.
+Start with one Company, one Personal Agent and the refund/replacement journey. Define the relevant authority and evidence mechanisms. Exercise an unacceptable voucher, an acceptable but held replacement, approval, execution and the remaining delivery work.
 
-Private prompts, risk methods, thresholds and the wider operational test suite stay outside the public proposal. Optional policy packs can follow evidence from the pilot.
+Then add the late-restriction case and a genuine instruction-based agent approval. Compare intended and observed behaviour, including refusal, changed terms, withdrawn authority, unknown execution outcome and human handover. Record failures and the action scope covered before making a public implementation claim.
+
+Keep private prompts, thresholds, internal risk classifications and real customer records out of public review material. Any future policy packs or non-conversation binding should be reviewed separately.

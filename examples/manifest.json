@@ -1,5 +1,80 @@
 [
   {
+    "file": "appointment-agent-approval.json",
+    "base_schema": "conversation-message-request.schema.json",
+    "prior_user_instruction": {
+      "source": "personal_agent_user_interface",
+      "received_at": "2026-11-25T13:59:00Z",
+      "text": "Book a free 30-minute telephone appliance-support appointment with Example Service Company for me on 26 November 2026, starting at or after 14:00 and ending by 16:00 Europe/London. Use my existing verified callback number. No deposit, payment or extra customer confirmation conditions are acceptable. I have not requested any access arrangements. It must be free to cancel or reschedule, with no no-show charge, no account-detail changes, no new contract and no changes to existing appointments. You may approve a booking only within those terms.",
+      "record_ref": "0d242c501dd6e476b5be86bf08358548",
+      "constraints": {
+        "service": "appliance_support",
+        "provider_ref": "service.example",
+        "participant_ref": "customer-2",
+        "time_zone": "Europe/London",
+        "duration_minutes": 30,
+        "delivery_channel": "telephone",
+        "callback_ref": "existing-verified-callback",
+        "cancellation_fee_minor": 0,
+        "rescheduling_fee_minor": 0,
+        "no_show_fee_minor": 0,
+        "account_changes": false,
+        "new_contract": false,
+        "existing_appointments_changed": false,
+        "earliest_start": "2026-11-26T14:00:00Z",
+        "latest_end": "2026-11-26T16:00:00Z",
+        "max_fee": {
+          "amount_minor": 0,
+          "currency": "GBP"
+        },
+        "deposit_minor": 0,
+        "payment_timing": "no_payment_due",
+        "access_needs": "none_stated",
+        "confirmation_conditions": "no_additional_customer_conditions"
+      }
+    }
+  },
+  {
+    "file": "appointment-allow.json",
+    "base_schema": "event.schema.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "extensions",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "appointment-company-declaration.json",
+    "base_schema": "event.schema.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "extensions",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "appointment-declaration.json",
+    "base_schema": "conversation-request.schema.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "extensions",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "appointment-operation.json",
+    "base_schema": "event.schema.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "extensions",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
     "file": "approval-blocked-message.json",
     "base_schema": "event.schema.json",
     "definition": "messageRecord",
@@ -51,12 +126,7 @@
   },
   {
     "file": "client-metadata.json",
-    "base_schema": "client-metadata.schema.json",
-    "definition": "clientConfig",
-    "pointer": [
-      "extensions",
-      "dualcx.com/service-handshake"
-    ]
+    "base_schema": "client-metadata.schema.json"
   },
   {
     "file": "company-declaration.json",
@@ -74,7 +144,8 @@
     "definition": "companyConfig",
     "pointer": [
       "extensions",
-      "dualcx.com/service-handshake"
+      "dualcx.com/service-handshake",
+      0
     ]
   },
   {
@@ -102,6 +173,16 @@
     ]
   },
   {
+    "file": "family-declaration-recovery.json",
+    "base_schema": "conversation-message-request.schema.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "extensions",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
     "file": "family-declaration-revised.json",
     "base_schema": "conversation-message-request.schema.json",
     "definition": "messageRecord",
@@ -120,6 +201,34 @@
       "extensions",
       "dualcx.com/service-handshake"
     ]
+  },
+  {
+    "file": "family-operation-revised.json",
+    "base_schema": "event.schema.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "extensions",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "family-reapproval.json",
+    "base_schema": "conversation-message-request.schema.json"
+  },
+  {
+    "file": "family-recovery-allow.json",
+    "base_schema": "event.schema.json",
+    "definition": "messageRecord",
+    "pointer": [
+      "message",
+      "extensions",
+      "dualcx.com/service-handshake"
+    ]
+  },
+  {
+    "file": "family-recovery-request.json",
+    "base_schema": "conversation-message-request.schema.json"
   },
   {
     "file": "handover.json",
@@ -206,6 +315,10 @@
   {
     "file": "replacement-request.json",
     "base_schema": "conversation-message-request.schema.json"
+  },
+  {
+    "file": "request-negotiation.json",
+    "fixture_schema": "request-context"
   },
   {
     "file": "voucher-denied.json",

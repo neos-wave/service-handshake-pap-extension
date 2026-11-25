@@ -1,14 +1,14 @@
 {
+  "id": "81c4c2afef77a1e462b4b25fe8704104",
   "message": {
-    "id": "msg-handover-1",
     "text": "Please preserve both the unresolved cancellation authority and the reported alarm concern when a colleague joins. Neither is resolved by handover.",
     "author": {
       "type": "agent"
     },
     "extensions": {
       "dualcx.com/service-handshake": {
-        "version": "2",
-        "draft_revision": "2026-11-02-r4",
+        "version": "3",
+        "draft_revision": "2026-11-25",
         "record_id": "handover-1",
         "type": "handover",
         "case_ref": "family-1",

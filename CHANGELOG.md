@@ -1,5 +1,20 @@
 # Changelog
 
+## Review draft 6 - 25 November 2026
+
+Poppy 1.0 migration. Proposed extension major version `"3"`; wire draft `2026-11-25`. The service framework remains SH-1.2 and both canonical SH reference schemas are unchanged.
+
+- Pinned fourteen exact upstream schemas and six documentation sources to release commit `8c02b4282eda53468a7c09412558bc8b060d95f6` (“Publish and freeze 1.0”, 14 November), avoiding draft 1.1 changes.
+- Migrated Company extension advertisements to arrays, added conversation descriptions and used native request version/extension headers. Client support settings are local configuration, not OAuth metadata.
+- Updated request IDs, exact structured operation terms and required approval provenance.
+- Preserved Poppy's distinction between User-authored and agent-written messages, native request conflicts, and ignorable additive wrapper metadata. Known fields and canonical SH declarations retain their validation requirements.
+- Supported Operations 3 instruction-based agent approval while preserving service-specific authority and independent-evidence requirements.
+- Replaced the old same-approval hold/resume rule with native `extensions.operations.declined` plus an SH assessment. Declined approvals are unusable; later continuation requires a new revision and fresh user approval.
+- Expanded example and failure checks for discovery, negotiation, placement, provenance, declines and recovery; documented their offline scope separately from live enforcement.
+- Clarified the company's service capability and the distinct roles of the open framework, Poppy mechanisms and the company's implementation.
+
+This is a breaking extension update, not a label change or new Service Handshake edition. Earlier packages remain in history. The custom HTTP 409 action-block mechanism had already been removed in version 2 and is not reintroduced.
+
 ## Review draft 5 - 2 November 2026
 
 Documentation and test diagnostics update. Wire draft remains `2026-11-02-r4`; extension version 2 and SH-1.2 are unchanged.

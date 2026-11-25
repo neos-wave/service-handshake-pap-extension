@@ -1,6 +1,6 @@
 {
+  "id": "59fd977f30f49f35b388769db6d05636",
   "message": {
-    "id": "msg-family-approval",
     "author": {
       "type": "agent"
     },
@@ -9,7 +9,11 @@
       "operations": {
         "approval": {
           "operation_id": "op-cancel-1",
-          "revision": "rev-cancel-a"
+          "revision": "rev-cancel-a",
+          "approver": "user",
+          "input_type": "tap",
+          "reference": "57be3e3ea82e0151f12963cf66be8f74",
+          "approved_at": 1795609770
         }
       }
     }

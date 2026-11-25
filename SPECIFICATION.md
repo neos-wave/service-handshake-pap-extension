@@ -1,10 +1,10 @@
 # Service Handshake extension proposal for the Personal Agent Protocol (Poppy): specification
 
-Review package draft 5, 2 November 2026. Wire draft `2026-11-02-r4`, proposed major version `"2"`. Targets Poppy draft 0.3 and Operations version 2 at the source revision pinned in SOURCES.md. This is an incompatible update to the earlier extension proposal, not a new SH edition. Independent proposal; not adopted by Poppy or demonstrated through a live integration. Author: Maria McCann. Publisher: Neos Wave Ltd / Dual CX. Apache 2.0. See README and NOTICE for status and attribution.
+Review package draft 6, 25 November 2026. Wire draft `2026-11-25`, proposed extension major version `"3"`. Targets published Poppy 1.0 and Operations version 3 at the immutable 1.0 release revision pinned in SOURCES.md. This is an incompatible update to the extension binding, not a new SH edition. Independent proposal; not adopted by Poppy or demonstrated through a live integration. Author: Maria McCann. Publisher: Neos Wave Ltd / Dual CX. Apache 2.0. See README and NOTICE for status and attribution.
 
 ## 1. Scope and precedence
 
-This specification binds Service Handshake SH-1.2 to native Poppy conversations, with an optional Operations binding. Poppy's authentication, permissions and base errors remain applicable. This extension supplies additional requirements for implementations that agree to use it; it does not make a core Poppy error or state mean something different.
+The Service Handshake gives a Company and a customer's Personal Agent a shared way to establish service goals, boundaries and conditions, assess proposed actions and preserve the relevant terms through changes and handovers. This specification binds that SH-1.2 service framework to native Poppy conversations, with an optional Operations binding. Poppy's authentication, permissions and base errors remain applicable. This extension supplies additional requirements for implementations that agree to use it; it does not make a core Poppy error or state mean something different.
 
 SH-1.2 requirements continue to apply to an SH conformance claim. This draft does not relax them or redefine its two profiles. It adds machine-exchange and binding requirements for adopters of this extension; those are not new requirements for every SH Participation implementation. The published SH declaration and assessment schemas are unchanged. The exchange schemas describe an additional format, not a replacement canonical assessment or authority credential.
 
@@ -18,21 +18,53 @@ The Company MUST derive sender identity and access from its trusted protocol con
 
 ## 3. Discovery and agreement
 
-Both sides advertise `dualcx.com/service-handshake` under Poppy's `extensions`. The entry has these fields:
+The Company advertises `dualcx.com/service-handshake` in its Poppy 1.0 discovery document. Its value is an **array** of configuration objects, one per supported extension major version. The version-3 entry has these fields:
 
 | Field | Meaning |
 |---|---|
-| `version` | Required string `"2"`. |
-| `draft_revision` | Required `"2026-11-02-r4"` for this draft. |
-| `profile` | Required `participation` or `verified_authority`, for that implementation's claimed role and scope. |
-| `actions` | Required non-empty list of supported SH action types. Core meanings follow Appendix A; extensions use an organisation-controlled namespace. |
-| `operations_binding` | Required boolean. True means this Operations binding is implemented. |
-| `required_actions` | Optional Company-only subset of `actions` for requests it cannot safely handle on this path without this extension. Not a global denial of service. |
-| `company_terms` | Optional Company-only HTTPS resource containing a public SH declaration. It is not an authority endpoint. |
+| `version` | Required string `"3"`. This version defines the wire draft below. |
+| `draft_revision` | Required `"2026-11-25"` for this review draft. |
+| `profile` | Required `participation` or `verified_authority`, describing the Company's own scoped claim. |
+| `actions` | Required non-empty list of supported SH action categories. Core meanings follow SH Appendix A; other meanings need an organisation-controlled namespace and an explicit definition. |
+| `operations_binding` | Required boolean. True means the Company implements §7 with Operations version 3. |
+| `required_actions` | Optional subset of `actions` that the Company handles on this path only with this extension. It does not impose a global denial of service. |
+| `company_terms` | Optional HTTPS resource containing a public SH declaration. It is not an authority-verification endpoint. |
 
-See the discovery examples. `operations_binding: true` also requires both sides to advertise Poppy `operations` version `"2"`. A Company MUST NOT return an operation to a client that does not support Operations. Company configuration and client metadata use the corresponding definitions in the supplied schema.
+```json
+{
+  "extensions": {
+    "dualcx.com/service-handshake": [{
+      "version": "3",
+      "draft_revision": "2026-11-25",
+      "profile": "participation",
+      "actions": ["refund", "replacement"],
+      "operations_binding": true
+    }],
+    "operations": [{ "version": "3" }]
+  }
+}
+```
 
-During this draft, agreement requires an exact match of `version` and `draft_revision`. The effective action scope is the intersection of the advertised action categories whose meanings both parties support (for example `refund`, not the different role verbs `offer_refund` and `accept_refund`); other actions need clarification or an ordinary service route. Each party's profile describes its own claim, not a negotiated reduction of the other party's requirements. Unknown or unsupported extensions retain Poppy's ignore behaviour. A party MUST NOT send these extension payloads without agreement. If an affected request needs extension support that is unavailable, use Poppy's `extension_required` response naming this extension, and explain an available assisted or human route in plain language. For a draft mismatch, identify the supported revision without exposing protected information. Do not silently downgrade an action whose required checks would be lost. [Poppy §3.3](https://personalagentprotocol.org/docs/spec).
+This is a discovery **fragment**. [The complete example](examples/company-discovery.json) also supplies the required Poppy fields, including each conversation protocol's description.
+
+The Personal Agent MUST inspect the Company's advertised version and exact draft before selecting this extension. It sends its selection through Poppy's existing request headers, not an extension capability map in OAuth client metadata:
+
+```http
+Poppy-Version: 1.0
+Poppy-Extensions: "dualcx.com/service-handshake";v="3", "operations";v="3"
+```
+
+These accompany the valid Session header on requests that require it. They are not sent on discovery or OAuth requests. Poppy requires the same version and extension selections throughout a Session; changing them requires a new Session. Parse `Poppy-Extensions` as the RFC 9651 List of Strings defined by Poppy §3.4. A missing or malformed header declares no extensions.
+
+Selecting this extension's major version 3 asserts support for its defined wire draft `2026-11-25` and mandatory behaviour within the implementation's declared action scope. The Personal Agent MUST NOT select it when the advertised draft is unknown or incompatible. The Company checks the selected major version on each request and the exact version/draft in every SH payload. It sends SH records only when the request selects the version it advertises. This draft introduces no extra header, header parameter, approval step or out-of-band negotiation prerequisite. A future incompatible wire or behavioural revision MUST use a new extension major version; it MUST NOT reuse version 3 with incompatible meanings.
+
+[request-negotiation.json](examples/request-negotiation.json) illustrates request headers and the Personal Agent's local support settings. Those local settings are test/implementation configuration, **not an HTTP request body, OAuth metadata or another message exchanged with the Company**. The schema's `localSupport` definition describes those settings only.
+
+The Company advertises its supported action categories; the Personal Agent selects actions whose meanings it also understands. `refund` is a shared action category; `offer_refund` and `accept_refund` are complementary roles, not incompatible categories. An unknown material meaning requires clarification or an ordinary assisted route. Each party's SH profile describes its own scoped claim and never reduces the other's requirements. Local configuration or an advertised profile is not proof of conformance, authority or implementation behaviour.
+
+Using §7 requires the Company's `operations_binding: true`, a Company advertisement for `operations` version `"3"`, and a request selecting both extensions at version `"3"`. A Personal Agent selecting both with that Company MUST implement the composition in §7. Otherwise it leaves out Operations support for that Session and uses permitted conversations or the Company's ordinary approval route. The Company MUST NOT send operation content when the request does not select Operations 3. SH conversations can still take place without the optional Operations binding.
+
+Unknown extensions and unsupported versions follow Poppy's ignore rules. A party MUST NOT send unsupported extension content. Where the Company cannot handle an affected request without an extension that the request has not selected, use Poppy's `extension_required` response naming the extension, with an intelligible assisted or human route where available. An incompatible SH payload is handled under §11. Do not silently downgrade a protected action whose required checks would be lost. See [Poppy 1.0 §§3.3–3.4](https://personalagentprotocol.org/docs/1.0/spec#extensions).
 
 ## 4. Wire records and placement
 
@@ -40,11 +72,11 @@ Use the exact key `dualcx.com/service-handshake` inside a Poppy message's `exten
 
 The message record types are `declaration`, `assessment`, `handover`, `concern` and `operation_binding`. Use ordinary `text` and, where appropriate, ordinary `data` to carry the message's meaning; extension records add structured service context. A recipient that ignores an unsupported extension must still receive an intelligible account of the proposal, restriction and next step. Never rely on a structured record alone to communicate material terms or a restriction to a person. New facts create a new record; they do not edit history.
 
-An `operation_binding` belongs in `message.extensions["dualcx.com/service-handshake"]`, alongside `message.extensions.operations.operation` in the same Company message. It MUST NOT be attached inside the operation object. Other SH records use the same domain-named extension slot, in separate messages when necessary. `message.data` remains available for ordinary Company-defined business details, such as the illustrative `service_result`. It is not an alternative location for this extension's records. Legacy top-level `operation` or `approval` fields MUST NOT be interpreted as current Operations content, and SH records in legacy locations MUST NOT satisfy this binding. If an action depends on a valid SH record that is missing, keep the affected action restricted while explaining the correction needed. No new base endpoint, operation state, approval field or handoff body is introduced.
+An `operation_binding` belongs in `message.extensions["dualcx.com/service-handshake"]`, alongside `message.extensions.operations.operation` in the same Company message. It MUST NOT be attached inside the operation object. Other SH records use the same domain-named extension slot, in separate messages when necessary. `message.data` remains available for ordinary Company-defined business details, such as the illustrative `service_result`. It is not an alternative location for this extension's records. Legacy top-level `operation` or `approval` fields MUST NOT be interpreted as current Operations content, and SH records in legacy locations MUST NOT satisfy this binding. If an action depends on a valid SH record that is missing, keep the affected action restricted while explaining the correction needed. No new base endpoint, operation state, approval field or handoff body is introduced. Native approval declines use `message.extensions.operations.declined` alongside a separate SH assessment summary, as §7 specifies.
 
-Messages and events MUST follow the pinned Poppy envelope and author rules. A Personal Agent supplies `author.type: "agent"`; the Company records `role` on events. Derive which party sent a record from the authenticated protocol context, not a claimed role. Only the Company may originate a trusted assessment summary or operation binding. Client-supplied versions of those records MUST NOT become Company decisions. Base schema validity does not establish this provenance.
+Messages and events MUST follow the pinned Poppy envelope and author rules. A Personal Agent request carries its own top-level `id` with at least 128 random bits; retries reuse that request ID. A client-supplied `message.id` is not the request's idempotency key. A different request ID cannot renew an expired or declined approval. The Personal Agent uses `author.type: "agent"` for messages it writes, including summaries, paraphrases and translations, and `author.type: "human"` only for the User's own words, following Poppy §8.8. Operation approval objects are sent by the Personal Agent. The Company records `role` on events. Derive which party sent a record from the authenticated protocol context, not a claimed role. Only the Company may originate a trusted assessment summary or operation binding. Client-supplied versions of those records MUST NOT become Company decisions. Base schema validity does not establish this provenance.
 
-Schema retrieval and identifiers are distinct: [README schema downloads](README.md#schema-downloads-and-loading) provides immutable HTTPS links and dependency-loading instructions. The URN identifiers and published SH schemas remain unchanged.
+Schema retrieval and identifiers are distinct: [README schema loading](README.md#schema-downloads-and-loading) identifies the version-3 schema and its dependencies. Pin the package commit when downloading it. This extension's schema has a new version-3 URN; the canonical SH-1.2 schema URNs and bytes remain unchanged.
 
 ## 5. Declarations and assistance
 
@@ -91,7 +123,7 @@ A Company-originated `assessment` record contains: `case_ref`, `assessment_ref`,
 | `hold` | Do not execute; obtain the missing information or evidence described. |
 | `escalate` | Do not execute under this assessment; use the designated human or specialist process. Preserve all concurrent holds and denials. |
 
-Each non-allow summary MUST include at least one reason with `code`, `explanation` and `required_next_step`. Reasons MUST be truthful and useful while protecting private controls. A route to a person and an alternative are not replacement decision states. A compatible alternative gets a separate proposal and assessment. Human transfer does not lift a restriction.
+Each non-allow summary MUST include at least one reason with `code`, `explanation` and `required_next_step`. Reasons MUST be truthful and useful while protecting private controls. Share only information the recipient is authorised to receive. SH reason categories describe service conditions; they MUST NOT reproduce hidden risk classifications or suggest ways to bypass a native decline. Do not add SH codes or fields to Poppy's native `declined` object, which deliberately has no reason-code field. A route to a person and an alternative are not replacement decision states. A compatible alternative gets a separate proposal and assessment. Human transfer does not lift a restriction.
 
 The Company MUST keep its full trusted assessment separately from this summary, using SH's canonical assessment and verification requirements where the claimed profile requires them. An intake hold with missing declarations is recorded truthfully in the case record; do not fabricate bindings merely to produce a complete canonical assessment. An incoming summary cannot replace the trusted record. Share only necessary explanation and references; do not send internal verification records, private policy thresholds, raw evidence or private model reasoning merely because this extension is used. The Personal Agent MUST apply its own boundaries before agreeing to an action, regardless of a Company `allow`.
 
@@ -107,35 +139,63 @@ An `allow` is not an execution result. Report what happened through ordinary Com
 
 ## 7. Optional Operations binding and execution checks
 
-This section defines an additional, negotiated SH precondition for commitment in **native conversations only**. It does not claim that core Poppy already enforces SH, and does not define an API, MCP or browser binding. The composition of a post-approval SH block with Operations is an explicit design proposal requiring implementer review. Nothing here changes how unextended Operations behaves.
+This section applies SH service assessments to **native Poppy conversations using Operations version 3**. Poppy supplies exact-term operation approval, native declines and retry/at-most-once behaviour. This extension specifies the service requirements and records to compose with those mechanisms. It defines no API, MCP or browser SH payload binding and no additional operation state or approval endpoint. Interoperability with a live client and Company remains to be demonstrated.
 
 ### 7.1 Bind an offer to its SH proposal
 
-An `operation_binding` contains the common record fields and `case_ref`, `proposal_ref`, `operation_id` and `revision`. The last two MUST exactly match the operation carried by the same Company message. They are opaque Poppy strings, distinct from SH declaration revision integers. The binding stays fixed for that operation revision. A later decision travels in a separate assessment message.
+An `operation_binding` contains the common record fields and `case_ref`, `proposal_ref`, `operation_id` and `revision`. The last two MUST exactly match the operation carried by the same Company message in `extensions.operations.operation`. They are opaque Poppy strings, distinct from SH declaration revision integers. The binding stays fixed for that operation revision. Later service decisions use separate assessment records.
 
-The Company MUST maintain a trusted mapping from Company, authorised account/resource, operation and revision to the immutable SH proposal and material terms. A material change requires a new SH proposal reference and reassessment. Changes that require a new Poppy revision MUST receive one; the Company MUST NOT reuse a revision for different content. Distinct revisions may bind to the same SH proposal only where its immutable material terms are unchanged, for example a changed approval expiry, and assessments must still bind the current operation revision. Do not copy an earlier approval or assessment to a new revision.
+Every operation MUST contain the structured `terms` object required by Operations 3. It MUST include all material consequences of the action. A `summary` is optional under Poppy; when supplied it MUST agree with the terms. A summary, SH proposal reference or external link MUST NOT substitute for missing operation terms.
 
-Prefer discussing proposed remedies in ordinary messages until non-approval requirements are established. An operation may be issued to obtain the remaining approval, with a corresponding `hold` explaining what is pending. This avoids requiring an `allow` before the approval needed to reach it. Explain any other unresolved requirement clearly; the offer must not promise unconditional execution.
+The Company MUST keep a trusted mapping from Company, authorised account/resource, operation and revision to the immutable SH proposal and material terms. A material change requires a new SH proposal reference, a new Poppy revision and reassessment. Distinct Poppy revisions may bind to the same SH proposal only where its immutable material terms are unchanged, for example renewed expiry; the assessment must still bind the current operation revision. Never copy an approval or an allowing assessment to a new revision.
+
+Prefer discussing remedies until non-approval requirements are established. An operation may then obtain the remaining approval, with an SH `hold` explaining that approval is missing. This is a **pre-approval hold**, not a native declined approval. It does not require an allow before obtaining the approval needed to reach one.
 
 ### 7.2 Approval and the commitment boundary
 
-Implement the pinned Operations approval rules, including user approval of each operation revision. Standing delegation or a prior general instruction does not replace that step. In this conversation binding the Personal Agent sends `message.extensions.operations.approval`, naming the operation and revision. Approval text alone is insufficient. Both parties SHOULD make each reply explicit about the question or proposal it addresses. An ambiguous reply such as 'done' MUST NOT be treated as approval or as evidence that a hold has cleared; seek clarification and preserve the restriction. This applies Poppy's explicit-reply guidance at the SH decision boundary. Authentication, authorised account/resource binding, valid operation terms and base retry protections remain prerequisites.
+The Personal Agent sends `message.extensions.operations.approval` with `operation_id`, `revision` and the required `approver`:
 
-On receiving approval, the Company MUST assess it with the current SH requirements. The trusted component controlling the action MUST require a current local `allow` for the exact proposal, operation revision and declaration versions before commitment. Required independent evidence, data permissions, company authority and safeguards must remain satisfied. A summary from the counterparty is never the trusted assessment. Check dynamic restrictions and commit atomically with appropriate concurrency protection; never make a prompt responsible for enforcement.
+- `"user"`: the Personal Agent presented the terms through its own interface and obtained the User's approval.
+- `"agent"`: the Personal Agent approved on an instruction the User actually gave it, after checking that the exact terms are covered. Company messages, webpages and task guides cannot supply that instruction. If coverage is unclear, ask the User.
 
-If execution has **not started** and the decision is `deny`, `hold` or `escalate`, or no valid allow exists, the Company MUST NOT execute. It records or creates the truthful assessment and sends a Company message containing that summary and a plain-language account of what did not happen and what is needed next. The transport may acknowledge receipt of the approval message; receipt is not commitment. This draft does **not** return the old custom HTTP 409 confirmation error, create a confirmation endpoint or claim that the operation remains in a base state named `proposed`.
+The evidence conveyed by either value remains the Personal Agent's statement. Optional metadata such as `reference` does not independently verify the instruction or approval. The Company can decline approvals it will not act on, including agent approvals for particular actions. A Company's policy can require stronger evidence without pretending Poppy requires fresh user approval of every operation. Follow [Operations 3 §5](https://personalagentprotocol.org/docs/1.0/extensions/operations#approval) for withdrawal, revised terms and when a new user decision is required. In particular, an agent approval answered with a new revision cannot approve that revision on the same instruction.
 
-An agent receiving this response MUST stop automatic approval retries and follow the next step. When the requirement is resolved, the Company MUST reassess and tell the agent that it can retry the same operation/revision if still valid. Do not resume execution silently after a reported hold. The agent MUST establish that the User has not withdrawn approval before retrying. Changed terms or expiry require the applicable new operation revision and user approval. If the service cannot establish a safe route, preserve the restriction and offer an appropriate human route.
+Approval text alone is insufficient. Each reply SHOULD identify the question or proposal it answers. An ambiguous 'done' MUST NOT become approval or evidence that a restriction has cleared. An operation approval does not amend a hard service constraint: an authorised change requires a new declaration revision and reassessment under SH §4.2.
 
-For an operation already started, completed or with an **unknown execution outcome**, this not-started response MUST NOT be used. Follow the base retry and at-most-once requirements and reconcile actual state. A later restriction does not rewrite an earlier effect. Do not open a fresh operation to evade uncertainty; appropriate recovery is a separate authorised action. On a duplicate completed request, return the known result without a second commitment. Expired approval does not prove that an earlier attempt failed.
+The Company MUST apply Poppy's Session, account, ownership, revision and duplicate-execution checks and their specified responses. An invalid or expired revision follows the native revision flow; it is not relabelled as an SH decline. Before a new commitment, the component controlling the action MUST also require a current trusted local `allow` for the exact proposal, operation revision and declaration versions. Required evidence, data permissions, company authority and safeguards must remain satisfied. Check dynamic restrictions and commit with appropriate concurrency controls. A remote summary or a model remembering a prompt is not this execution control.
 
-All execution paths to the same protected action MUST enforce the applicable SH controls. Advertising only this conversation binding does not authorise bypass through another channel. No support for extension payloads on those other channels is implied.
+#### A service restriction after approval
+
+If Poppy's checks pass but execution has **not started** and SH requirements do not permit commitment, the Company MUST perform nothing and use the native Operations 3 decline. In the conversation it sends:
+
+- `extensions.operations.declined` identifying the approval's exact operation and revision, with an optional safe plain-language reason and alternative as defined by Poppy.
+- An SH assessment identifying the same proposal/operation/revision and the current `deny`, `hold` or `escalate`, with the permitted service explanation and next step.
+
+The records MAY share one Company message. A decline MUST NOT be accompanied by a new operation in that response. The native object contains no SH reason codes or private policy evidence. The Company MUST NOT record the declined approval as an accepted or usable approval for a later request. A necessary refusal audit record remains separate and cannot authorise execution.
+
+The Personal Agent MUST NOT send the declined approval again. Changing a request ID, opening another conversation or obtaining a later allowing SH assessment does not revive it. Tell the User the action was not performed. A service case may remain open with permitted discussion and alternatives while that approval is unusable.
+
+#### Continuing the case after a decline
+
+Resolve the affected service requirement through an authorised process and record a new assessment. Do not execute silently when a hold clears. If the User wishes to continue and the Company can now offer the action, a **subsequent exchange** obtains a fresh operation revision and a fresh **user** approval. A changed material term also requires a new SH proposal. The Personal Agent MUST ask the User before approving that new revision, even if a prior instruction could otherwise cover it. A native decline response itself returns no new operation.
+
+Keep the case link, outstanding restrictions and assessment history. A suitable alternative receives its own proposal and assessment; it does not inherit the declined approval. An assisted or human route remains available where appropriate and preserves the same requirements. This replaces the earlier extension's same-approval resume rule.
+
+#### Retries and uncertain execution
+
+For an action already started, completed or with an **unknown execution outcome**, do not send a decline claiming nothing happened. Follow Poppy's native retry and at-most-once rules and reconcile actual state. Retry a transport failure with the same request ID and approval as required; do not confuse an uncertain transport result with a confirmed native decline. On a duplicate completed request, return the known result without a second commitment.
+
+A later service restriction does not rewrite an earlier effect. Do not open a new operation to evade uncertainty; recovery after a known effect is a separate authorised action. Expiry of an approval does not establish that its earlier use failed.
+
+All execution paths to the same protected action MUST enforce applicable SH requirements. Advertising this conversation binding does not imply that the extension has defined payloads for other channels, or permit those channels to bypass a restriction.
 
 ### 7.3 Independent evidence and completion
 
-Operation approval and independently checkable authority evidence are separate requirements. The Company's trusted evidence checks MUST cover the principal, representative or authenticated session, affected resource, exact action and material terms. For irreversible actions the independent-evidence requirement in SH §8.3 applies under either profile; an agent's approval assertion alone is insufficient. Existing trusted company processes may qualify. An assisted declaration cannot expand authority. See Operations §8.1 for the base evidence limit.
+Operation approval and independently checkable authority evidence are separate requirements. Trusted checks must cover the principal, representative or authenticated session, resource, exact action and material terms. For irreversible actions, SH §8.3 requires independent evidence under either profile; `approver: "user"` alone is no stronger proof than the Personal Agent's assertion.
 
-Verified authority claims retain all their additional checks. Record the trusted assessment separately from the minimised summary. After commitment, report actual execution and any remaining service work; arranging a replacement is not confirmation of delivery. No success claim may be inferred solely from an allow or transport acknowledgement.
+Where the Company needs to observe the User's approval itself, use its authenticated website/app or another appropriate trusted process as [Operations §8.1](https://personalagentprotocol.org/docs/1.0/extensions/operations#approval-proof) explains. This extension does not create that approval channel. A previously verified, sufficiently scoped delegation can provide evidence for a representative's action; an assisted declaration or instruction reference cannot manufacture it.
+
+Verified authority claims retain their additional checks. Keep the full trusted assessment separate from the minimised summary. After commitment, report actual execution and remaining service work. Arranging a replacement is not confirmation of delivery; neither an allow nor a transport acknowledgement proves the customer's goal is fulfilled.
 
 ## 8. Handover and continuity
 
@@ -167,9 +227,11 @@ Authenticate and authorise access to records and linked cases. Published `compan
 
 ## 11. Invalid records and error handling
 
-After authenticating the caller, reject a malformed supported record with HTTP 400, `error: "dualcx.com/service-handshake/invalid_record"`, `extension` naming this extension, and a safe `message`. For a conflicting immutable record or declaration revision, use HTTP 409 and `error: "dualcx.com/service-handshake/record_conflict"`. Do not accept that mutation or replace the trusted record. These are proposed extension-defined validation responses, not Poppy base errors; they require implementation by both agreeing parties. They are not execution-block responses and MUST NOT replace base authentication, message-ID-conflict or retry handling. The package's normal action-block path uses §7.2 assessment messages.
+After authenticating the caller, reject a malformed supported record with HTTP 400, `error: "dualcx.com/service-handshake/invalid_record"`, `extension` naming this extension, and a safe `message`. For a conflicting immutable record or declaration revision, use HTTP 409 and `error: "dualcx.com/service-handshake/record_conflict"`. Do not accept that mutation or replace the trusted record. These are proposed extension-defined validation responses, not Poppy base errors; they require implementation by both agreeing parties. They are not execution-block responses and MUST NOT replace base authentication, native `request_id_conflict` or retry handling. Poppy's request conflict covers reuse of an accepted ID with a different path or body. The native post-approval refusal path uses §7.2 `extensions.operations.declined` plus an SH assessment. The custom validation errors MUST NOT replace that path.
 
-Unknown unsupported extensions/fields follow base ignore behaviour. Within an agreed supported record, structural or material semantic invalidity MUST NOT be ignored to obtain an allowing decision. Resolve unknown required meanings or hold the affected action. No error grants permission. Do not echo sensitive submitted values; preserve ordinary assistance where possible.
+Unknown extensions and unsupported versions follow Poppy's ignore rules. Recipients MUST also ignore unrecognised additive fields in this extension's discovery entries, wire record wrappers and wrapper subobjects. These fields MUST NOT grant authority, change a known decision or satisfy a required check. The extension schema permits such additions while still validating every known required field and value. A newly required meaning or incompatible change needs a new extension major version.
+
+The inline `declaration` is a separately versioned SH-1.2 document, not optional wrapper metadata. It MUST satisfy the unchanged canonical SH schema; do not strip invalid declaration content and claim that the submitted declaration conformed. Likewise, unknown material operation terms or action meanings require clarification before an affected commitment. Structural or material semantic invalidity MUST NOT be ignored to obtain an allowing decision. No error grants permission. Do not echo sensitive submitted values; preserve ordinary assistance where possible.
 
 ## 12. Support claims and exclusions
 
@@ -190,4 +252,10 @@ Detailed pack contents and a machine-readable reference format should be develop
 
 ## 14. Draft migration
 
-Do not advertise version `"2"` unless the version-2 exchange and behaviours are implemented. Version `"1"` and draft `2026-10-11` remain a distinct historical proposal. Update stored operation references and message placement deliberately; do not coerce an integer revision into a string and assume it identifies a current operation. Never reinterpret an old allowing record as permission under the new binding. Draft `2026-11-02-r4` supersedes the earlier version-2 draft `2026-11-02` and is not wire-compatible with it. The draft identifier is an opaque string; the suffix distinguishes two revisions issued on the same date. Exact version/draft agreement remains required during review. Unsupported counterparts retain accessible assistance and the applicable ordinary service route.
+Advertise extension major version `"3"` only when this wire draft and behaviour are implemented. Historical versions `"1"` and `"2"` remain distinct proposals; the extension's major version is not an SH edition or Poppy protocol version. Poppy is 1.0, Operations is 3 and the service framework remains SH-1.2.
+
+Migrate discovery, request version headers, top-level request IDs, operation terms, approval provenance and decline/recovery behaviour together. Do not merely change a version label. Old records remain immutable under their original versions. A pending allow or approval does not acquire new meaning through migration: reassess the relevant action, retain unresolved restrictions and obtain any approval the new path requires.
+
+This major version defines wire draft `2026-11-25`. Incompatible future wire or behavioural changes require a new major version; compatible editorial changes can retain this draft. Clients inspect the advertised draft before selecting the version and all received records are checked against it. No automatic fallback may remove a protected action's requirements. Unsupported counterparts retain proportionate assistance and the appropriate ordinary service route.
+
+See [MIGRATION.md](MIGRATION.md) for the version-2 to version-3 mapping and [VALIDATION.md](VALIDATION.md) for what has and has not been tested.

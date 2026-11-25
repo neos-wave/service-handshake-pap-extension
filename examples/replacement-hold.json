@@ -1,7 +1,7 @@
 {
   "id": "evt-msg-replacement-hold",
   "type": "message",
-  "created_at": "2026-11-02T12:06:00Z",
+  "created_at": "2026-11-25T12:06:00Z",
   "message": {
     "id": "msg-replacement-hold",
     "author": {
@@ -11,13 +11,13 @@
     "role": "company",
     "extensions": {
       "dualcx.com/service-handshake": {
-        "version": "2",
-        "draft_revision": "2026-11-02-r4",
+        "version": "3",
+        "draft_revision": "2026-11-25",
         "record_id": "replacement-hold-record",
         "type": "assessment",
         "case_ref": "delivery-1",
         "assessment_ref": "replacement-hold",
-        "assessed_at": "2026-11-02T12:06:00Z",
+        "assessed_at": "2026-11-25T12:06:00Z",
         "decision": "hold",
         "proposal": {
           "proposal_ref": "replacement-proposal-1",

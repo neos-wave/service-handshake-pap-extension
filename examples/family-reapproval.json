@@ -1,0 +1,21 @@
+{
+  "id": "6a9a002d1c5fe82909b9f7d572567351",
+  "message": {
+    "author": {
+      "type": "agent"
+    },
+    "text": "Priya has reviewed and approved the new revision through the personal agent’s own interface. This is a fresh user approval, not a resend of rev-cancel-a, and it is not independent proof of her mother’s delegation.",
+    "extensions": {
+      "operations": {
+        "approval": {
+          "operation_id": "op-cancel-1",
+          "revision": "rev-cancel-b",
+          "approver": "user",
+          "approved_at": 1795611960,
+          "reference": "bf089ee0af23546d21b01892bee89a9d",
+          "input_type": "tap"
+        }
+      }
+    }
+  }
+}

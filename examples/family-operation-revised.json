@@ -1,0 +1,52 @@
+{
+  "id": "evt-family-operation-revised",
+  "type": "message",
+  "created_at": "2026-11-25T13:05:00Z",
+  "message": {
+    "id": "msg-family-operation-revised",
+    "role": "company",
+    "author": {
+      "type": "agent"
+    },
+    "text": "Illustrative recovery after Priya’s new request: the company has confirmed the earlier cancellation was not performed, resolved the new alarm concern, and checked delegation for these revised terms. The same cancellation action now has a later effective date and a new revision. Ask Priya for a fresh decision; the declined approval cannot be reused.",
+    "extensions": {
+      "dualcx.com/service-handshake": {
+        "version": "3",
+        "draft_revision": "2026-11-25",
+        "record_id": "binding-2",
+        "type": "operation_binding",
+        "case_ref": "family-1",
+        "proposal_ref": "cancel-proposal-2",
+        "operation_id": "op-cancel-1",
+        "revision": "rev-cancel-b"
+      },
+      "operations": {
+        "operation": {
+          "operation_id": "op-cancel-1",
+          "revision": "rev-cancel-b",
+          "summary": "End the entire broadband service on the represented account ending 4410 at 12:00 Europe/London on 4 December 2026. Internet access ends then. No early exit fee, refund, outstanding balance, further charges or equipment return is due. No other bundled service is changed and no new contract is created. These terms do not establish whether a customer-owned alarm relies on the connection; any reported dependency must be resolved before commitment.",
+          "expires_at": "2026-11-25T13:30:00Z",
+          "terms": {
+            "action": "execute_cancellation",
+            "account_ref": "account-case-4410",
+            "service": "broadband",
+            "scope": "entire",
+            "effective_at": "2026-12-04T12:00:00+00:00",
+            "time_zone": "Europe/London",
+            "internet_access": "ends_at_effective_at",
+            "early_exit_fee_minor": 0,
+            "refund_minor": 0,
+            "outstanding_balance_minor": 0,
+            "further_charges_minor": 0,
+            "currency": "GBP",
+            "equipment_return_required": false,
+            "other_bundled_services_changed": false,
+            "new_contract_created": false,
+            "alarm_dependency_assessment": "not_established_by_terms",
+            "alarm_dependency_must_be_resolved_before_commitment": true
+          }
+        }
+      }
+    }
+  }
+}
