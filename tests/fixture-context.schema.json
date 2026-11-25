@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dualcx:service-handshake:tests:request-context:3",
+  "title": "Offline request context fixture",
+  "description": "Test metadata showing a request and local implementation settings. Only headers and the referenced body are sent; local_support is not an OAuth client-metadata extension or a wire agreement.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "description": {"type": "string"},
+    "method": {"const": "POST"},
+    "url": {"type": "string", "format": "uri", "pattern": "^https://"},
+    "headers": {
+      "type": "object",
+      "required": ["Poppy-Version", "Poppy-Extensions"],
+      "properties": {
+        "Poppy-Version": {"const": "1.0"},
+        "Poppy-Extensions": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": {"type": "string"}
+    },
+    "body_file": {"type": "string", "pattern": "^[A-Za-z0-9_-]+\\.json$"},
+    "local_support": {
+      "type": "object",
+      "required": ["dualcx.com/service-handshake", "operations"],
+      "properties": {
+        "dualcx.com/service-handshake": {
+          "$ref": "urn:dualcx:service-handshake:poppy:3:draft:2026-11-25#/$defs/localSupport"
+        }
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {"version": {"type": "string", "minLength": 1}},
+        "required": ["version"]
+      }
+    }
+  },
+  "required": ["method", "url", "headers", "body_file", "local_support"]
+}

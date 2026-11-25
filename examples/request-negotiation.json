@@ -1,0 +1,29 @@
+{
+  "method": "POST",
+  "url": "https://service.example/poppy/conversations",
+  "headers": {
+    "Poppy-Session": "illustrative-not-a-valid-session-jwt",
+    "Poppy-Version": "1.0",
+    "Poppy-Extensions": "\"dualcx.com/service-handshake\";v=\"3\", \"operations\";v=\"3\"",
+    "Content-Type": "application/json"
+  },
+  "body_file": "message-declaration.json",
+  "local_support": {
+    "dualcx.com/service-handshake": {
+      "version": "3",
+      "draft_revision": "2026-11-25",
+      "profile": "participation",
+      "actions": [
+        "refund",
+        "replacement",
+        "voucher",
+        "cancellation",
+        "appointment"
+      ],
+      "operations_binding": true
+    },
+    "operations": {
+      "version": "3"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
+  "id": "f56352a116367fc74d06226c2eb2f599",
   "message": {
-    "id": "msg-replacement-approval",
     "author": {
       "type": "agent"
     },
@@ -9,7 +9,11 @@
       "operations": {
         "approval": {
           "operation_id": "op-replacement-1",
-          "revision": "rev-replacement-a"
+          "revision": "rev-replacement-a",
+          "approver": "user",
+          "input_type": "tap",
+          "reference": "b424676a8545ebc5d1358067b0051128",
+          "approved_at": 1795608480
         }
       }
     }

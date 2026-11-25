@@ -1,0 +1,20 @@
+{
+  "id": "5d3e7c00e28ebe3f6cb85f43cd94fd17",
+  "message": {
+    "author": {
+      "type": "agent"
+    },
+    "text": "I checked every material term against the prior instruction the customer gave through my own interface. The free, reversible appointment falls within it, so I approve as agent. This is my assertion; the company must still apply its own required authority and service checks.",
+    "extensions": {
+      "operations": {
+        "approval": {
+          "operation_id": "op-appointment-1",
+          "revision": "rev-appointment-a",
+          "approver": "agent",
+          "approved_at": 1795615320,
+          "reference": "0d242c501dd6e476b5be86bf08358548"
+        }
+      }
+    }
+  }
+}

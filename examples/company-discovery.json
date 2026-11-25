@@ -1,25 +1,30 @@
 {
   "extensions": {
-    "dualcx.com/service-handshake": {
-      "version": "2",
-      "draft_revision": "2026-11-02-r4",
-      "profile": "participation",
-      "actions": [
-        "refund",
-        "replacement",
-        "voucher",
-        "cancellation"
-      ],
-      "operations_binding": true,
-      "required_actions": [
-        "cancellation"
-      ]
-    },
-    "operations": {
-      "version": "2"
-    }
+    "dualcx.com/service-handshake": [
+      {
+        "version": "3",
+        "draft_revision": "2026-11-25",
+        "profile": "participation",
+        "actions": [
+          "refund",
+          "replacement",
+          "voucher",
+          "cancellation",
+          "appointment"
+        ],
+        "operations_binding": true,
+        "required_actions": [
+          "cancellation"
+        ]
+      }
+    ],
+    "operations": [
+      {
+        "version": "3"
+      }
+    ]
   },
-  "protocol_version": "0.3",
+  "protocol_version": "1.0",
   "organization": {
     "name": "Example Service Company",
     "domain": "service.example"
@@ -28,7 +33,8 @@
     "protocols": [
       {
         "type": "poppy",
-        "endpoint": "https://service.example/poppy/conversations"
+        "endpoint": "https://service.example/poppy/conversations",
+        "description": "Customer service for orders, replacements, account cancellation and support appointments."
       }
     ]
   }

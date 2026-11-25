@@ -1,28 +1,55 @@
 # Validation and remaining implementation work
 
-Checked locally for review package draft 5 on 2 November 2026: **44 unittest tests passed**. The package targets extension version 2 / draft 2026-11-02-r4, Poppy draft 0.3 and Operations version 2 at the pinned source revision. The two SH-1.2 reference schemas remain unchanged; twelve unmodified Poppy schemas are included for offline envelope checks. SOURCES.md and SOURCE-LOCK.json record provenance and hashes.
+Checked locally for **review package 6 on 25 November 2026: 76 unittest tests passed**.
 
-The checks cover complete example requests/events/discovery documents against upstream shapes, supported draft/version, operation revision strings versus SH revision integers, decision vocabulary, non-allow reasons, declared roles, record placement and operation binding, declaration and operation references, assessment history, relayed-report status, discovery dependencies and reference checksums. Scenario checks distinguish a denied voucher from a held replacement, preserve the no-credit boundary, separate arrangement from delivery, and retain a later restriction without rewriting the earlier assessment.
+The package targets **extension version 3 / wire draft 2026-11-25**, published **Poppy 1.0** and **Operations version 3**. Fourteen unmodified Poppy schemas are pinned to the immutable 1.0 release commit. The two canonical SH-1.2 reference schemas remain unchanged. [SOURCES.md](SOURCES.md) and [SOURCE-LOCK.json](SOURCE-LOCK.json) record the source revisions and hashes.
 
-Additional migration checks reject legacy SH and Operations placement even where Poppy's permissive base schema accepts the unknown fields. They check supported version/draft advertisements in supplied fixtures, malformed Operations content, coexistence with Links and Disclosures, and the distinct opening-request shape for a Company-first Direct Conversation. The fixtures do not exercise actual metadata fetching, notice display, skill execution or Direct Conversation ownership enforcement.
+## Reproduce the checks
 
-These are structural and fixture consistency tests. Although complete example envelopes are now checked, this is not full Poppy conformance validation. Sender checks in the fixtures do not authenticate a real sender. No server runs, no principal or delegation is verified, no real execution is blocked and no human receives a handover. The tests are not a certification suite and do not establish that this extension is live in Neos OS.
+```sh
+python -m pip install -r requirements-test.txt
+python -m unittest discover -s tests -v
+```
 
-Package 5 adds three diagnostic regression checks. They deliberately damage copies of example files and confirm that unittest reports a failure naming the file and correction, with no unhandled lookup error. The example reader checks expected placement and schema shape before scenario assertions; intentionally malformed in-memory copies remain available to the negative tests. Signed-out guidance is a specification clarification, not a tested sign-in implementation.
+The checks run offline once those dependencies are installed. The example manifest contains **36 entries**: 35 complete native discovery, client-metadata, request or event envelopes, and one local request-context fixture.
+
+## What was checked
+
+| Area | Checks in this package |
+|---|---|
+| Published Poppy shapes | Complete native envelopes against the pinned upstream schemas; required conversation description, top-level Personal Agent request ID, operation terms and approval approver. |
+| Extension discovery and selection | Company version arrays, native request headers, exact SH draft, action scope and optional Operations binding. Old discovery shapes and unsupported selections are rejected in the supplied traces. OAuth client metadata cannot substitute for request selection. |
+| SH records | Supported version and draft, declaration references and integer revisions, assessment decisions and reasons, both-party requirements, expiry, record placement and claimed sender roles. Additive wrapper metadata is accepted; known required fields and canonical declaration validation remain enforced. |
+| Operation binding | Exact operation ID/revision, case and proposal matches; opaque native revisions; immutable terms and expiry, with harmless summary rewording allowed. |
+| Decline and recovery | A pre-approval hold is distinct from a native decline. A late restriction produces a matching non-allow assessment and native decline; re-sending that approval is rejected. A later revision needs fresh user approval. Supplied recovery metadata cannot contradict that sequence; optional metadata is not required. |
+| Agent approval | The appointment's supplied prior instruction covers the material terms, actual duration and nested fee conditions. Missing, company-authored, unbound, late or insufficient instructions fail the fixture checks. A new revision after agent approval requires user approval. |
+| Service continuity | A refused voucher leaves compatible remedies available; revised declarations preserve the no-credit boundary; arrangement differs from delivery. Handover retains concurrent authority and safeguarding restrictions. |
+| Adjacent Poppy features | Links and Disclosures can coexist with a hold; a Company-first Direct Conversation uses the opening-request shape. These features do not clear the service requirements. |
+| Provenance and diagnostics | Reference-schema hashes, manifest coverage and readable failure messages when copies of fixtures are damaged or records are misplaced. |
+
+The local request-context fixture supplies headers, a body-file reference and `local_support` settings to the test harness. Only the native headers and referenced request body represent protocol traffic. The local settings are not OAuth metadata, a new handshake record or a prerequisite for an out-of-band agreement.
+
+The supplied trace checks are deliberately limited. Their header parser accepts the canonical Structured Fields subset used by the examples; a production client needs a complete parser. The agent-instruction check compares explicitly supplied structured bounds. It does not interpret arbitrary language or establish who actually gave an instruction.
+
+## What these results establish
+
+The schemas and examples are internally consistent with the tested shapes and service rules. Negative tests demonstrate that the specified fixture checker detects the failures exercised.
+
+They do **not** establish a running implementation or full Poppy conformance. Claimed roles in a fixture do not authenticate a sender. No server runs, no principal or delegation is verified, no live approval is obtained, no real action is blocked or committed, and no receiving colleague sees a handover. Example evidence references and business results are fictional. Matching a hash proves correspondence to a pinned file, not the correctness of a deployment.
+
+In particular, the tests do not prove at-most-once execution under concurrency, actual request deduplication, account or Direct Conversation ownership checks, evidence revocation, transaction isolation or the delivery of restrictions into staff workflows. They do not exercise metadata fetching, notice display or skill execution. The package is neither a certification suite nor evidence of deployment in Neos OS.
 
 ## Required checks in a real implementation
 
-Before a live support claim, test the declared scope against an actual personal-agent client and company implementation. At minimum:
+Before a live support claim, test the declared service scope through an actual Personal Agent and Company implementation:
 
-- An approval message, alternate channel or repeated request cannot bypass a hold, denial or escalation. Receipt of a message is not evidence of commitment.
-- A stale allow, changed declaration, changed operation terms, expired or revoked evidence, or a newly raised material concern prevents commitment until correctly reassessed.
-- Concurrent commitments and timeout recovery preserve the underlying operation's execution guarantees and applicable financial limits.
-- An incoming assessment, forged case reference, reused record ID or prompt-injection text cannot become trusted policy, authority or access to another case.
-- The receiving staff actually see blocked actions, reasons, missing information and restrictions. A transfer or fresh contact does not lift them.
-- Unknown extensions and mismatched drafts receive the specified fallback without losing ordinary assistance or disclosing protected information.
-- A principal's approval is independently checkable where required; an agent-supplied code, assertion or revised declaration does not manufacture it.
-- A short or ambiguous reply does not clear a hold. Links, notices and skills cannot become permission, and Direct Conversation visibility is respected when selecting an evidence channel.
-- Necessary support is provided for a relayed concern without treating it as a diagnosis or using it to profile the person.
-- Cancellation/recovery after commitment respects what actually happened; a late concern does not rewrite an operation's history.
+- **Selection and access:** use real discovery and request headers, enforce Session/account/ownership checks, and handle unsupported drafts without losing permitted assistance or disclosing another case.
+- **Current authority and service terms:** reject stale allows, changed declarations or terms, expired or revoked evidence and newly raised material concerns. An approval statement or revised declaration must not manufacture independent evidence where it is required.
+- **Commitment and concurrency:** enforce the trusted assessment at the actual protected action. Duplicate and concurrent requests, alternate execution paths and timeouts must preserve the native execution guarantees and applicable service limits.
+- **Native decline:** if a valid approval cannot be acted on and execution has not started, return the exact native decline and matching service assessment without a new operation or any commitment. A later allow must not reactivate the declined approval.
+- **Recovery and uncertain results:** require a later fresh revision and fresh user approval after decline. Reconcile an unknown execution outcome before offering another action; a late concern must not rewrite an effect that already occurred.
+- **Instruction-based approval:** verify the actual user-instruction process and term coverage for the selected action. A company message, task guide or prompt-injection string must not supply the instruction.
+- **Human continuity and support:** ensure the receiving colleague sees the blocked actions, reasons, missing requirements and next step. A transfer or fresh contact must preserve applicable restrictions and unaffected assistance.
+- **Trust and privacy:** prevent incoming assessments, forged case references and reused record IDs from becoming trusted policy or access. Preserve data limits and provide necessary support for a relayed concern without treating it as a diagnosis.
 
-Review the proposed post-approval SH precondition and conversation response with Poppy implementers before claiming interoperability. In particular, agree what happens when a valid approval arrives after a new restriction and how a resolved hold resumes without duplicate or silent execution. Test malformed-record extension responses separately from base authentication, message-conflict and retry behaviour. Deployment-specific authority rules, private tests and operational risk controls remain outside this public proposal.
+Operations 3 now supplies the native decline mechanism. Live review should test this extension's composition with that mechanism, safe continuation and actual service-system controls. Malformed-record extension errors remain separate from native authentication, conflict and retry behaviour. Private authority rules, internal tests and operational controls are outside this public proposal.

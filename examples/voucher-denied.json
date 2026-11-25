@@ -1,7 +1,7 @@
 {
   "id": "evt-msg-voucher-1",
   "type": "message",
-  "created_at": "2026-11-02T12:00:00Z",
+  "created_at": "2026-11-25T12:00:00Z",
   "message": {
     "id": "msg-voucher-1",
     "text": "The £80 store-credit proposal conflicts with the customer’s no-credit boundary and is denied. The damaged-order case is still open; consider a full refund or an equivalent replacement.",
@@ -11,13 +11,13 @@
     },
     "extensions": {
       "dualcx.com/service-handshake": {
-        "version": "2",
-        "draft_revision": "2026-11-02-r4",
+        "version": "3",
+        "draft_revision": "2026-11-25",
         "record_id": "summary-voucher",
         "type": "assessment",
         "case_ref": "delivery-1",
         "assessment_ref": "assessment-voucher",
-        "assessed_at": "2026-11-02T12:00:00Z",
+        "assessed_at": "2026-11-25T12:00:00Z",
         "decision": "deny",
         "proposal": {
           "proposal_ref": "voucher-proposal-1",

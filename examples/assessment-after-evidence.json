@@ -1,7 +1,7 @@
 {
   "id": "evt-msg-allow-1",
   "type": "message",
-  "created_at": "2026-11-02T12:30:00Z",
+  "created_at": "2026-11-25T12:30:00Z",
   "message": {
     "id": "msg-allow-1",
     "text": "Illustrative branch: the provider independently verified delegation and resolved the alarm concern, received Priya’s operation approval and completed the remaining checks. This permits the action; it is not a completion report.",
@@ -11,13 +11,13 @@
     },
     "extensions": {
       "dualcx.com/service-handshake": {
-        "version": "2",
-        "draft_revision": "2026-11-02-r4",
+        "version": "3",
+        "draft_revision": "2026-11-25",
         "record_id": "summary-2",
         "type": "assessment",
         "case_ref": "family-1",
         "assessment_ref": "assessment-2",
-        "assessed_at": "2026-11-02T12:30:00Z",
+        "assessed_at": "2026-11-25T12:30:00Z",
         "decision": "allow",
         "proposal": {
           "proposal_ref": "cancel-proposal-1",
@@ -43,7 +43,7 @@
         "reasons": [],
         "responsible_role": "Account authority team",
         "supersedes": "family-escalate",
-        "valid_until": "2026-11-02T12:35:00Z"
+        "valid_until": "2026-11-25T12:35:00Z"
       }
     }
   }

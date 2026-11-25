@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:dualcx:service-handshake:poppy:2:draft:2026-11-02-r4",
-  "title": "Service Handshake Poppy exchange v2 draft 2026-11-02-r4",
-  "description": "JSON Schema for the value of message.extensions[\"dualcx.com/service-handshake\"]. Structural validation only; not a credential or runtime authority check.",
+  "$id": "urn:dualcx:service-handshake:poppy:3:draft:2026-11-25",
+  "title": "Service Handshake Poppy exchange v3 draft 2026-11-25",
+  "description": "JSON Schema for the value of message.extensions[\"dualcx.com/service-handshake\"]. Structural validation only; not a credential or runtime authority check. Consumers ignore unrecognised additive fields in extension-owned wire objects; those fields grant no authority and cannot change known field meanings. The referenced canonical SH schemas retain their own validation rules. localSupport describes non-wire test configuration and remains strict.",
   "$ref": "#/$defs/messageRecord",
   "$defs": {
     "operationRef": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "operation_id": {
           "type": "string",
@@ -25,7 +25,7 @@
     },
     "representation": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "poppy_user_ref": {
           "type": "string",
@@ -51,7 +51,7 @@
     },
     "declarationRef": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "party_role": {
           "enum": [
@@ -160,7 +160,7 @@
     },
     "reason": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "code": {
           "type": "string",
@@ -183,7 +183,7 @@
     },
     "proposal": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "proposal_ref": {
           "type": "string",
@@ -209,13 +209,13 @@
     },
     "declaration": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "version": {
-          "const": "2"
+          "const": "3"
         },
         "draft_revision": {
-          "const": "2026-11-02-r4"
+          "const": "2026-11-25"
         },
         "record_id": {
           "type": "string",
@@ -262,13 +262,13 @@
     },
     "assessment": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "version": {
-          "const": "2"
+          "const": "3"
         },
         "draft_revision": {
-          "const": "2026-11-02-r4"
+          "const": "2026-11-25"
         },
         "record_id": {
           "type": "string",
@@ -381,7 +381,7 @@
     },
     "restriction": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "proposal_ref": {
           "type": "string",
@@ -417,13 +417,13 @@
     },
     "handover": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "version": {
-          "const": "2"
+          "const": "3"
         },
         "draft_revision": {
-          "const": "2026-11-02-r4"
+          "const": "2026-11-25"
         },
         "record_id": {
           "type": "string",
@@ -493,13 +493,13 @@
     },
     "concern": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "version": {
-          "const": "2"
+          "const": "3"
         },
         "draft_revision": {
-          "const": "2026-11-02-r4"
+          "const": "2026-11-25"
         },
         "record_id": {
           "type": "string",
@@ -544,13 +544,13 @@
     },
     "operationBinding": {
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "version": {
-          "const": "2"
+          "const": "3"
         },
         "draft_revision": {
-          "const": "2026-11-02-r4"
+          "const": "2026-11-25"
         },
         "record_id": {
           "type": "string",
@@ -587,15 +587,16 @@
         "revision"
       ]
     },
-    "clientConfig": {
+    "localSupport": {
+      "description": "Local implementation support settings used by the offline request-context fixture. Not a Poppy client-metadata field or a new wire negotiation record.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "version": {
-          "const": "2"
+          "const": "3"
         },
         "draft_revision": {
-          "const": "2026-11-02-r4"
+          "const": "2026-11-25"
         },
         "profile": {
           "enum": [
@@ -625,14 +626,15 @@
       ]
     },
     "companyConfig": {
+      "description": "One version entry in the array at poppy.json extensions[dualcx.com/service-handshake]. Selecting this major version asserts support for this exact defined draft.",
       "type": "object",
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "version": {
-          "const": "2"
+          "const": "3"
         },
         "draft_revision": {
-          "const": "2026-11-02-r4"
+          "const": "2026-11-25"
         },
         "profile": {
           "enum": [
